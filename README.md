@@ -14,8 +14,8 @@ Coco 是面向文档工作的智能助手与开放能力生态，目标是在 WP
 | 项目 | 状态 | 说明 |
 |---|---|---|
 | `coco` | 已建立 | 公共社区、文档、Issue、Release 与资源入口 |
-| `coco-office` | 筹备中 | 与宿主无关的 OOXML 文档 SDK |
-| `coco-oojson` | 筹备中 | OOJSON 与 OOXML / Flat OPC 转换 |
+| `coco-office` | 筹备中 | `core + oojson`：OOXML 文档 SDK 与 OOJSON / Flat OPC 转换 |
+| `coco-engine` | 私有 | `agent + workflow + skeleton + typeset` 智能能力层 |
 | WPS 插件 | 开发中 | WPS Writer 宿主插件 |
 | Microsoft 插件 | 开发中 | Microsoft Word Office.js 加载项 |
 | ONLYOFFICE 插件 | 开发中 | ONLYOFFICE 桌面与 Web 插件 |
