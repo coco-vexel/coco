@@ -19,9 +19,9 @@ if exist "%PLUGIN_DIR%" rmdir /s /q "%PLUGIN_DIR%"
 mkdir "%PLUGIN_DIR%\resources\light" >nul 2>nul
 call :download "%BASE_URL%/onlyoffice/resources/light/icon.png" "%PLUGIN_DIR%\resources\light\icon.png" || exit /b 1
 call :download "%BASE_URL%/onlyoffice/resources/light/icon@2x.png" "%PLUGIN_DIR%\resources\light\icon@2x.png" || exit /b 1
-call :download "%BASE_URL%/onlyoffice/index.html?v=ms2n0m15" "%PLUGIN_DIR%\index.html" || exit /b 1
-call :download "%BASE_URL%/onlyoffice/settings.html?v=ms2n0m15" "%PLUGIN_DIR%\settings.html" || exit /b 1
-call :download "%BASE_URL%/onlyoffice/workflow-editor.html?v=ms2n0m15" "%PLUGIN_DIR%\workflow-editor.html" || exit /b 1
+call :download "%BASE_URL%/onlyoffice/index.html?v=ms2n6r7v" "%PLUGIN_DIR%\index.html" || exit /b 1
+call :download "%BASE_URL%/onlyoffice/settings.html?v=ms2n6r7v" "%PLUGIN_DIR%\settings.html" || exit /b 1
+call :download "%BASE_URL%/onlyoffice/workflow-editor.html?v=ms2n6r7v" "%PLUGIN_DIR%\workflow-editor.html" || exit /b 1
 
 set "JS=%TEMP%\coco-onlyoffice-docker-%RANDOM%.js"
 > "%JS%" echo var fs = new ActiveXObject('Scripting.FileSystemObject');
@@ -74,7 +74,7 @@ echo   docker cp "%PLUGIN_DIR%\." "%CONTAINER%:%DEPLOY_PATH%"
 echo   docker restart "%CONTAINER%"
 echo.
 echo Remote UI:
-echo   %BASE_URL%/onlyoffice/?v=ms2n0m15
+echo   %BASE_URL%/onlyoffice/?v=ms2n6r7v
 echo API:
 echo   %API_BASE_URL%
 
