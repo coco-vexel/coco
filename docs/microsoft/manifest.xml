@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OfficeApp
+  xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+  xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
+  xsi:type="TaskPaneApp">
+
+  <!-- Each Office add-in needs a stable unique GUID. -->
+  <Id>c0c0ff00-0000-4000-8000-000000000001</Id>
+  <Version>1.26.208.169</Version>
+  <ProviderName>Coco</ProviderName>
+  <DefaultLocale>zh-CN</DefaultLocale>
+  <DisplayName DefaultValue="Coco Microsoft" />
+  <Description DefaultValue="Coco document assistant for Microsoft Word." />
+  <IconUrl DefaultValue="https://coco-vexel.github.io/coco/microsoft/assets/icon-32.png" />
+  <HighResolutionIconUrl DefaultValue="https://coco-vexel.github.io/coco/microsoft/assets/icon-80.png" />
+  <SupportUrl DefaultValue="https://coco-vexel.github.io/coco/microsoft/" />
+
+  <AppDomains>
+    <AppDomain>https://coco-vexel.github.io</AppDomain>
+  </AppDomains>
+
+  <Hosts>
+    <Host Name="Document" />
+  </Hosts>
+
+  <Requirements>
+    <Sets DefaultMinVersion="1.1">
+      <Set Name="DialogApi" MinVersion="1.1" />
+    </Sets>
+  </Requirements>
+
+  <DefaultSettings>
+    <SourceLocation DefaultValue="https://coco-vexel.github.io/coco/microsoft/src/taskpane/taskpane.html?v=ms2mp63y" />
+  </DefaultSettings>
+
+  <Permissions>ReadWriteDocument</Permissions>
+
+  <VersionOverrides
+    xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
+    xsi:type="VersionOverridesV1_0">
+    <Hosts>
+      <Host xsi:type="Document">
+        <DesktopFormFactor>
+          <GetStarted>
+            <Title resid="GetStarted.Title" />
+            <Description resid="GetStarted.Description" />
+            <LearnMoreUrl resid="GetStarted.LearnMoreUrl" />
+          </GetStarted>
+          <FunctionFile resid="Commands.Url" />
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <OfficeTab id="TabHome">
+              <Group id="CocoGroup">
+                <Label resid="CocoGroup.Label" />
+                <Icon>
+                  <bt:Image size="16" resid="Icon.16" />
+                  <bt:Image size="32" resid="Icon.32" />
+                  <bt:Image size="80" resid="Icon.80" />
+                </Icon>
+                <Control xsi:type="Button" id="ShowTaskpaneButton">
+                  <Label resid="ShowTaskpane.Label" />
+                  <Supertip>
+                    <Title resid="ShowTaskpane.Label" />
+                    <Description resid="ShowTaskpane.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.16" />
+                    <bt:Image size="32" resid="Icon.32" />
+                    <bt:Image size="80" resid="Icon.80" />
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>CocoTaskpane</TaskpaneId>
+                    <SourceLocation resid="Taskpane.Url" />
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+
+    <Resources>
+      <bt:Images>
+        <bt:Image id="Icon.16" DefaultValue="https://coco-vexel.github.io/coco/microsoft/assets/icon-16.png" />
+        <bt:Image id="Icon.32" DefaultValue="https://coco-vexel.github.io/coco/microsoft/assets/icon-32.png" />
+        <bt:Image id="Icon.80" DefaultValue="https://coco-vexel.github.io/coco/microsoft/assets/icon-80.png" />
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="Commands.Url" DefaultValue="https://coco-vexel.github.io/coco/microsoft/src/commands/commands.html?v=ms2mp63y" />
+        <bt:Url id="Taskpane.Url" DefaultValue="https://coco-vexel.github.io/coco/microsoft/src/taskpane/taskpane.html?v=ms2mp63y" />
+        <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://coco-vexel.github.io/coco/microsoft/" />
+      </bt:Urls>
+      <bt:ShortStrings>
+        <bt:String id="GetStarted.Title" DefaultValue="Coco is ready" />
+        <bt:String id="CocoGroup.Label" DefaultValue="Coco" />
+        <bt:String id="ShowTaskpane.Label" DefaultValue="打开 Coco" />
+      </bt:ShortStrings>
+      <bt:LongStrings>
+        <bt:String id="GetStarted.Description" DefaultValue="Click Open Coco to start the document assistant." />
+        <bt:String id="ShowTaskpane.Tooltip" DefaultValue="Open Coco document assistant." />
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
+</OfficeApp>

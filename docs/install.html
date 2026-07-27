@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Coco 安装部署</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --text: #111827;
+      --muted: #64748b;
+      --line: #e5e7eb;
+      --soft: #f8fafc;
+      --brand: #3458e6;
+      --brand-soft: #eef2ff;
+      --ok: #087f5b;
+      --warn: #a16207;
+    }
+    * { box-sizing: border-box; }
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+      color: var(--text);
+      background: #f8fafc;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    p { margin: 0; color: var(--muted); line-height: 1.65; }
+    .topbar {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.94);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(10px);
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; }
+    .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    .home-link { color: var(--brand); font-weight: 700; font-size: 14px; }
+    .layout {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 28px 24px 64px;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+      min-width: 0;
+    }
+    .sidenav {
+      position: sticky;
+      top: 84px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      min-width: 0;
+    }
+    .sidenav a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+      min-width: 0;
+    }
+    .sidenav a span { overflow: hidden; text-overflow: ellipsis; }
+    .sidenav a:hover { color: var(--brand); background: var(--brand-soft); }
+    .sidenav small { color: #94a3b8; font-weight: 700; }
+    .content { display: grid; gap: 18px; }
+    .content, .hero, .section { min-width: 0; }
+    .hero, .section {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 24px;
+      scroll-margin-top: 84px;
+    }
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+    }
+    h1 { margin: 0 0 10px; font-size: 32px; line-height: 1.2; letter-spacing: 0; }
+    h2 { margin: 0; font-size: 22px; }
+    h3 { margin: 18px 0 8px; font-size: 15px; }
+    .meta { text-align: right; font-size: 14px; color: var(--muted); white-space: nowrap; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .tag {
+      border-radius: 999px;
+      padding: 5px 9px;
+      font-size: 12px;
+      color: var(--brand);
+      background: var(--brand-soft);
+      white-space: nowrap;
+      font-weight: 800;
+    }
+    .url {
+      word-break: break-all;
+      overflow-wrap: anywhere;
+      color: var(--ok);
+      font-size: 13px;
+      margin-top: 10px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+    .cmd-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 14px; }
+    .cmd { border: 1px solid var(--line); border-radius: 8px; padding: 14px; background: #fff; }
+    .cmd + .cmd { margin-top: 10px; }
+    .cmd-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .cmd-label { color: var(--text); font-size: 13px; font-weight: 800; }
+    .copy-btn {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--brand);
+      border-radius: 7px;
+      padding: 5px 10px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .copy-btn:hover { background: var(--brand-soft); border-color: #c7d2fe; }
+    .cmd-title { margin: 0 0 8px; color: var(--text); font-size: 13px; font-weight: 800; }
+    .tabs { margin-top: 14px; }
+    .tabs input { position: absolute; opacity: 0; pointer-events: none; }
+    .tab-labels { display: flex; gap: 6px; margin-bottom: 10px; }
+    .tab-labels label {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      background: #fff;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .tab-panel { display: none; }
+    .tabs input:nth-of-type(1):checked ~ .tab-labels label:nth-child(1),
+    .tabs input:nth-of-type(2):checked ~ .tab-labels label:nth-child(2) {
+      color: var(--brand);
+      background: var(--brand-soft);
+      border-color: #c7d2fe;
+    }
+    .tabs input:nth-of-type(1):checked ~ .tab-panels .tab-panel:nth-child(1),
+    .tabs input:nth-of-type(2):checked ~ .tab-panels .tab-panel:nth-child(2) {
+      display: block;
+    }
+    code, pre { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
+    pre {
+      margin: 0;
+      padding: 12px;
+      overflow: auto;
+      max-width: 100%;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      border-radius: 8px;
+      border: 1px solid #dbe3f0;
+      background: #f7f9fd;
+      color: #1e293b;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .note {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 8px;
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      color: var(--warn);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .steps { display: grid; gap: 10px; margin-top: 14px; }
+    .step { padding: 12px; border-radius: 8px; background: var(--soft); border: 1px solid var(--line); }
+    @media (max-width: 900px) {
+      .topbar { padding: 0 18px; }
+      .layout { display: block; padding: 18px 14px 44px; }
+      .sidenav {
+        position: static;
+        display: flex;
+        overflow-x: auto;
+        gap: 6px;
+        margin-bottom: 14px;
+      }
+      .sidenav a { white-space: nowrap; }
+      .sidenav small { display: none; }
+      .hero { display: block; }
+      .meta { text-align: left; margin-top: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="topbar">
+    <a class="brand" href="./index.html">
+      <img src="./wps/icons/coco-ribbon.png" alt="Coco" />
+      <span>Coco 安装部署</span>
+    </a>
+    <a class="home-link" href="./index.html">返回官网</a>
+  </nav>
+
+  <main class="layout">
+    <aside class="sidenav">
+      <a href="#overview"><span>概览</span> <small>01</small></a>
+      <a href="#wps"><span>WPS</span> <small>02</small></a>
+      <a href="#onlyoffice-desktop"><span>OO Desktop</span> <small>03</small></a>
+      <a href="#onlyoffice-docker"><span>OO Docker</span> <small>04</small></a>
+      <a href="#microsoft"><span>Microsoft</span> <small>05</small></a>
+      <a href="#verify"><span>验证</span> <small>06</small></a>
+    </aside>
+
+    <div class="content">
+      <section id="overview" class="hero">
+      <div>
+          <h1>Coco 插件安装部署</h1>
+          <p>将整个 coco 目录发布为静态资源后，从本页执行安装。WPS 和 Microsoft Office 走远端入口；ONLYOFFICE Docker/Desktop 写入本地轻量入口壳，再从当前发布地址加载 UI 资源。按你的 Office 环境选择脚本，执行后重启宿主即可。</p>
+          <div class="tag-row">
+            <span class="tag">远端资源</span>
+            <span class="tag">轻量入口</span>
+            <span class="tag">支持多宿主</span>
+          </div>
+      </div>
+      <div class="meta">
+          <div>通道：stable</div>
+      </div>
+      </section>
+
+      <section id="wps" class="section">
+        <h2>WPS</h2>
+        <p>注册 WPS 的 publish.xml，让 WPS Writer 从远端地址加载 Coco。</p>
+        <div class="tabs">
+          <input type="radio" name="wps-tabs" id="wps-win" checked />
+          <input type="radio" name="wps-tabs" id="wps-unix" />
+          <div class="tab-labels">
+            <label for="wps-win">Windows</label>
+            <label for="wps-unix">macOS / Linux</label>
+          </div>
+          <div class="tab-panels">
+            <div class="tab-panel">
+              <div class="cmd" data-label="PowerShell"><pre>$script = Join-Path $env:TEMP "coco-wps-install.ps1"
+Invoke-WebRequest __BASE_URL__/install/wps-install.ps1 -OutFile $script
+powershell -ExecutionPolicy Bypass -File $script -EntryUrl "__WPS_ENTRY__"</pre>
+              </div>
+              <div class="cmd" data-label="CMD"><pre>set "SCRIPT=%TEMP%\coco-wps-install.cmd"
+curl -L -f -o "%SCRIPT%" "__BASE_URL__/install/wps-install.cmd" || certutil -urlcache -split -f "__BASE_URL__/install/wps-install.cmd" "%SCRIPT%"
+call "%SCRIPT%" "__WPS_ENTRY__"</pre>
+              </div>
+            </div>
+            <div class="tab-panel"><div class="cmd" data-label="Shell"><pre>curl -fsSL __BASE_URL__/install/wps-install.sh -o wps-install.sh
+chmod +x ./wps-install.sh
+COCO_WPS_ENTRY_URL="__WPS_ENTRY__" ./wps-install.sh</pre>
+            </div></div>
+          </div>
+        </div>
+        <div class="note">执行后需要完全退出并重启 WPS Writer。</div>
+      </section>
+
+      <section id="onlyoffice-desktop" class="section">
+        <h2>ONLYOFFICE Desktop</h2>
+        <p>Desktop Editors 需要本地插件入口。脚本会写入本地 config、图标和三个轻量 HTML 壳；壳内的 UI/脚本资源仍从当前发布地址加载。</p>
+        <div class="tabs">
+          <input type="radio" name="oo-desktop-tabs" id="oo-desktop-win" checked />
+          <input type="radio" name="oo-desktop-tabs" id="oo-desktop-unix" />
+          <div class="tab-labels">
+            <label for="oo-desktop-win">Windows</label>
+            <label for="oo-desktop-unix">macOS / Linux</label>
+          </div>
+          <div class="tab-panels">
+            <div class="tab-panel">
+              <div class="cmd" data-label="PowerShell"><pre>$script = Join-Path $env:TEMP "coco-onlyoffice-desktop-install.ps1"
+Invoke-WebRequest __DESKTOP_BASE_URL__/install/onlyoffice-desktop-install.ps1 -OutFile $script
+powershell -ExecutionPolicy Bypass -File $script -BaseUrl "__DESKTOP_BASE_URL__" -ApiBaseUrl "__DESKTOP_API_BASE_URL__"</pre>
+              </div>
+              <div class="cmd" data-label="CMD"><pre>set "SCRIPT=%TEMP%\coco-onlyoffice-desktop-install.cmd"
+curl -L -f -o "%SCRIPT%" "__DESKTOP_BASE_URL__/install/onlyoffice-desktop-install.cmd" || certutil -urlcache -split -f "__DESKTOP_BASE_URL__/install/onlyoffice-desktop-install.cmd" "%SCRIPT%"
+call "%SCRIPT%" "__DESKTOP_BASE_URL__" "__DESKTOP_API_BASE_URL__"</pre>
+              </div>
+            </div>
+            <div class="tab-panel"><div class="cmd" data-label="Shell"><pre>curl -fsSL __DESKTOP_BASE_URL__/install/onlyoffice-desktop-install.sh -o onlyoffice-desktop-install.sh
+chmod +x ./onlyoffice-desktop-install.sh
+COCO_RELEASE_BASE_URL="__DESKTOP_BASE_URL__" COCO_DESKTOP_API_BASE_URL="__DESKTOP_API_BASE_URL__" ./onlyoffice-desktop-install.sh</pre>
+            </div></div>
+          </div>
+        </div>
+        <div class="note">安装后完全退出并重启 ONLYOFFICE Desktop Editors。Desktop 版不要把 config.json.url 直接改成远端地址，实测会打开空白面板。</div>
+      </section>
+
+      <section id="onlyoffice-docker" class="section">
+        <h2>ONLYOFFICE Docker</h2>
+        <p>生成 ONLYOFFICE Document Server 插件配置目录，config.json.url 指向本地 index.html；入口壳会从当前发布地址加载 UI 资源。运维按自身 Docker、Compose、K8s 或镜像流程部署到 sdkjs-plugins 后重启服务。</p>
+        <div class="tabs">
+          <input type="radio" name="oo-docker-tabs" id="oo-docker-unix" checked />
+          <input type="radio" name="oo-docker-tabs" id="oo-docker-win" />
+          <div class="tab-labels">
+            <label for="oo-docker-unix">macOS / Linux</label>
+            <label for="oo-docker-win">Windows</label>
+          </div>
+          <div class="tab-panels">
+            <div class="tab-panel"><div class="cmd" data-label="Shell"><pre>curl -fsSL __BASE_URL__/install/onlyoffice-docker-install.sh -o onlyoffice-docker-install.sh
+COCO_RELEASE_BASE_URL="__BASE_URL__" bash onlyoffice-docker-install.sh</pre>
+            </div></div>
+            <div class="tab-panel">
+              <div class="cmd" data-label="PowerShell"><pre>$script = Join-Path $env:TEMP "coco-onlyoffice-docker-install.ps1"
+Invoke-WebRequest __BASE_URL__/install/onlyoffice-docker-install.ps1 -OutFile $script
+powershell -ExecutionPolicy Bypass -File $script -BaseUrl "__BASE_URL__"</pre>
+              </div>
+              <div class="cmd" data-label="CMD"><pre>set "SCRIPT=%TEMP%\coco-onlyoffice-docker-install.cmd"
+curl -L -f -o "%SCRIPT%" "__BASE_URL__/install/onlyoffice-docker-install.cmd" || certutil -urlcache -split -f "__BASE_URL__/install/onlyoffice-docker-install.cmd" "%SCRIPT%"
+call "%SCRIPT%" onlyoffice-documentserver "__BASE_URL__"</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="note">默认只在 Downloads/coco-onlyoffice-plugin/asc.{GUID} 生成配置目录并打印部署路径。仅本地联调时，可 PowerShell 增加 -Apply，Shell 使用 COCO_DOCKER_APPLY=1，CMD 第三个参数传 apply 后自动 docker cp 并重启容器。</div>
+      </section>
+
+      <section id="microsoft" class="section">
+        <h2>Microsoft Office</h2>
+        <p>Word 通过 manifest 加载远端 taskpane。Windows 可使用脚本侧载；企业环境建议通过 M365 管理中心集中部署。</p>
+        <div class="tabs">
+          <input type="radio" name="ms-tabs" id="ms-win" checked />
+          <input type="radio" name="ms-tabs" id="ms-admin" />
+          <div class="tab-labels">
+            <label for="ms-win">Windows</label>
+            <label for="ms-admin">macOS / 企业部署</label>
+          </div>
+          <div class="tab-panels">
+            <div class="tab-panel">
+              <div class="cmd" data-label="PowerShell"><pre>$script = Join-Path $env:TEMP "coco-microsoft-install.ps1"
+Invoke-WebRequest __DESKTOP_BASE_URL__/install/microsoft-install.ps1 -OutFile $script
+powershell -ExecutionPolicy Bypass -File $script -ManifestUrl "__DESKTOP_BASE_URL__/microsoft/manifest.xml"</pre>
+              </div>
+              <div class="cmd" data-label="CMD"><pre>set "SCRIPT=%TEMP%\coco-microsoft-install.cmd"
+curl -L -f -o "%SCRIPT%" "__DESKTOP_BASE_URL__/install/microsoft-install.cmd" || certutil -urlcache -split -f "__DESKTOP_BASE_URL__/install/microsoft-install.cmd" "%SCRIPT%"
+call "%SCRIPT%" "__DESKTOP_BASE_URL__/microsoft/manifest.xml"</pre>
+              </div>
+            </div>
+            <div class="tab-panel"><div class="cmd" data-label="Manifest"><pre>manifest: __DESKTOP_BASE_URL__/microsoft/manifest.xml
+Admin Center: Integrated apps -> Upload custom apps</pre>
+            </div></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="verify" class="section">
+        <h2>验证方式</h2>
+        <div class="steps">
+          <div class="step"><strong>WPS：</strong>重启 WPS Writer，确认功能区出现 Coco 入口，点击后右侧面板正常打开。</div>
+          <div class="step"><strong>ONLYOFFICE：</strong>打开任意文档，进入插件菜单，确认 Coco 插件能打开侧边栏。</div>
+          <div class="step"><strong>Microsoft Office：</strong>重启 Word，插入我的加载项，选择共享文件夹中的 Coco。</div>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script>
+    (() => {
+      const baseUrl = new URL(".", window.location.href).href.replace(/\/$/, "");
+      let desktopBaseUrl = baseUrl;
+      if (window.location.protocol === "http:" && window.location.hostname === "localhost" && window.location.port === "8088") {
+        desktopBaseUrl = "https://localhost:8443";
+      } else if (window.location.protocol === "http:" && window.location.hostname === "127.0.0.1" && window.location.port === "8088") {
+        desktopBaseUrl = "https://127.0.0.1:8443";
+      }
+      const desktopApiBaseUrl = "https://coco-vexel.github.io/api/v1";
+      const wpsEntryUrl = baseUrl + "/coco-wps/worker/word/";
+      document.querySelectorAll("pre").forEach((node) => {
+        node.textContent = node.textContent
+          .replaceAll("__DESKTOP_BASE_URL__", desktopBaseUrl)
+          .replaceAll("__DESKTOP_API_BASE_URL__", desktopApiBaseUrl)
+          .replaceAll("__WPS_ENTRY__", wpsEntryUrl)
+          .replaceAll("__BASE_URL__", baseUrl);
+      });
+      document.querySelectorAll(".cmd").forEach((block) => {
+        if (block.querySelector(".cmd-head")) return;
+        const pre = block.querySelector("pre");
+        if (!pre) return;
+        const head = document.createElement("div");
+        head.className = "cmd-head";
+        const label = document.createElement("span");
+        label.className = "cmd-label";
+        label.textContent = block.dataset.label || "命令";
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "copy-btn";
+        button.textContent = "复制";
+        button.addEventListener("click", async () => {
+          try {
+            await navigator.clipboard.writeText(pre.textContent.trim());
+            button.textContent = "已复制";
+            setTimeout(() => { button.textContent = "复制"; }, 1400);
+          } catch {
+            button.textContent = "复制失败";
+            setTimeout(() => { button.textContent = "复制"; }, 1400);
+          }
+        });
+        head.append(label, button);
+        block.prepend(head);
+      });
+    })();
+  </script>
+</body>
+</html>

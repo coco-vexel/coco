@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Coco WPS Worker (Word)</title>
+    <script type="module" crossorigin src="https://coco-vexel.github.io/coco/coco-wps/assets/worker-word-CyYq6tH8.js?v=ms2mp63y"></script>
+    <link rel="modulepreload" crossorigin href="https://coco-vexel.github.io/coco/coco-wps/assets/abort-signal-CkfwBarr.js?v=ms2mp63y">
+    <link rel="modulepreload" crossorigin href="https://coco-vexel.github.io/coco/coco-wps/assets/wps-CrKYE0wY.js?v=ms2mp63y">
+  </head>
+  <body>
+    <script>
+      window.ribbon = window.ribbon || {
+        OnAddinLoad: function () {
+          return true;
+        },
+        OnAction: function () {
+          return true;
+        },
+        GetImage: function () {
+          return "../../icons/coco-ribbon.png";
+        },
+        OnGetEnabled: function () {
+          return true;
+        },
+        OnGetVisible: function () {
+          return true;
+        },
+        OnGetLabel: function () {
+          return "";
+        },
+      };
+    </script>
+  </body>
+</html>

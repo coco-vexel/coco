@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coco</title>
+    <!--
+      OnlyOffice 插件运行时。装进编辑器 sdkjs-plugins 目录时，同级有 ../v1/，
+      走本地相对路径，不依赖外网 CDN（桌面版/内网友好）。必须在我们的入口
+      之前加载：main.tsx 会在 window.Asc.plugin 上挂 init/button 等回调。
+    -->
+    <script src="./v1/plugins.js"></script>
+    <script src="./v1/plugins-ui.js"></script>
+    <script type="module" crossorigin src="./assets/index-Cj7pGNXJ.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DJ9Ga-ek.css">
+  </head>
+  <body id="coco-main">
+    <div id="root"></div>
+  </body>
+</html>

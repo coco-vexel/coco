@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coco</title>
+    <!--
+      Office.js：必须从官方 CDN 加载，宿主据此建立 webview ↔ Word 通道。
+      必须在我们的入口之前加载：taskpane.tsx 在 Office.onReady 里读宿主类型后 bootstrap。
+    -->
+    <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+    <script type="module" crossorigin src="../../assets/taskpane-D2O2crU0.js"></script>
+    <link rel="modulepreload" crossorigin href="../../assets/modulepreload-polyfill-CICT0AqU.js">
+    <link rel="modulepreload" crossorigin href="../../assets/index-CsiPSwSd.js">
+    <link rel="stylesheet" crossorigin href="../../assets/index-DcUT7QQ5.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

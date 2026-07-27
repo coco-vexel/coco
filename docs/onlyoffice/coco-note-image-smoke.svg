@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="96" viewBox="0 0 192 96">
+  <rect width="96" height="96" fill="#ec8aa0"/>
+  <rect x="96" width="96" height="96" fill="#8fc0ef"/>
+  <rect x="2" y="2" width="188" height="92" fill="none" stroke="#4f5965" stroke-width="4"/>
+  <text x="96" y="58" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#1f2937">COCO</text>
+</svg>

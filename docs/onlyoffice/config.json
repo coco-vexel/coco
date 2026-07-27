@@ -1,0 +1,41 @@
+{
+  "name": "Coco",
+  "nameLocale": {
+    "zh": "Coco 助手",
+    "en": "Coco"
+  },
+  "guid": "asc.{8D9B5A2C-1F3E-4C7A-9B0D-2E6F1A4C8B30}",
+  "version": "0.0.1",
+  "minVersion": "7.0.0",
+  "variations": [
+    {
+      "description": "Coco 文档智能助手",
+      "descriptionLocale": {
+        "zh": "Coco 文档智能助手"
+      },
+      "url": "https://coco-vexel.github.io/coco/onlyoffice/?v=ms2mp63y",
+      "icons": [
+        "https://coco-vexel.github.io/coco/onlyoffice/resources/light/icon.png",
+        "https://coco-vexel.github.io/coco/onlyoffice/resources/light/icon@2x.png"
+      ],
+      "isViewer": true,
+      "EditorsSupport": [
+        "word",
+        "cell",
+        "slide"
+      ],
+      "isVisual": true,
+      "isModal": false,
+      "isInsideMode": true,
+      "initDataType": "none",
+      "initData": "",
+      "isUpdateOften": false,
+      "buttons": [],
+      "size": [
+        320,
+        600
+      ],
+      "events": []
+    }
+  ]
+}
