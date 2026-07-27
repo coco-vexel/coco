@@ -69,7 +69,7 @@ JSON
 
 write_remote_loader() {
   file_name="$1"
-  curl -fsSL "$BASE_URL/onlyoffice/$file_name?v=ms2n6r7v" \
+  curl -fsSL "$BASE_URL/onlyoffice/$file_name?v=ms2nsg9t" \
     | sed -e 's#\(["'\''"]\)\./v1/#\1../v1/#g' \
           -e "s#\([\"']\)\./assets/#\1$BASE_URL/onlyoffice/assets/#g" \
           -e 's#</head>#  <script src="./coco-runtime-config.js"></script></head>#' \
@@ -91,7 +91,7 @@ echo "  docker cp '$PLUGIN_DIR/.' '$CONTAINER:$DEPLOY_PATH'"
 echo "  docker restart '$CONTAINER'"
 echo
 echo "Remote UI:"
-echo "  $BASE_URL/onlyoffice/?v=ms2n6r7v"
+echo "  $BASE_URL/onlyoffice/?v=ms2nsg9t"
 echo "API:"
 echo "  $API_BASE_URL"
 
