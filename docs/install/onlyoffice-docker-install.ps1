@@ -60,7 +60,7 @@ $runtimeConfig = 'window.__COCO_RUNTIME_CONFIG__ = ' + (@{ apiBaseUrl = $ApiBase
 Set-Content -Encoding UTF8 -LiteralPath (Join-Path $PluginDir 'coco-runtime-config.js') -Value $runtimeConfig
 
 function Write-CocoRemoteShim([string]$FileName) {
-  $remote = "$BaseUrl/onlyoffice/$($FileName)?v=ms2mp63y"
+  $remote = "$BaseUrl/onlyoffice/$($FileName)?v=ms2n0m15"
   $html = (Invoke-WebRequest -UseBasicParsing $remote).Content
   $html = $html -replace '(["''])\./v1/', '$1../v1/'
   $html = $html -replace '(["''])\./assets/', "`$1$BaseUrl/onlyoffice/assets/"
@@ -83,7 +83,7 @@ Write-Host ('  docker cp "' + $DockerCopySource + '" "' + $Container + ':' + $De
 Write-Host "  docker restart $Container"
 Write-Host ""
 Write-Host "Remote UI:"
-Write-Host "  $BaseUrl/onlyoffice/?v=ms2mp63y"
+Write-Host "  $BaseUrl/onlyoffice/?v=ms2n0m15"
 Write-Host "API:"
 Write-Host "  $ApiBaseUrl"
 
