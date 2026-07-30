@@ -7,10 +7,42 @@
     <!-- OnlyOffice 插件运行时：模态窗口也走插件框架（init 让窗口显示、button 处理「关闭」）。
          与 index.html 同款相对路径 ../v1/，故本文件须放插件根目录（与 index.html 同级）。 -->
     <script src="./v1/plugins.js"></script>
-    <script src="./v1/plugins-ui.js"></script>
-    <script type="module" crossorigin src="./assets/settings.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/vendor.css">
-    <link rel="stylesheet" crossorigin href="./assets/index.css">
+    <script src="./v1/plugins-ui.js"></script>      <script type="module">
+      async function cocoOnlyOfficeLoadEntry(entryFile, cssFiles) {
+        const assetBase = new URL("./assets/", window.location.href);
+        const stamp = Date.now().toString(36);
+        const withStamp = (file) => {
+          const url = new URL(file, assetBase);
+          url.searchParams.set("coco_t", stamp);
+          return url.toString();
+        };
+        for (const file of cssFiles) {
+          const link = document.createElement("link");
+          link.rel = "stylesheet";
+          link.crossOrigin = "";
+          link.href = withStamp(file);
+          document.head.appendChild(link);
+        }
+        const response = await fetch(withStamp(entryFile), { cache: "no-store" });
+        if (!response.ok) throw new Error(`Failed to load ${entryFile}: ${response.status}`);
+        const source = await response.text();
+        const rewritten = source
+          .replace(/(from\s*["'])\.\/([^"']+)(["'])/g, (_all, prefix, file, suffix) => (
+            `${prefix}${withStamp(file)}${suffix}`
+          ))
+          .replace(/(import\s*["'])\.\/([^"']+)(["'])/g, (_all, prefix, file, suffix) => (
+            `${prefix}${withStamp(file)}${suffix}`
+          ));
+        const blobUrl = URL.createObjectURL(new Blob([rewritten], { type: "text/javascript" }));
+        try {
+          await import(blobUrl);
+        } finally {
+          URL.revokeObjectURL(blobUrl);
+        }
+      }
+      cocoOnlyOfficeLoadEntry("settings.js", ["vendor.css","index.css"])
+        .catch((error) => console.error("[coco-onlyoffice] asset loader failed", error));
+    </script>
   </head>
   <body id="coco-settings">
     <div id="root"></div>

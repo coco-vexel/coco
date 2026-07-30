@@ -10,10 +10,42 @@
       之前加载：main.tsx 会在 window.Asc.plugin 上挂 init/button 等回调。
     -->
     <script src="./v1/plugins.js"></script>
-    <script src="./v1/plugins-ui.js"></script>
-    <script type="module" crossorigin src="./assets/index.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index.css">
-    <link rel="stylesheet" crossorigin href="./assets/vendor.css">
+    <script src="./v1/plugins-ui.js"></script>      <script type="module">
+      async function cocoOnlyOfficeLoadEntry(entryFile, cssFiles) {
+        const assetBase = new URL("./assets/", window.location.href);
+        const stamp = Date.now().toString(36);
+        const withStamp = (file) => {
+          const url = new URL(file, assetBase);
+          url.searchParams.set("coco_t", stamp);
+          return url.toString();
+        };
+        for (const file of cssFiles) {
+          const link = document.createElement("link");
+          link.rel = "stylesheet";
+          link.crossOrigin = "";
+          link.href = withStamp(file);
+          document.head.appendChild(link);
+        }
+        const response = await fetch(withStamp(entryFile), { cache: "no-store" });
+        if (!response.ok) throw new Error(`Failed to load ${entryFile}: ${response.status}`);
+        const source = await response.text();
+        const rewritten = source
+          .replace(/(from\s*["'])\.\/([^"']+)(["'])/g, (_all, prefix, file, suffix) => (
+            `${prefix}${withStamp(file)}${suffix}`
+          ))
+          .replace(/(import\s*["'])\.\/([^"']+)(["'])/g, (_all, prefix, file, suffix) => (
+            `${prefix}${withStamp(file)}${suffix}`
+          ));
+        const blobUrl = URL.createObjectURL(new Blob([rewritten], { type: "text/javascript" }));
+        try {
+          await import(blobUrl);
+        } finally {
+          URL.revokeObjectURL(blobUrl);
+        }
+      }
+      cocoOnlyOfficeLoadEntry("index.js", ["index.css","vendor.css"])
+        .catch((error) => console.error("[coco-onlyoffice] asset loader failed", error));
+    </script>
   </head>
   <body id="coco-main">
     <div id="root"></div>
