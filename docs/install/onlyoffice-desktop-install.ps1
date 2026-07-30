@@ -59,7 +59,7 @@ $config = @{
   variations = @(@{
     description = 'Coco 文档智能助手'
     descriptionLocale = @{ zh = 'Coco 文档智能助手' }
-    url = 'index.html?v=ms78gkrq'
+    url = 'index.html?v=ms78pmoz'
     icons = @("resources/light/icon.png", "resources/light/icon@2x.png")
     isViewer = $true
     EditorsSupport = @('word', 'cell', 'slide')
@@ -80,7 +80,7 @@ $runtimeConfig = 'window.__COCO_RUNTIME_CONFIG__ = ' + (@{ apiBaseUrl = $ApiBase
 Set-Content -Encoding UTF8 -LiteralPath (Join-Path $PluginDir 'coco-runtime-config.js') -Value $runtimeConfig
 
 function Write-CocoRemoteShim([string]$FileName) {
-  $remote = "$BaseUrl/onlyoffice/$($FileName)?v=ms78gkrq"
+  $remote = "$BaseUrl/onlyoffice/$($FileName)?v=ms78pmoz"
   $html = (Invoke-WebRequest -UseBasicParsing $remote).Content
   $html = $html -replace '(["''])\./v1/', '$1../v1/'
   $html = $html -replace '(["''])\./assets/', "`$1$BaseUrl/onlyoffice/assets/"
@@ -95,7 +95,7 @@ Write-CocoRemoteShim 'workflow-editor.html'
 Write-Host "Coco ONLYOFFICE Desktop local shell installed:" -ForegroundColor Green
 Write-Host "  $PluginDir"
 Write-Host "Remote UI:"
-Write-Host "  $BaseUrl/onlyoffice/?v=ms78gkrq"
+Write-Host "  $BaseUrl/onlyoffice/?v=ms78pmoz"
 Write-Host "API:"
 Write-Host "  $ApiBaseUrl"
 Write-Host "Fully quit and restart ONLYOFFICE Desktop Editors."

@@ -8,7 +8,7 @@
 
   <!-- Each Office add-in needs a stable unique GUID. -->
   <Id>c0c0ff00-0000-4000-8000-000000000001</Id>
-  <Version>1.26.211.489</Version>
+  <Version>1.26.211.496</Version>
   <ProviderName>Coco</ProviderName>
   <DefaultLocale>zh-CN</DefaultLocale>
   <DisplayName DefaultValue="Coco Microsoft" />
@@ -32,7 +32,7 @@
   </Requirements>
 
   <DefaultSettings>
-    <SourceLocation DefaultValue="https://coco-vexel.github.io/coco/microsoft/src/taskpane/taskpane.html?v=ms78gkrq" />
+    <SourceLocation DefaultValue="https://coco-vexel.github.io/coco/microsoft/src/taskpane/taskpane.html?v=ms78pmoz" />
   </DefaultSettings>
 
   <Permissions>ReadWriteDocument</Permissions>
@@ -88,8 +88,8 @@
         <bt:Image id="Icon.80" DefaultValue="https://coco-vexel.github.io/coco/microsoft/assets/icon-80.png" />
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="Commands.Url" DefaultValue="https://coco-vexel.github.io/coco/microsoft/src/commands/commands.html?v=ms78gkrq" />
-        <bt:Url id="Taskpane.Url" DefaultValue="https://coco-vexel.github.io/coco/microsoft/src/taskpane/taskpane.html?v=ms78gkrq" />
+        <bt:Url id="Commands.Url" DefaultValue="https://coco-vexel.github.io/coco/microsoft/src/commands/commands.html?v=ms78pmoz" />
+        <bt:Url id="Taskpane.Url" DefaultValue="https://coco-vexel.github.io/coco/microsoft/src/taskpane/taskpane.html?v=ms78pmoz" />
         <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://coco-vexel.github.io/coco/microsoft/" />
       </bt:Urls>
       <bt:ShortStrings>
