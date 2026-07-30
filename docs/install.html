@@ -293,16 +293,16 @@ COCO_WPS_ENTRY_URL="__WPS_ENTRY__" ./wps-install.sh</pre>
             <div class="tab-panel">
               <div class="cmd" data-label="PowerShell"><pre>$script = Join-Path $env:TEMP "coco-onlyoffice-desktop-install.ps1"
 Invoke-WebRequest __DESKTOP_BASE_URL__/install/onlyoffice-desktop-install.ps1 -OutFile $script
-powershell -ExecutionPolicy Bypass -File $script -BaseUrl "__DESKTOP_BASE_URL__" -ApiBaseUrl "__DESKTOP_API_BASE_URL__"</pre>
+powershell -ExecutionPolicy Bypass -File $script -BaseUrl "__DESKTOP_BASE_URL__"__DESKTOP_API_ARG_PS__</pre>
               </div>
               <div class="cmd" data-label="CMD"><pre>set "SCRIPT=%TEMP%\coco-onlyoffice-desktop-install.cmd"
 curl -L -f -o "%SCRIPT%" "__DESKTOP_BASE_URL__/install/onlyoffice-desktop-install.cmd" || certutil -urlcache -split -f "__DESKTOP_BASE_URL__/install/onlyoffice-desktop-install.cmd" "%SCRIPT%"
-call "%SCRIPT%" "__DESKTOP_BASE_URL__" "__DESKTOP_API_BASE_URL__"</pre>
+call "%SCRIPT%" "__DESKTOP_BASE_URL__"__DESKTOP_API_ARG_CMD__</pre>
               </div>
             </div>
             <div class="tab-panel"><div class="cmd" data-label="Shell"><pre>curl -fsSL __DESKTOP_BASE_URL__/install/onlyoffice-desktop-install.sh -o onlyoffice-desktop-install.sh
 chmod +x ./onlyoffice-desktop-install.sh
-COCO_RELEASE_BASE_URL="__DESKTOP_BASE_URL__" COCO_DESKTOP_API_BASE_URL="__DESKTOP_API_BASE_URL__" ./onlyoffice-desktop-install.sh</pre>
+COCO_RELEASE_BASE_URL="__DESKTOP_BASE_URL__" __DESKTOP_API_ENV__./onlyoffice-desktop-install.sh</pre>
             </div></div>
           </div>
         </div>
@@ -393,7 +393,7 @@ Admin Center: Integrated apps -> Upload custom apps</pre>
     (() => {
       const baseUrl = new URL(".", window.location.href).href.replace(/\/$/, "");
       let desktopBaseUrl = baseUrl;
-      let desktopApiBaseUrl = "https://coco-vexel.github.io/api/v1";
+      let desktopApiBaseUrl = "";
       if (window.location.protocol === "http:" && window.location.hostname === "localhost" && window.location.port === "8088") {
         desktopBaseUrl = "https://localhost:8443";
         desktopApiBaseUrl = "https://localhost:8443/api/v1";
@@ -403,8 +403,14 @@ Admin Center: Integrated apps -> Upload custom apps</pre>
       }
       const wpsEntryUrl = baseUrl + "/coco-wps/worker/word/";
       document.querySelectorAll("pre").forEach((node) => {
+        const desktopApiArgPs = desktopApiBaseUrl ? ' -ApiBaseUrl "' + desktopApiBaseUrl + '"' : "";
+        const desktopApiArgCmd = desktopApiBaseUrl ? ' "' + desktopApiBaseUrl + '"' : "";
+        const desktopApiEnv = desktopApiBaseUrl ? 'COCO_DESKTOP_API_BASE_URL="' + desktopApiBaseUrl + '" ' : "";
         node.textContent = node.textContent
           .replaceAll("__DESKTOP_BASE_URL__", desktopBaseUrl)
+          .replaceAll("__DESKTOP_API_ARG_PS__", desktopApiArgPs)
+          .replaceAll("__DESKTOP_API_ARG_CMD__", desktopApiArgCmd)
+          .replaceAll("__DESKTOP_API_ENV__", desktopApiEnv)
           .replaceAll("__DESKTOP_API_BASE_URL__", desktopApiBaseUrl)
           .replaceAll("__WPS_ENTRY__", wpsEntryUrl)
           .replaceAll("__BASE_URL__", baseUrl);

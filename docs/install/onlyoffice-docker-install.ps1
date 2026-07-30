@@ -42,7 +42,7 @@ $config = @{
   variations = @(@{
     description = 'Coco 文档智能助手'
     descriptionLocale = @{ zh = 'Coco 文档智能助手' }
-    url = 'index.html?v=ms7agj91'
+    url = 'index.html?v=ms7btrp5'
     icons = @("resources/light/icon.png", "resources/light/icon@2x.png")
     isViewer = $true
     EditorsSupport = @('word', 'cell', 'slide')
@@ -63,7 +63,7 @@ $runtimeConfig = 'window.__COCO_RUNTIME_CONFIG__ = ' + (@{ apiBaseUrl = $ApiBase
 Set-Content -Encoding UTF8 -LiteralPath (Join-Path $PluginDir 'coco-runtime-config.js') -Value $runtimeConfig
 
 function Write-CocoRemoteShim([string]$FileName) {
-  $remote = "$BaseUrl/onlyoffice/$($FileName)?v=ms7agj91"
+  $remote = "$BaseUrl/onlyoffice/$($FileName)?v=ms7btrp5"
   $html = (Invoke-WebRequest -UseBasicParsing $remote).Content
   # Plugin APIs are served by Document Server next to this shim.
   $html = $html -replace '(["''])\./v1/', '$1../v1/'
@@ -90,7 +90,7 @@ Write-Host ('  docker cp "' + $DockerCopySource + '" "' + $Container + ':' + $De
 Write-Host "  docker restart $Container"
 Write-Host ""
 Write-Host "Remote UI:"
-Write-Host "  $BaseUrl/onlyoffice/?v=ms7agj91"
+Write-Host "  $BaseUrl/onlyoffice/?v=ms7btrp5"
 Write-Host "API:"
 Write-Host "  $ApiBaseUrl"
 

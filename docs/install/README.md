@@ -20,16 +20,16 @@ chmod +x ./wps-install.sh
 ## ONLYOFFICE Desktop
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\onlyoffice-desktop-install.ps1 -BaseUrl "<release-base-url>" -ApiBaseUrl "<desktop-api-base-url>"
+powershell -ExecutionPolicy Bypass -File .\onlyoffice-desktop-install.ps1 -BaseUrl "<release-base-url>"
 ```
 
 ```cmd
-onlyoffice-desktop-install.cmd "<release-base-url>" "<desktop-api-base-url>"
+onlyoffice-desktop-install.cmd "<release-base-url>"
 ```
 
 ```bash
 chmod +x ./onlyoffice-desktop-install.sh
-COCO_RELEASE_BASE_URL="<release-base-url>" COCO_DESKTOP_API_BASE_URL="<desktop-api-base-url>" ./onlyoffice-desktop-install.sh
+COCO_RELEASE_BASE_URL="<release-base-url>" ./onlyoffice-desktop-install.sh
 ```
 
 ## ONLYOFFICE Docker - remote pluginsData

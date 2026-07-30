@@ -24,10 +24,7 @@ if (-not $BaseUrl) {
 if (-not (Test-CocoAllowedDesktopUrl $BaseUrl)) {
   throw 'ONLYOFFICE Desktop requires an HTTPS release BaseUrl, except localhost HTTP for local development. Open the HTTPS install page or pass -BaseUrl https://... .'
 }
-if (-not $ApiBaseUrl) {
-  $ApiBaseUrl = ([System.Uri]::new([System.Uri]::new($BaseUrl), '/api/v1')).AbsoluteUri.TrimEnd('/')
-}
-if (-not (Test-CocoAllowedDesktopUrl $ApiBaseUrl)) {
+if ($ApiBaseUrl -and -not (Test-CocoAllowedDesktopUrl $ApiBaseUrl)) {
   throw 'ONLYOFFICE Desktop requires an HTTPS ApiBaseUrl, except localhost HTTP for local development. Pass -ApiBaseUrl https://.../api/v1 .'
 }
 $Guid = '{8D9B5A2C-1F3E-4C7A-9B0D-2E6F1A4C8B30}'
@@ -59,7 +56,7 @@ $config = @{
   variations = @(@{
     description = 'Coco 文档智能助手'
     descriptionLocale = @{ zh = 'Coco 文档智能助手' }
-    url = 'index.html?v=ms7agj91'
+    url = 'index.html?v=ms7btrp5'
     icons = @("resources/light/icon.png", "resources/light/icon@2x.png")
     isViewer = $true
     EditorsSupport = @('word', 'cell', 'slide')
@@ -76,15 +73,19 @@ $config = @{
 }
 
 $config | ConvertTo-Json -Depth 10 | Set-Content -Encoding UTF8 (Join-Path $PluginDir 'config.json')
-$runtimeConfig = 'window.__COCO_RUNTIME_CONFIG__ = ' + (@{ apiBaseUrl = $ApiBaseUrl } | ConvertTo-Json -Compress) + ';'
-Set-Content -Encoding UTF8 -LiteralPath (Join-Path $PluginDir 'coco-runtime-config.js') -Value $runtimeConfig
+if ($ApiBaseUrl) {
+  $runtimeConfig = 'window.__COCO_RUNTIME_CONFIG__ = ' + (@{ apiBaseUrl = $ApiBaseUrl } | ConvertTo-Json -Compress) + ';'
+  Set-Content -Encoding UTF8 -LiteralPath (Join-Path $PluginDir 'coco-runtime-config.js') -Value $runtimeConfig
+}
 
 function Write-CocoRemoteShim([string]$FileName) {
-  $remote = "$BaseUrl/onlyoffice/$($FileName)?v=ms7agj91"
+  $remote = "$BaseUrl/onlyoffice/$($FileName)?v=ms7btrp5"
   $html = (Invoke-WebRequest -UseBasicParsing $remote).Content
   $html = $html -replace '(["''])\./v1/', '$1../v1/'
   $html = $html -replace '(["''])\./assets/', "`$1$BaseUrl/onlyoffice/assets/"
-  $html = $html -replace '</head>', '  <script src="./coco-runtime-config.js"></script></head>'
+  if ($ApiBaseUrl) {
+    $html = $html -replace '</head>', '  <script src="./coco-runtime-config.js"></script></head>'
+  }
   Set-Content -Encoding UTF8 -LiteralPath (Join-Path $PluginDir $FileName) -Value $html
 }
 
@@ -95,7 +96,9 @@ Write-CocoRemoteShim 'workflow-editor.html'
 Write-Host "Coco ONLYOFFICE Desktop local shell installed:" -ForegroundColor Green
 Write-Host "  $PluginDir"
 Write-Host "Remote UI:"
-Write-Host "  $BaseUrl/onlyoffice/?v=ms7agj91"
-Write-Host "API:"
-Write-Host "  $ApiBaseUrl"
+Write-Host "  $BaseUrl/onlyoffice/?v=ms7btrp5"
+if ($ApiBaseUrl) {
+  Write-Host "API:"
+  Write-Host "  $ApiBaseUrl"
+}
 Write-Host "Fully quit and restart ONLYOFFICE Desktop Editors."

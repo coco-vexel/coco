@@ -15,14 +15,13 @@ case "$BASE_URL" in
   http://localhost:*|http://localhost/*|http://127.0.0.1:*|http://127.0.0.1/*|http://[::1]:*|http://[::1]/*) ;;
   *) echo "ONLYOFFICE Desktop requires an HTTPS release BaseUrl, except localhost HTTP for local development. Open the HTTPS install page or set COCO_RELEASE_BASE_URL=https://... ." >&2; exit 1 ;;
 esac
-if [ -z "$API_BASE_URL" ]; then
-  API_BASE_URL="$(python3 -c 'from urllib.parse import urljoin; import sys; print(urljoin(sys.argv[1] + "/", "/api/v1").rstrip("/"))' "$BASE_URL")"
+if [ -n "$API_BASE_URL" ]; then
+  case "$API_BASE_URL" in
+    https://*) ;;
+    http://localhost:*|http://localhost/*|http://127.0.0.1:*|http://127.0.0.1/*|http://[::1]:*|http://[::1]/*) ;;
+    *) echo "ONLYOFFICE Desktop requires an HTTPS API base URL, except localhost HTTP for local development. Set COCO_DESKTOP_API_BASE_URL=https://.../api/v1 ." >&2; exit 1 ;;
+  esac
 fi
-case "$API_BASE_URL" in
-  https://*) ;;
-  http://localhost:*|http://localhost/*|http://127.0.0.1:*|http://127.0.0.1/*|http://[::1]:*|http://[::1]/*) ;;
-  *) echo "ONLYOFFICE Desktop requires an HTTPS API base URL, except localhost HTTP for local development. Set COCO_DESKTOP_API_BASE_URL=https://.../api/v1 ." >&2; exit 1 ;;
-esac
 
 case "$(uname -s)" in
   Darwin)
@@ -54,7 +53,7 @@ cat > "$PLUGIN_DIR/config.json" <<JSON
     {
       "description": "Coco 文档智能助手",
       "descriptionLocale": { "zh": "Coco 文档智能助手" },
-      "url": "index.html?v=ms7agj91",
+      "url": "index.html?v=ms7btrp5",
       "icons": [
         "resources/light/icon.png",
         "resources/light/icon@2x.png"
@@ -75,19 +74,23 @@ cat > "$PLUGIN_DIR/config.json" <<JSON
 }
 JSON
 
+if [ -n "$API_BASE_URL" ]; then
 cat > "$PLUGIN_DIR/coco-runtime-config.js" <<JSON
 window.__COCO_RUNTIME_CONFIG__ = {
   "apiBaseUrl": "$API_BASE_URL"
 };
 JSON
+fi
 
 write_remote_loader() {
   file_name="$1"
-  curl -fsSL "$BASE_URL/onlyoffice/$file_name?v=ms7agj91" \
+  html="$(curl -fsSL "$BASE_URL/onlyoffice/$file_name?v=ms7btrp5" \
     | sed -e 's#\(["'\''"]\)\./v1/#\1../v1/#g' \
-          -e "s#\([\"']\)\./assets/#\1$BASE_URL/onlyoffice/assets/#g" \
-          -e 's#</head>#  <script src="./coco-runtime-config.js"></script></head>#' \
-    > "$PLUGIN_DIR/$file_name"
+          -e "s#\([\"']\)\./assets/#\1$BASE_URL/onlyoffice/assets/#g")"
+  if [ -n "$API_BASE_URL" ]; then
+    html="$(printf '%s' "$html" | sed -e 's#</head>#  <script src="./coco-runtime-config.js"></script></head>#')"
+  fi
+  printf '%s' "$html" > "$PLUGIN_DIR/$file_name"
 }
 
 write_remote_loader "index.html"
@@ -97,7 +100,9 @@ write_remote_loader "workflow-editor.html"
 echo "Coco ONLYOFFICE Desktop local shell installed:"
 echo "  $PLUGIN_DIR"
 echo "Remote UI:"
-echo "  $BASE_URL/onlyoffice/?v=ms7agj91"
-echo "API:"
-echo "  $API_BASE_URL"
+echo "  $BASE_URL/onlyoffice/?v=ms7btrp5"
+if [ -n "$API_BASE_URL" ]; then
+  echo "API:"
+  echo "  $API_BASE_URL"
+fi
 echo "Fully quit and restart ONLYOFFICE Desktop Editors."
