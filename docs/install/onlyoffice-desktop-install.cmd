@@ -26,9 +26,9 @@ mkdir "%PLUGIN_DIR%\resources\light" >nul 2>nul
 
 call :download "%BASE_URL%/onlyoffice/resources/light/icon.png" "%PLUGIN_DIR%\resources\light\icon.png" || exit /b 1
 call :download "%BASE_URL%/onlyoffice/resources/light/icon@2x.png" "%PLUGIN_DIR%\resources\light\icon@2x.png" || exit /b 1
-call :download "%BASE_URL%/onlyoffice/index.html?v=ms7grzot" "%PLUGIN_DIR%\index.html" || exit /b 1
-call :download "%BASE_URL%/onlyoffice/settings.html?v=ms7grzot" "%PLUGIN_DIR%\settings.html" || exit /b 1
-call :download "%BASE_URL%/onlyoffice/workflow-editor.html?v=ms7grzot" "%PLUGIN_DIR%\workflow-editor.html" || exit /b 1
+call :download "%BASE_URL%/onlyoffice/index.html?v=ms7gwg7x" "%PLUGIN_DIR%\index.html" || exit /b 1
+call :download "%BASE_URL%/onlyoffice/settings.html?v=ms7gwg7x" "%PLUGIN_DIR%\settings.html" || exit /b 1
+call :download "%BASE_URL%/onlyoffice/workflow-editor.html?v=ms7gwg7x" "%PLUGIN_DIR%\workflow-editor.html" || exit /b 1
 
 rem Use PowerShell for post-processing. Windows Script Host may run old JScript
 rem engines where JSON and modern regexp behavior are unreliable.
@@ -40,8 +40,8 @@ set "PS1=%TEMP%\coco-onlyoffice-desktop-%RANDOM%.ps1"
 >> "%PS1%" echo   $html = Get-Content -LiteralPath $path -Raw -Encoding UTF8
 >> "%PS1%" echo   $html = $html -replace '(["''])\./v1/', '$1../v1/'
 >> "%PS1%" echo   $html = $html -replace '(["''])\./assets/', ('$1' + $BaseUrl + '/onlyoffice/assets/')
->> "%PS1%" echo   $html = $html -replace '(src=["''].*?/onlyoffice/assets/.*?\.js)(["''])', '$1?v=ms7grzot$2'
->> "%PS1%" echo   $html = $html -replace '(href=["''].*?/onlyoffice/assets/.*?\.css)(["''])', '$1?v=ms7grzot$2'
+>> "%PS1%" echo   $html = $html -replace '(src=["''].*?/onlyoffice/assets/.*?\.js)(["''])', '$1?v=ms7gwg7x$2'
+>> "%PS1%" echo   $html = $html -replace '(href=["''].*?/onlyoffice/assets/.*?\.css)(["''])', '$1?v=ms7gwg7x$2'
 >> "%PS1%" echo   if ($ApiBaseUrl) { $html = $html -replace '</head>', '  ^<script src="./coco-runtime-config.js"^>^</script^>^</head^>' }
 >> "%PS1%" echo   Set-Content -LiteralPath $path -Value $html -Encoding UTF8
 >> "%PS1%" echo }
@@ -64,7 +64,7 @@ if not "%RC%"=="0" exit /b %RC%
 >> "%PLUGIN_DIR%\config.json" echo     {
 >> "%PLUGIN_DIR%\config.json" echo       "description": "Coco",
 >> "%PLUGIN_DIR%\config.json" echo       "descriptionLocale": { "zh": "Coco" },
->> "%PLUGIN_DIR%\config.json" echo       "url": "index.html?v=ms7grzot",
+>> "%PLUGIN_DIR%\config.json" echo       "url": "index.html?v=ms7gwg7x",
 >> "%PLUGIN_DIR%\config.json" echo       "icons": ["resources/light/icon.png", "resources/light/icon@2x.png"],
 >> "%PLUGIN_DIR%\config.json" echo       "isViewer": true,
 >> "%PLUGIN_DIR%\config.json" echo       "EditorsSupport": ["word", "cell", "slide"],
