@@ -56,7 +56,7 @@ $config = @{
   variations = @(@{
     description = 'Coco 文档智能助手'
     descriptionLocale = @{ zh = 'Coco 文档智能助手' }
-    url = 'index.html?v=ms7ccet9'
+    url = 'index.html?v=ms7d07e7'
     icons = @("resources/light/icon.png", "resources/light/icon@2x.png")
     isViewer = $true
     EditorsSupport = @('word', 'cell', 'slide')
@@ -79,7 +79,7 @@ if ($ApiBaseUrl) {
 }
 
 function Write-CocoRemoteShim([string]$FileName) {
-  $remote = "$BaseUrl/onlyoffice/$($FileName)?v=ms7ccet9"
+  $remote = "$BaseUrl/onlyoffice/$($FileName)?v=ms7d07e7"
   $html = (Invoke-WebRequest -UseBasicParsing $remote).Content
   $html = $html -replace '(["''])\./v1/', '$1../v1/'
   $html = $html -replace '(["''])\./assets/', "`$1$BaseUrl/onlyoffice/assets/"
@@ -96,7 +96,7 @@ Write-CocoRemoteShim 'workflow-editor.html'
 Write-Host "Coco ONLYOFFICE Desktop local shell installed:" -ForegroundColor Green
 Write-Host "  $PluginDir"
 Write-Host "Remote UI:"
-Write-Host "  $BaseUrl/onlyoffice/?v=ms7ccet9"
+Write-Host "  $BaseUrl/onlyoffice/?v=ms7d07e7"
 if ($ApiBaseUrl) {
   Write-Host "API:"
   Write-Host "  $ApiBaseUrl"

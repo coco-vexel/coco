@@ -26,22 +26,30 @@ mkdir "%PLUGIN_DIR%\resources\light" >nul 2>nul
 
 call :download "%BASE_URL%/onlyoffice/resources/light/icon.png" "%PLUGIN_DIR%\resources\light\icon.png" || exit /b 1
 call :download "%BASE_URL%/onlyoffice/resources/light/icon@2x.png" "%PLUGIN_DIR%\resources\light\icon@2x.png" || exit /b 1
-call :download "%BASE_URL%/onlyoffice/index.html?v=ms7ccet9" "%PLUGIN_DIR%\index.html" || exit /b 1
-call :download "%BASE_URL%/onlyoffice/settings.html?v=ms7ccet9" "%PLUGIN_DIR%\settings.html" || exit /b 1
-call :download "%BASE_URL%/onlyoffice/workflow-editor.html?v=ms7ccet9" "%PLUGIN_DIR%\workflow-editor.html" || exit /b 1
+call :download "%BASE_URL%/onlyoffice/index.html?v=ms7d07e7" "%PLUGIN_DIR%\index.html" || exit /b 1
+call :download "%BASE_URL%/onlyoffice/settings.html?v=ms7d07e7" "%PLUGIN_DIR%\settings.html" || exit /b 1
+call :download "%BASE_URL%/onlyoffice/workflow-editor.html?v=ms7d07e7" "%PLUGIN_DIR%\workflow-editor.html" || exit /b 1
 
-set "JS=%TEMP%\coco-onlyoffice-desktop-%RANDOM%.js"
-> "%JS%" echo var fs = new ActiveXObject('Scripting.FileSystemObject');
->> "%JS%" echo var dir = WScript.Arguments.Item(0), base = WScript.Arguments.Item(1), guid = WScript.Arguments.Item(2), api = WScript.Arguments.Item(3);
->> "%JS%" echo function readText(file){ var s=new ActiveXObject('ADODB.Stream'); s.Type=2; s.Charset='utf-8'; s.Open(); s.LoadFromFile(file); var t=s.ReadText(); s.Close(); return t; }
->> "%JS%" echo function writeText(file,text){ var s=new ActiveXObject('ADODB.Stream'); s.Type=2; s.Charset='utf-8'; s.Open(); s.WriteText(text); s.SaveToFile(file,2); s.Close(); }
->> "%JS%" echo var files = ['index.html','settings.html','workflow-editor.html'];
->> "%JS%" echo for (var i=0;i^<files.length;i++){ var p=dir+'\\'+files[i]; var html=readText(p); html=html.replace(/(["'])\.\/v1\//g,'$1../v1/').replace(/(["'])\.\/assets\//g,'$1'+base+'/onlyoffice/assets/'); if(api){ html=html.replace('</head>','  ^<script src="./coco-runtime-config.js"^>^</script^>^</head^>'); } writeText(p, html); }
->> "%JS%" echo function jsString(value){ return String(value).replace(/\\/g,'\\\\').replace(/"/g,'\\"').replace(/\r/g,'\\r').replace(/\n/g,'\\n'); }
->> "%JS%" echo if(api){ writeText(dir+'\\coco-runtime-config.js', 'window.__COCO_RUNTIME_CONFIG__ = {\r\n  "apiBaseUrl": "' + jsString(api) + '"\r\n};'); }
-cscript //nologo "%JS%" "%PLUGIN_DIR%" "%BASE_URL%" "%ASC_GUID%" "%API_BASE_URL%"
+rem Use PowerShell for post-processing. Windows Script Host may run old JScript
+rem engines where JSON and modern regexp behavior are unreliable.
+set "PS1=%TEMP%\coco-onlyoffice-desktop-%RANDOM%.ps1"
+> "%PS1%" echo param([string]$Dir,[string]$BaseUrl,[string]$ApiBaseUrl)
+>> "%PS1%" echo $ErrorActionPreference = 'Stop'
+>> "%PS1%" echo foreach ($name in @('index.html','settings.html','workflow-editor.html')) {
+>> "%PS1%" echo   $path = Join-Path $Dir $name
+>> "%PS1%" echo   $html = Get-Content -LiteralPath $path -Raw -Encoding UTF8
+>> "%PS1%" echo   $html = $html -replace '(["''])\./v1/', '$1../v1/'
+>> "%PS1%" echo   $html = $html -replace '(["''])\./assets/', ('$1' + $BaseUrl + '/onlyoffice/assets/')
+>> "%PS1%" echo   if ($ApiBaseUrl) { $html = $html -replace '</head>', '  ^<script src="./coco-runtime-config.js"^>^</script^>^</head^>' }
+>> "%PS1%" echo   Set-Content -LiteralPath $path -Value $html -Encoding UTF8
+>> "%PS1%" echo }
+>> "%PS1%" echo if ($ApiBaseUrl) {
+>> "%PS1%" echo   $runtime = 'window.__COCO_RUNTIME_CONFIG__ = ' + (@{ apiBaseUrl = $ApiBaseUrl } ^| ConvertTo-Json -Compress) + ';'
+>> "%PS1%" echo   Set-Content -LiteralPath (Join-Path $Dir 'coco-runtime-config.js') -Value $runtime -Encoding UTF8
+>> "%PS1%" echo }
+powershell -NoProfile -ExecutionPolicy Bypass -File "%PS1%" "%PLUGIN_DIR%" "%BASE_URL%" "%API_BASE_URL%"
 set "RC=%ERRORLEVEL%"
-del "%JS%" >nul 2>nul
+del "%PS1%" >nul 2>nul
 if not "%RC%"=="0" exit /b %RC%
 
 > "%PLUGIN_DIR%\config.json" echo {
