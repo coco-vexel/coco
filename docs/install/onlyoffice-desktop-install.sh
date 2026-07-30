@@ -53,7 +53,7 @@ cat > "$PLUGIN_DIR/config.json" <<JSON
     {
       "description": "Coco 文档智能助手",
       "descriptionLocale": { "zh": "Coco 文档智能助手" },
-      "url": "index.html?v=ms19fb30a0b49",
+      "url": "index.html?v=ms7ljk5f",
       "icons": [
         "resources/light/icon.png",
         "resources/light/icon@2x.png"
@@ -84,11 +84,11 @@ fi
 
 write_remote_loader() {
   file_name="$1"
-  html="$(curl -fsSL "$BASE_URL/onlyoffice/$file_name?v=ms19fb30a0b49" \
+  html="$(curl -fsSL "$BASE_URL/onlyoffice/$file_name?v=ms7ljk5f" \
     | sed -e 's#\(["'\''"]\)\./v1/#\1../v1/#g' \
           -e "s#\([\"']\)\./assets/#\1$BASE_URL/onlyoffice/assets/#g" \
-    | sed -E "s#(src=[\"'][^\"']*/onlyoffice/assets/[^\"']+\.js)([\"'])#\1?v=ms19fb30a0b49\2#g" \
-    | sed -E "s#(href=[\"'][^\"']*/onlyoffice/assets/[^\"']+\.css)([\"'])#\1?v=ms19fb30a0b49\2#g")"
+    | sed -E "s#(src=[\"'][^\"']*/onlyoffice/assets/[^\"']+\.js)([\"'])#\1?v=ms7ljk5f\2#g" \
+    | sed -E "s#(href=[\"'][^\"']*/onlyoffice/assets/[^\"']+\.css)([\"'])#\1?v=ms7ljk5f\2#g")"
   if [ -n "$API_BASE_URL" ]; then
     html="$(printf '%s' "$html" | sed -e 's#</head>#  <script src="./coco-runtime-config.js"></script></head>#')"
   fi
@@ -102,7 +102,7 @@ write_remote_loader "workflow-editor.html"
 echo "Coco ONLYOFFICE Desktop local shell installed:"
 echo "  $PLUGIN_DIR"
 echo "Remote UI:"
-echo "  $BASE_URL/onlyoffice/?v=ms19fb30a0b49"
+echo "  $BASE_URL/onlyoffice/?v=ms7ljk5f"
 if [ -n "$API_BASE_URL" ]; then
   echo "API:"
   echo "  $API_BASE_URL"
