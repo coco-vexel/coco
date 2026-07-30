@@ -1,10 +1,10 @@
 {
   "name": "Coco Office Plugins",
-  "version": "ms6xwxpn",
+  "version": "ms78gkrq",
   "channel": "stable",
   "packageDir": "coco",
   "baseUrl": "https://coco-vexel.github.io/coco",
-  "generatedAt": "2026-07-30T03:18:14.638Z",
+  "generatedAt": "2026-07-30T08:14:40.557Z",
   "pages": {
     "home": "https://coco-vexel.github.io/coco/index.html",
     "install": "https://coco-vexel.github.io/coco/install.html"

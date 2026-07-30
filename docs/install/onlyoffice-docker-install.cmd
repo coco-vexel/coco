@@ -22,9 +22,9 @@ if exist "%PLUGIN_DIR%" rmdir /s /q "%PLUGIN_DIR%"
 mkdir "%PLUGIN_DIR%\resources\light" >nul 2>nul
 call :download "%BASE_URL%/onlyoffice/resources/light/icon.png" "%PLUGIN_DIR%\resources\light\icon.png" || exit /b 1
 call :download "%BASE_URL%/onlyoffice/resources/light/icon@2x.png" "%PLUGIN_DIR%\resources\light\icon@2x.png" || exit /b 1
-call :download "%BASE_URL%/onlyoffice/index.html?v=ms6xwxpn" "%PLUGIN_DIR%\index.html" || exit /b 1
-call :download "%BASE_URL%/onlyoffice/settings.html?v=ms6xwxpn" "%PLUGIN_DIR%\settings.html" || exit /b 1
-call :download "%BASE_URL%/onlyoffice/workflow-editor.html?v=ms6xwxpn" "%PLUGIN_DIR%\workflow-editor.html" || exit /b 1
+call :download "%BASE_URL%/onlyoffice/index.html?v=ms78gkrq" "%PLUGIN_DIR%\index.html" || exit /b 1
+call :download "%BASE_URL%/onlyoffice/settings.html?v=ms78gkrq" "%PLUGIN_DIR%\settings.html" || exit /b 1
+call :download "%BASE_URL%/onlyoffice/workflow-editor.html?v=ms78gkrq" "%PLUGIN_DIR%\workflow-editor.html" || exit /b 1
 
 rem Use a temporary PowerShell helper for JSON/string rewriting. Windows Script Host
 rem JScript can be too old on some machines and may not provide JSON, which previously
@@ -61,7 +61,7 @@ if not "%RC%"=="0" exit /b %RC%
 >> "%PLUGIN_DIR%\config.json" echo     {
 >> "%PLUGIN_DIR%\config.json" echo       "description": "Coco",
 >> "%PLUGIN_DIR%\config.json" echo       "descriptionLocale": { "zh": "Coco" },
->> "%PLUGIN_DIR%\config.json" echo       "url": "index.html?v=ms6xwxpn",
+>> "%PLUGIN_DIR%\config.json" echo       "url": "index.html?v=ms78gkrq",
 >> "%PLUGIN_DIR%\config.json" echo       "icons": ["resources/light/icon.png", "resources/light/icon@2x.png"],
 >> "%PLUGIN_DIR%\config.json" echo       "isViewer": true,
 >> "%PLUGIN_DIR%\config.json" echo       "EditorsSupport": ["word", "cell", "slide"],
@@ -89,7 +89,7 @@ echo   docker cp "%PLUGIN_DIR%\." "%CONTAINER%:%DEPLOY_PATH%"
 echo   docker restart "%CONTAINER%"
 echo.
 echo Remote UI:
-echo   %BASE_URL%/onlyoffice/?v=ms6xwxpn
+echo   %BASE_URL%/onlyoffice/?v=ms78gkrq
 echo API:
 echo   %API_BASE_URL%
 

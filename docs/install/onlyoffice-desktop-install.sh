@@ -54,7 +54,7 @@ cat > "$PLUGIN_DIR/config.json" <<JSON
     {
       "description": "Coco 文档智能助手",
       "descriptionLocale": { "zh": "Coco 文档智能助手" },
-      "url": "index.html?v=ms6xwxpn",
+      "url": "index.html?v=ms78gkrq",
       "icons": [
         "resources/light/icon.png",
         "resources/light/icon@2x.png"
@@ -83,7 +83,7 @@ JSON
 
 write_remote_loader() {
   file_name="$1"
-  curl -fsSL "$BASE_URL/onlyoffice/$file_name?v=ms6xwxpn" \
+  curl -fsSL "$BASE_URL/onlyoffice/$file_name?v=ms78gkrq" \
     | sed -e 's#\(["'\''"]\)\./v1/#\1../v1/#g' \
           -e "s#\([\"']\)\./assets/#\1$BASE_URL/onlyoffice/assets/#g" \
           -e 's#</head>#  <script src="./coco-runtime-config.js"></script></head>#' \
@@ -97,7 +97,7 @@ write_remote_loader "workflow-editor.html"
 echo "Coco ONLYOFFICE Desktop local shell installed:"
 echo "  $PLUGIN_DIR"
 echo "Remote UI:"
-echo "  $BASE_URL/onlyoffice/?v=ms6xwxpn"
+echo "  $BASE_URL/onlyoffice/?v=ms78gkrq"
 echo "API:"
 echo "  $API_BASE_URL"
 echo "Fully quit and restart ONLYOFFICE Desktop Editors."
