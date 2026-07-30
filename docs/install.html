@@ -237,7 +237,7 @@
       <section id="overview" class="hero">
       <div>
           <h1>Coco 插件安装部署</h1>
-          <p>将整个 coco 目录发布为静态资源后，从本页执行安装。WPS 和 Microsoft Office 走远端入口；ONLYOFFICE Docker/Desktop 写入本地轻量入口壳，再从当前发布地址加载 UI 资源。按你的 Office 环境选择脚本，执行后重启宿主即可。</p>
+          <p>将整个 coco 目录发布为静态资源后，从本页执行安装。WPS 和 Microsoft Office 走远端入口；ONLYOFFICE Docker 支持远端 pluginsData 或容器本地 sdkjs-plugins；ONLYOFFICE Desktop 写入本地轻量入口壳，再从当前发布地址加载 UI 资源。按你的 Office 环境选择对应方式即可。</p>
           <div class="tag-row">
             <span class="tag">远端资源</span>
             <span class="tag">轻量入口</span>
@@ -311,31 +311,44 @@ COCO_RELEASE_BASE_URL="__DESKTOP_BASE_URL__" COCO_DESKTOP_API_BASE_URL="__DESKTO
 
       <section id="onlyoffice-docker" class="section">
         <h2>ONLYOFFICE Docker</h2>
-        <p>生成 ONLYOFFICE Document Server 插件配置目录，config.json.url 指向本地 index.html；入口壳会从当前发布地址加载 UI 资源。运维按自身 Docker、Compose、K8s 或镜像流程部署到 sdkjs-plugins 后重启服务。</p>
+        <p>支持两种方式：推荐在业务系统生成 DocsAPI.DocEditor 配置时注入远端 pluginsData；如果业务系统暂时不能改配置，也可以沿用容器本地 sdkjs-plugins 安装脚本。</p>
         <div class="tabs">
-          <input type="radio" name="oo-docker-tabs" id="oo-docker-unix" checked />
-          <input type="radio" name="oo-docker-tabs" id="oo-docker-win" />
+          <input type="radio" name="oo-docker-tabs" id="oo-docker-config" checked />
+          <input type="radio" name="oo-docker-tabs" id="oo-docker-local" />
           <div class="tab-labels">
-            <label for="oo-docker-unix">macOS / Linux</label>
-            <label for="oo-docker-win">Windows</label>
+            <label for="oo-docker-config">远端 pluginsData</label>
+            <label for="oo-docker-local">容器 sdkjs-plugins</label>
           </div>
           <div class="tab-panels">
-            <div class="tab-panel"><div class="cmd" data-label="Shell"><pre>curl -fsSL __BASE_URL__/install/onlyoffice-docker-install.sh -o onlyoffice-docker-install.sh
-COCO_RELEASE_BASE_URL="__BASE_URL__" bash onlyoffice-docker-install.sh</pre>
+            <div class="tab-panel"><div class="cmd" data-label="JavaScript"><pre>editorConfig: {
+  plugins: {
+    pluginsData: [
+      "__BASE_URL__/onlyoffice/config.json"
+    ],
+    autostart: [
+      "asc.{8D9B5A2C-1F3E-4C7A-9B0D-2E6F1A4C8B30}"
+    ]
+  }
+}</pre>
+              </div>
+              <div class="cmd" data-label="config.json"><pre>__BASE_URL__/onlyoffice/config.json</pre>
             </div></div>
             <div class="tab-panel">
+              <div class="cmd" data-label="Shell"><pre>curl -fsSL __BASE_URL__/install/onlyoffice-docker-install.sh -o onlyoffice-docker-install.sh
+COCO_DOCKER_APPLY=1 COCO_RELEASE_BASE_URL="__BASE_URL__" bash onlyoffice-docker-install.sh onlyoffice-documentserver</pre>
+              </div>
               <div class="cmd" data-label="PowerShell"><pre>$script = Join-Path $env:TEMP "coco-onlyoffice-docker-install.ps1"
 Invoke-WebRequest __BASE_URL__/install/onlyoffice-docker-install.ps1 -OutFile $script
-powershell -ExecutionPolicy Bypass -File $script -BaseUrl "__BASE_URL__"</pre>
+powershell -ExecutionPolicy Bypass -File $script -Container onlyoffice-documentserver -BaseUrl "__BASE_URL__" -Apply</pre>
               </div>
               <div class="cmd" data-label="CMD"><pre>set "SCRIPT=%TEMP%\coco-onlyoffice-docker-install.cmd"
 curl -L -f -o "%SCRIPT%" "__BASE_URL__/install/onlyoffice-docker-install.cmd" || certutil -urlcache -split -f "__BASE_URL__/install/onlyoffice-docker-install.cmd" "%SCRIPT%"
-call "%SCRIPT%" onlyoffice-documentserver "__BASE_URL__"</pre>
+call "%SCRIPT%" onlyoffice-documentserver "__BASE_URL__" apply</pre>
               </div>
             </div>
           </div>
         </div>
-        <div class="note">默认只在 Downloads/coco-onlyoffice-plugin/asc.{GUID} 生成配置目录并打印部署路径。仅本地联调时，可 PowerShell 增加 -Apply，Shell 使用 COCO_DOCKER_APPLY=1，CMD 第三个参数传 apply 后自动 docker cp 并重启容器。</div>
+        <div class="note">远端模式不需要改 Document Server 容器，但要求接入方能修改 DocEditor 初始化配置；本地模式会把插件入口壳复制到容器的 sdkjs-plugins，适合无法修改业务系统配置的场景。</div>
       </section>
 
       <section id="microsoft" class="section">
@@ -380,12 +393,14 @@ Admin Center: Integrated apps -> Upload custom apps</pre>
     (() => {
       const baseUrl = new URL(".", window.location.href).href.replace(/\/$/, "");
       let desktopBaseUrl = baseUrl;
+      let desktopApiBaseUrl = "https://coco-vexel.github.io/api/v1";
       if (window.location.protocol === "http:" && window.location.hostname === "localhost" && window.location.port === "8088") {
         desktopBaseUrl = "https://localhost:8443";
+        desktopApiBaseUrl = "https://localhost:8443/api/v1";
       } else if (window.location.protocol === "http:" && window.location.hostname === "127.0.0.1" && window.location.port === "8088") {
         desktopBaseUrl = "https://127.0.0.1:8443";
+        desktopApiBaseUrl = "https://127.0.0.1:8443/api/v1";
       }
-      const desktopApiBaseUrl = "https://coco-vexel.github.io/api/v1";
       const wpsEntryUrl = baseUrl + "/coco-wps/worker/word/";
       document.querySelectorAll("pre").forEach((node) => {
         node.textContent = node.textContent

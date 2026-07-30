@@ -28,9 +28,9 @@ mkdir "%PLUGIN_DIR%\resources\light" >nul 2>nul
 
 call :download "%BASE_URL%/onlyoffice/resources/light/icon.png" "%PLUGIN_DIR%\resources\light\icon.png" || exit /b 1
 call :download "%BASE_URL%/onlyoffice/resources/light/icon@2x.png" "%PLUGIN_DIR%\resources\light\icon@2x.png" || exit /b 1
-call :download "%BASE_URL%/onlyoffice/index.html?v=ms2nsg9t" "%PLUGIN_DIR%\index.html" || exit /b 1
-call :download "%BASE_URL%/onlyoffice/settings.html?v=ms2nsg9t" "%PLUGIN_DIR%\settings.html" || exit /b 1
-call :download "%BASE_URL%/onlyoffice/workflow-editor.html?v=ms2nsg9t" "%PLUGIN_DIR%\workflow-editor.html" || exit /b 1
+call :download "%BASE_URL%/onlyoffice/index.html?v=ms6x01eh" "%PLUGIN_DIR%\index.html" || exit /b 1
+call :download "%BASE_URL%/onlyoffice/settings.html?v=ms6x01eh" "%PLUGIN_DIR%\settings.html" || exit /b 1
+call :download "%BASE_URL%/onlyoffice/workflow-editor.html?v=ms6x01eh" "%PLUGIN_DIR%\workflow-editor.html" || exit /b 1
 
 set "JS=%TEMP%\coco-onlyoffice-desktop-%RANDOM%.js"
 > "%JS%" echo var fs = new ActiveXObject('Scripting.FileSystemObject');
@@ -41,7 +41,8 @@ set "JS=%TEMP%\coco-onlyoffice-desktop-%RANDOM%.js"
 >> "%JS%" echo for (var i=0;i^<files.length;i++){ var p=dir+'\\'+files[i]; var html=readText(p); html=html.replace(/(["'])\.\/v1\//g,'$1../v1/').replace(/(["'])\.\/assets\//g,'$1'+base+'/onlyoffice/assets/').replace('</head>','  ^<script src="./coco-runtime-config.js"^>^</script^>^</head^>'); writeText(p, html); }
 >> "%JS%" echo var config = {name:'Coco',nameLocale:{zh:'Coco',en:'Coco'},guid:'asc.{8D9B5A2C-1F3E-4C7A-9B0D-2E6F1A4C8B30}',version:'0.0.1',minVersion:'7.0.0',variations:[{description:'Coco',descriptionLocale:{zh:'Coco'},url:'index.html',icons:['resources/light/icon.png','resources/light/icon@2x.png'],isViewer:true,EditorsSupport:['word','cell','slide'],isVisual:true,isModal:false,isInsideMode:true,initDataType:'none',initData:'',isUpdateOften:false,buttons:[],size:[320,600],events:[]}]};
 >> "%JS%" echo writeText(dir+'\\config.json', JSON.stringify(config, null, 2));
->> "%JS%" echo writeText(dir+'\\coco-runtime-config.js', 'window.__COCO_RUNTIME_CONFIG__ = ' + JSON.stringify({apiBaseUrl: api}, null, 2) + ';');
+>> "%JS%" echo function jsString(value){ return String(value).replace(/\\/g,'\\\\').replace(/"/g,'\\"').replace(/\r/g,'\\r').replace(/\n/g,'\\n'); }
+>> "%JS%" echo writeText(dir+'\\coco-runtime-config.js', 'window.__COCO_RUNTIME_CONFIG__ = {\r\n  "apiBaseUrl": "' + jsString(api) + '"\r\n};');
 cscript //nologo "%JS%" "%PLUGIN_DIR%" "%BASE_URL%" "%ASC_GUID%" "%API_BASE_URL%"
 set "RC=%ERRORLEVEL%"
 del "%JS%" >nul 2>nul

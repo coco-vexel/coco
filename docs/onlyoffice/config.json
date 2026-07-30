@@ -13,10 +13,10 @@
       "descriptionLocale": {
         "zh": "Coco 文档智能助手"
       },
-      "url": "https://coco-vexel.github.io/coco/onlyoffice/?v=ms2nsg9t",
+      "url": "./?v=ms6x01eh",
       "icons": [
-        "https://coco-vexel.github.io/coco/onlyoffice/resources/light/icon.png",
-        "https://coco-vexel.github.io/coco/onlyoffice/resources/light/icon@2x.png"
+        "resources/light/icon.png",
+        "resources/light/icon@2x.png"
       ],
       "isViewer": true,
       "EditorsSupport": [

@@ -24,6 +24,9 @@ $PluginDir = Join-Path $OutDir $AscGuid
 $DockerCopySource = Join-Path $PluginDir '.'
 $PluginRoot = '/var/www/onlyoffice/documentserver/sdkjs-plugins'
 
+# ONLYOFFICE Docker loads plugin files only from sdkjs-plugins inside the
+# Document Server container. Build a small local shim instead of trying to
+# register the remote /coco/onlyoffice URL directly.
 if (Test-Path $PluginDir) { Remove-Item -Recurse -Force $PluginDir }
 New-Item -ItemType Directory -Force -Path $PluginDir | Out-Null
 New-Item -ItemType Directory -Force -Path (Join-Path $PluginDir 'resources\light') | Out-Null
@@ -39,7 +42,7 @@ $config = @{
   variations = @(@{
     description = 'Coco 文档智能助手'
     descriptionLocale = @{ zh = 'Coco 文档智能助手' }
-    url = 'index.html'
+    url = 'index.html?v=ms6x01eh'
     icons = @("resources/light/icon.png", "resources/light/icon@2x.png")
     isViewer = $true
     EditorsSupport = @('word', 'cell', 'slide')
@@ -60,10 +63,14 @@ $runtimeConfig = 'window.__COCO_RUNTIME_CONFIG__ = ' + (@{ apiBaseUrl = $ApiBase
 Set-Content -Encoding UTF8 -LiteralPath (Join-Path $PluginDir 'coco-runtime-config.js') -Value $runtimeConfig
 
 function Write-CocoRemoteShim([string]$FileName) {
-  $remote = "$BaseUrl/onlyoffice/$($FileName)?v=ms2nsg9t"
+  $remote = "$BaseUrl/onlyoffice/$($FileName)?v=ms6x01eh"
   $html = (Invoke-WebRequest -UseBasicParsing $remote).Content
+  # Plugin APIs are served by Document Server next to this shim.
   $html = $html -replace '(["''])\./v1/', '$1../v1/'
+  # Keep heavy assets on the Coco release host; the container stores only stable HTML shims.
+  # This lets server-side Coco updates take effect without reinstalling the Docker plugin.
   $html = $html -replace '(["''])\./assets/', "`$1$BaseUrl/onlyoffice/assets/"
+  # apiBaseUrl must exist before Vite's module bundle evaluates in the iframe.
   $html = $html -replace '</head>', '  <script src="./coco-runtime-config.js"></script></head>'
   Set-Content -Encoding UTF8 -LiteralPath (Join-Path $PluginDir $FileName) -Value $html
 }
@@ -83,7 +90,7 @@ Write-Host ('  docker cp "' + $DockerCopySource + '" "' + $Container + ':' + $De
 Write-Host "  docker restart $Container"
 Write-Host ""
 Write-Host "Remote UI:"
-Write-Host "  $BaseUrl/onlyoffice/?v=ms2nsg9t"
+Write-Host "  $BaseUrl/onlyoffice/?v=ms6x01eh"
 Write-Host "API:"
 Write-Host "  $ApiBaseUrl"
 
