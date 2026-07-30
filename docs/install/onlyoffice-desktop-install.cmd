@@ -26,9 +26,9 @@ mkdir "%PLUGIN_DIR%\resources\light" >nul 2>nul
 
 call :download "%BASE_URL%/onlyoffice/resources/light/icon.png" "%PLUGIN_DIR%\resources\light\icon.png" || exit /b 1
 call :download "%BASE_URL%/onlyoffice/resources/light/icon@2x.png" "%PLUGIN_DIR%\resources\light\icon@2x.png" || exit /b 1
-call :download "%BASE_URL%/onlyoffice/index.html?v=ms7dider" "%PLUGIN_DIR%\index.html" || exit /b 1
-call :download "%BASE_URL%/onlyoffice/settings.html?v=ms7dider" "%PLUGIN_DIR%\settings.html" || exit /b 1
-call :download "%BASE_URL%/onlyoffice/workflow-editor.html?v=ms7dider" "%PLUGIN_DIR%\workflow-editor.html" || exit /b 1
+call :download "%BASE_URL%/onlyoffice/index.html?v=ms7e0gz5" "%PLUGIN_DIR%\index.html" || exit /b 1
+call :download "%BASE_URL%/onlyoffice/settings.html?v=ms7e0gz5" "%PLUGIN_DIR%\settings.html" || exit /b 1
+call :download "%BASE_URL%/onlyoffice/workflow-editor.html?v=ms7e0gz5" "%PLUGIN_DIR%\workflow-editor.html" || exit /b 1
 
 rem Use PowerShell for post-processing. Windows Script Host may run old JScript
 rem engines where JSON and modern regexp behavior are unreliable.
