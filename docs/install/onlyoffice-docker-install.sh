@@ -43,7 +43,7 @@ cat > "$PLUGIN_DIR/config.json" <<JSON
     {
       "description": "Coco 文档智能助手",
       "descriptionLocale": { "zh": "Coco 文档智能助手" },
-      "url": "index.html?v=ms8vbr9y",
+      "url": "index.html?v=ms8wofto",
       "icons": [
         "resources/light/icon.png",
         "resources/light/icon@2x.png"
@@ -75,7 +75,7 @@ write_remote_loader() {
   # Plugin APIs are served by Document Server next to this shim. Heavy hashed
   # assets stay on the Coco release host, and apiBaseUrl must exist before
   # Vite's module bundle evaluates in the iframe.
-  curl -fsSL "$BASE_URL/onlyoffice/$file_name?v=ms8vbr9y" \
+  curl -fsSL "$BASE_URL/onlyoffice/$file_name?v=ms8wofto" \
     | sed -e 's#\(["'\''"]\)\./v1/#\1../v1/#g' \
           -e "s#\([\"']\)\./assets/#\1$BASE_URL/onlyoffice/assets/#g" \
           -e 's#</head>#  <script src="./coco-runtime-config.js"></script></head>#' \
@@ -97,7 +97,7 @@ echo "  docker cp '$PLUGIN_DIR/.' '$CONTAINER:$DEPLOY_PATH'"
 echo "  docker restart '$CONTAINER'"
 echo
 echo "Remote UI:"
-echo "  $BASE_URL/onlyoffice/?v=ms8vbr9y"
+echo "  $BASE_URL/onlyoffice/?v=ms8wofto"
 echo "API:"
 echo "  $API_BASE_URL"
 

@@ -4,6 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Coco 安装部署</title>
+  <link rel="icon" type="image/png" href="./assets/brand-logo.png" />
+  <link rel="apple-touch-icon" href="./assets/brand-logo.png" />
   <style>
     :root {
       color-scheme: light;
@@ -57,14 +59,16 @@
       min-width: 0;
     }
     .sidenav {
-      position: sticky;
+      position: fixed;
       top: 84px;
+      width: 220px;
       background: #fff;
       border: 1px solid var(--line);
       border-radius: 8px;
       padding: 12px;
       min-width: 0;
     }
+    .content { grid-column: 2; }
     .sidenav a {
       display: flex;
       align-items: center;
@@ -377,6 +381,7 @@ Admin Center: Integrated apps -> Upload custom apps</pre>
             </div></div>
           </div>
         </div>
+        <div class="note">Windows 脚本会下载 manifest 并登记共享目录；完成后仍需在 Word 中手动添加一次：打开 Word → 插入 → 我的加载项 → 共享文件夹 → 选择 Coco Microsoft → 点击右下角「添加」。如果看不到 Coco，先点加载项窗口右上角「刷新」。</div>
       </section>
 
       <section id="verify" class="section">
@@ -384,7 +389,7 @@ Admin Center: Integrated apps -> Upload custom apps</pre>
         <div class="steps">
           <div class="step"><strong>WPS：</strong>重启 WPS Writer，确认功能区出现 Coco 入口，点击后右侧面板正常打开。</div>
           <div class="step"><strong>ONLYOFFICE：</strong>打开任意文档，进入插件菜单，确认 Coco 插件能打开侧边栏。</div>
-          <div class="step"><strong>Microsoft Office：</strong>重启 Word，插入我的加载项，选择共享文件夹中的 Coco。</div>
+          <div class="step"><strong>Microsoft Office：</strong>重启 Word，打开 插入 → 我的加载项 → 共享文件夹，选择 Coco Microsoft 后点击「添加」，再确认功能区出现「打开 Coco」。</div>
         </div>
       </section>
     </div>
