@@ -16,6 +16,7 @@
       --blue: #3458e6;
       --green: #087f5b;
       --gold: #a16207;
+      --red: #c2413b;
     }
     * { box-sizing: border-box; }
     body {
@@ -50,7 +51,7 @@
       font-size: 14px;
     }
     .hero {
-      min-height: calc(100vh - 64px);
+      min-height: min(780px, calc(100vh - 144px));
       display: grid;
       grid-template-columns: minmax(0, 0.92fr) minmax(420px, 1.08fr);
       gap: 42px;
@@ -74,6 +75,23 @@
     }
     .primary { background: var(--blue); color: #fff; }
     .secondary { border: 1px solid var(--line); color: var(--ink); }
+    .host-proof { margin-top: 28px; }
+    .host-proof-label { color: var(--muted); font-size: 13px; margin-bottom: 10px; }
+    .host-proof-list { display: flex; gap: 8px; flex-wrap: wrap; }
+    .host-chip {
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 6px 11px 6px 7px;
+      background: #fff;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .host-chip img { width: 24px; height: 24px; border-radius: 5px; }
+    .host-chip small { color: var(--green); font-size: 11px; font-weight: 800; }
     .stats { display: flex; gap: 26px; margin-top: 34px; color: var(--muted); font-size: 14px; flex-wrap: wrap; }
     .stats strong { display: block; color: var(--ink); font-size: 24px; margin-bottom: 4px; }
     .product {
@@ -121,9 +139,43 @@
     .pill strong { display: block; margin-bottom: 5px; }
     .pill span { color: var(--muted); font-size: 13px; line-height: 1.55; }
     .run { margin-top: 18px; height: 42px; border-radius: 8px; background: var(--blue); color: white; display: flex; align-items: center; justify-content: center; font-weight: 800; }
-    section { max-width: 1180px; margin: 0 auto; padding: 56px 32px; }
+    section { max-width: 1180px; margin: 0 auto; padding: 64px 32px; scroll-margin-top: 64px; }
     .section-title { font-size: 30px; margin: 0 0 14px; }
     .section-copy { color: var(--muted); line-height: 1.7; max-width: 760px; margin: 0 0 26px; }
+    .section-kicker { color: var(--blue); font-size: 13px; font-weight: 800; margin-bottom: 10px; }
+    .section-band { background: var(--soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .capabilities { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 44px; }
+    .capability {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 14px;
+      padding: 22px 0;
+      border-top: 1px solid var(--line);
+    }
+    .capability:nth-child(-n + 2) { border-top: 2px solid var(--ink); }
+    .capability-index { color: var(--blue); font-size: 13px; font-weight: 900; padding-top: 3px; }
+    .capability h3 { margin: 0 0 8px; font-size: 18px; }
+    .capability p { margin: 0; color: var(--muted); line-height: 1.65; }
+    .plugin-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .plugin {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 20px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 250px;
+    }
+    .plugin-head { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+    .plugin-icon { width: 48px; height: 48px; border-radius: 8px; border: 1px solid var(--line); }
+    .plugin-title { min-width: 0; }
+    .plugin-title h3 { margin: 0 0 5px; font-size: 18px; }
+    .plugin-title span { color: var(--muted); font-size: 12px; }
+    .status { margin-left: auto; color: var(--green); background: #eaf7f1; border-radius: 999px; padding: 5px 8px; font-size: 11px; font-weight: 900; }
+    .plugin p { color: var(--muted); line-height: 1.65; margin: 0 0 18px; }
+    .plugin-meta { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 20px; }
+    .plugin-meta span { background: var(--soft); border: 1px solid var(--line); border-radius: 6px; padding: 5px 7px; color: #374151; font-size: 12px; }
+    .plugin-link { margin-top: auto; color: var(--blue); font-size: 14px; font-weight: 800; }
     .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
     .card { border: 1px solid var(--line); border-radius: 8px; padding: 20px; background: #fff; }
     .card h3 { margin: 0 0 10px; font-size: 18px; }
@@ -139,7 +191,9 @@
       h1 { font-size: 42px; }
       .mock { grid-template-columns: 1fr; }
       .assistant { border-left: 0; border-top: 1px solid var(--line); }
-      .cards, .platforms { grid-template-columns: 1fr; }
+      .cards, .platforms, .plugin-grid, .capabilities { grid-template-columns: 1fr; }
+      .capability:nth-child(2) { border-top: 1px solid var(--line); }
+      .host-proof-list { display: grid; grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -150,7 +204,8 @@
       <span>Coco</span>
     </a>
     <div class="nav-links">
-      <a href="#agent">智能体</a>
+      <a href="#capabilities">核心能力</a>
+      <a href="#plugins">插件支持</a>
       <a href="#skills">技能</a>
       <a href="#workflows">工作流</a>
       <a href="./install.html">部署</a>
@@ -165,7 +220,15 @@
       <p class="lead">让智能体直接理解、拆解和处理文档任务。从读取上下文、调用 Skill、执行工作流，到人工确认和写回，Coco 把复杂文档工作变成可复用、可追踪的处理链路。</p>
       <div class="actions">
         <a class="primary" href="./install.html">查看安装方式</a>
-        <a class="secondary" href="#agent">了解智能体能力</a>
+        <a class="secondary" href="#capabilities">查看核心能力</a>
+      </div>
+      <div class="host-proof" aria-label="支持的 Office 插件">
+        <div class="host-proof-label">一次安装，在熟悉的文档环境中直接使用</div>
+        <div class="host-proof-list">
+          <a class="host-chip" href="./install.html#wps"><img src="./coco-wps/icons/coco-ribbon.png" alt="" /><span>WPS Office</span><small>已支持</small></a>
+          <a class="host-chip" href="./install.html#microsoft"><img src="./microsoft/assets/icon-32.png" alt="" /><span>Microsoft Word</span><small>已支持</small></a>
+          <a class="host-chip" href="./install.html#onlyoffice-desktop"><img src="./onlyoffice/resources/light/icon.png" alt="" /><span>ONLYOFFICE</span><small>已支持</small></a>
+        </div>
       </div>
       <div class="stats">
         <div><strong>Agent</strong>文档任务规划</div>
@@ -191,6 +254,48 @@
       </div>
     </div>
   </main>
+
+  <section id="capabilities">
+    <div class="section-kicker">CORE CAPABILITIES</div>
+    <h2 class="section-title">从理解文档到安全写回，完整覆盖文档任务</h2>
+    <p class="section-copy">Coco 不只是一个聊天侧边栏。它连接文档结构、AI 模型、可复用技能和工作流，让复杂任务能够被理解、执行、确认并真正落回文档。</p>
+    <div class="capabilities">
+      <article class="capability"><div class="capability-index">01</div><div><h3>文档上下文理解</h3><p>读取正文、段落、表格、选区、批注、修订和样式，让模型基于当前文档结构工作，而不是只看到一段复制文本。</p></div></article>
+      <article class="capability"><div class="capability-index">02</div><div><h3>智能排版与模板提取</h3><p>识别版式骨架、提取排版模板并应用到目标文档，支持公文、报告等对格式一致性要求高的场景。</p></div></article>
+      <article class="capability"><div class="capability-index">03</div><div><h3>审校、改写与内容生成</h3><p>覆盖校对、润色、翻译、摘要、续写和正式文本草拟，并可按选区、段落或全文控制处理范围。</p></div></article>
+      <article class="capability"><div class="capability-index">04</div><div><h3>多步骤工作流执行</h3><p>把读取、分块、模型处理、人工确认、写回和复核串成可重复执行的流程，减少复杂任务中的手工切换。</p></div></article>
+      <article class="capability"><div class="capability-index">05</div><div><h3>Skill 能力扩展</h3><p>将提示词、处理规则、文档操作和业务经验封装为 Skill，既能直接使用内置能力，也能沉淀团队专属技能。</p></div></article>
+      <article class="capability"><div class="capability-index">06</div><div><h3>可确认的安全写回</h3><p>在真正修改文档前展示处理过程和结果，让用户确认关键操作，降低模型输出直接影响原文档的风险。</p></div></article>
+    </div>
+  </section>
+
+  <div class="section-band">
+    <section id="plugins">
+      <div class="section-kicker">OFFICE PLUGINS</div>
+      <h2 class="section-title">同一套 Coco 能力，支持三个主流文档平台</h2>
+      <p class="section-copy">无需改变日常办公习惯。Coco 通过原生插件进入文档编辑器，在当前文档旁完成对话、排版、Skill 和 Workflow 操作。</p>
+      <div class="plugin-grid">
+        <article class="plugin">
+          <div class="plugin-head"><img class="plugin-icon" src="./coco-wps/icons/coco-ribbon.png" alt="Coco for WPS" /><div class="plugin-title"><h3>WPS Office</h3><span>WPS Writer 插件</span></div><span class="status">已支持</span></div>
+          <p>在 WPS 文字中打开 Coco 侧边栏，直接读取当前文档、执行技能与工作流并写回处理结果。</p>
+          <div class="plugin-meta"><span>智能对话</span><span>排版</span><span>Workflow</span></div>
+          <a class="plugin-link" href="./install.html#wps">查看 WPS 安装方式 →</a>
+        </article>
+        <article class="plugin">
+          <div class="plugin-head"><img class="plugin-icon" src="./microsoft/assets/icon-80.png" alt="Coco for Microsoft Word" /><div class="plugin-title"><h3>Microsoft Word</h3><span>Office Add-in</span></div><span class="status">已支持</span></div>
+          <p>通过 Microsoft Office 加载项接入 Coco，在 Word 中调用统一的智能体、技能和文档处理能力。</p>
+          <div class="plugin-meta"><span>Office Add-in</span><span>Skill</span><span>文档写回</span></div>
+          <a class="plugin-link" href="./install.html#microsoft">查看 Microsoft 安装方式 →</a>
+        </article>
+        <article class="plugin">
+          <div class="plugin-head"><img class="plugin-icon" src="./onlyoffice/resources/light/icon@2x.png" alt="Coco for ONLYOFFICE" /><div class="plugin-title"><h3>ONLYOFFICE</h3><span>Desktop / Docker 插件</span></div><span class="status">已支持</span></div>
+          <p>支持 ONLYOFFICE Desktop Editors 与 Document Server 场景，在侧边栏内完成文档理解、排版与写回。</p>
+          <div class="plugin-meta"><span>Desktop</span><span>Docker</span><span>智能排版</span></div>
+          <a class="plugin-link" href="./install.html#onlyoffice-desktop">查看 ONLYOFFICE 安装方式 →</a>
+        </article>
+      </div>
+    </section>
+  </div>
 
   <section id="agent">
     <h2 class="section-title">让智能体进入文档现场</h2>
