@@ -3,6 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Coco 是运行在 WPS、Microsoft Word 和 ONLYOFFICE 中的文档智能助手，支持文档理解、智能排版、专业 Skill 与可复用 Workflow。" />
+  <meta property="og:title" content="Coco 文档智能助手" />
+  <meta property="og:description" content="在熟悉的文档编辑器中，完成理解、排版、内容处理与安全写回。" />
+  <meta property="og:type" content="website" />
   <title>Coco 文档智能助手</title>
   <link rel="icon" type="image/png" href="./assets/brand-logo.png" />
   <link rel="apple-touch-icon" href="./assets/brand-logo.png" />
@@ -10,326 +14,586 @@
     :root {
       color-scheme: light;
       --ink: #111827;
-      --muted: #5b6472;
-      --line: #e5e7eb;
-      --soft: #f7f8fb;
+      --muted: #5f6877;
+      --line: #e3e7ee;
+      --soft: #f6f8fb;
       --blue: #3458e6;
+      --blue-soft: #edf2ff;
       --green: #087f5b;
-      --gold: #a16207;
-      --red: #c2413b;
+      --white: #ffffff;
     }
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
       color: var(--ink);
-      background: #ffffff;
+      overflow-x: hidden;
+      background: var(--white);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
     }
     a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    a:focus-visible, summary:focus-visible { outline: 3px solid rgba(52, 88, 230, 0.28); outline-offset: 3px; }
+
     .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
       height: 64px;
-      border-bottom: 1px solid var(--line);
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 24px;
       padding: 0 32px;
-      position: sticky;
-      top: 0;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(12px);
-      z-index: 10;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(14px);
     }
-    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 850; }
     .brand img { width: 30px; height: 30px; border-radius: 7px; }
-    .nav-links { display: flex; gap: 22px; color: var(--muted); font-size: 14px; }
-    .nav-cta {
-      background: var(--blue);
-      color: #fff;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 14px;
-    }
-    .hero {
-      min-height: min(780px, calc(100vh - 144px));
-      display: grid;
-      grid-template-columns: minmax(0, 0.92fr) minmax(420px, 1.08fr);
-      gap: 42px;
-      align-items: center;
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 58px 32px 72px;
-    }
-    .eyebrow { color: var(--blue); font-weight: 800; margin-bottom: 14px; }
-    h1 { margin: 0; font-size: 56px; line-height: 1.06; letter-spacing: 0; }
-    .lead { margin: 22px 0 0; color: var(--muted); font-size: 18px; line-height: 1.75; max-width: 620px; }
-    .actions { display: flex; gap: 12px; margin-top: 30px; flex-wrap: wrap; }
-    .primary, .secondary {
+    .nav-links { display: flex; align-items: center; gap: 24px; margin-left: auto; color: var(--muted); font-size: 14px; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta, .primary, .secondary, .cta-link {
+      min-height: 44px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 44px;
       padding: 0 18px;
       border-radius: 8px;
       font-weight: 800;
     }
-    .primary { background: var(--blue); color: #fff; }
-    .secondary { border: 1px solid var(--line); color: var(--ink); }
-    .host-proof { margin-top: 28px; }
-    .host-proof-label { color: var(--muted); font-size: 13px; margin-bottom: 10px; }
-    .host-proof-list { display: flex; gap: 8px; flex-wrap: wrap; }
-    .host-chip {
-      min-height: 38px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+    .nav-cta { min-height: 40px; background: var(--blue); color: var(--white); font-size: 14px; }
+    .mobile-menu { display: none; position: relative; }
+    .mobile-menu summary { width: 40px; height: 40px; display: grid; place-items: center; cursor: pointer; list-style: none; font-size: 22px; }
+    .mobile-menu summary::-webkit-details-marker { display: none; }
+    .mobile-menu-links {
+      position: absolute;
+      top: 48px;
+      right: 0;
+      width: 210px;
+      padding: 8px;
       border: 1px solid var(--line);
       border-radius: 8px;
-      padding: 6px 11px 6px 7px;
-      background: #fff;
-      font-size: 13px;
-      font-weight: 700;
+      background: var(--white);
+      box-shadow: 0 16px 42px rgba(15, 23, 42, 0.14);
     }
-    .host-chip img { width: 24px; height: 24px; object-fit: contain; padding: 2px; }
-    .host-chip small { color: var(--green); font-size: 11px; font-weight: 800; }
-    .stats { display: flex; gap: 26px; margin-top: 34px; color: var(--muted); font-size: 14px; flex-wrap: wrap; }
-    .stats strong { display: block; color: var(--ink); font-size: 24px; margin-bottom: 4px; }
-    .product {
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      overflow: hidden;
-      background: #fff;
-      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.12);
-    }
-    .bar {
-      height: 42px;
-      background: #f8fafc;
-      border-bottom: 1px solid var(--line);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 0 14px;
-    }
-    .dot { width: 10px; height: 10px; border-radius: 50%; background: #cbd5e1; }
-    .mock {
+    .mobile-menu-links a { display: block; padding: 11px 12px; border-radius: 6px; font-size: 14px; }
+    .mobile-menu-links a:hover { background: var(--soft); }
+
+    main > section, .hero { scroll-margin-top: 64px; }
+    .hero {
+      max-width: 1240px;
+      min-height: min(780px, calc(100vh - 64px));
       display: grid;
-      grid-template-columns: 1fr 310px;
-      min-height: 480px;
+      grid-template-columns: minmax(0, 0.92fr) minmax(480px, 1.08fr);
+      align-items: center;
+      gap: 58px;
+      margin: 0 auto;
+      padding: 70px 32px 78px;
     }
+    .hero > *, .capability-story > *, .trust-layout > *, .final-cta-inner > * { min-width: 0; }
+    .eyebrow, .section-kicker { margin-bottom: 12px; color: var(--blue); font-size: 13px; font-weight: 850; }
+    h1 { margin: 0; font-size: 58px; line-height: 1.06; }
+    .lead { max-width: 620px; margin: 22px 0 0; color: var(--muted); font-size: 18px; line-height: 1.75; }
+    .lead strong { color: var(--ink); }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .primary { background: var(--blue); color: var(--white); }
+    .secondary { border: 1px solid var(--line); background: var(--white); }
+    .primary:hover, .nav-cta:hover { background: #2949cb; }
+    .secondary:hover { border-color: #b9c2d0; background: var(--soft); }
+    .host-proof { margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--line); }
+    .host-proof-label { margin-bottom: 11px; color: var(--muted); font-size: 12px; }
+    .host-proof-list { display: flex; flex-wrap: wrap; gap: 20px; }
+    .host-chip { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 750; }
+    .host-chip img { width: 22px; height: 22px; object-fit: contain; }
+
+    .product {
+      width: 100%;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--white);
+      box-shadow: 0 24px 70px rgba(15, 23, 42, 0.13);
+    }
+    .bar { height: 42px; display: flex; align-items: center; gap: 8px; padding: 0 14px; border-bottom: 1px solid var(--line); background: #f8fafc; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: #cbd5e1; }
+    .mock { min-height: 480px; display: grid; grid-template-columns: 1fr 300px; }
     .doc {
-      padding: 42px 48px;
       background:
-        linear-gradient(#eef2ff 0 0) 72px 82px / 210px 18px no-repeat,
-        linear-gradient(#dbeafe 0 0) 72px 126px / 78% 14px no-repeat,
-        linear-gradient(#e5e7eb 0 0) 72px 160px / 70% 12px no-repeat,
-        linear-gradient(#e5e7eb 0 0) 72px 192px / 76% 12px no-repeat,
-        linear-gradient(#fef3c7 0 0) 218px 248px / 44px 28px no-repeat,
-        linear-gradient(#e5e7eb 0 0) 72px 252px / 82% 12px no-repeat,
-        linear-gradient(#e5e7eb 0 0) 72px 284px / 68% 12px no-repeat,
+        linear-gradient(#eef2ff 0 0) 52px 72px / 190px 18px no-repeat,
+        linear-gradient(#dbeafe 0 0) 52px 118px / 78% 14px no-repeat,
+        linear-gradient(#e5e7eb 0 0) 52px 152px / 70% 12px no-repeat,
+        linear-gradient(#e5e7eb 0 0) 52px 184px / 76% 12px no-repeat,
+        linear-gradient(#fef3c7 0 0) 188px 242px / 44px 28px no-repeat,
+        linear-gradient(#e5e7eb 0 0) 52px 250px / 82% 12px no-repeat,
+        linear-gradient(#e5e7eb 0 0) 52px 282px / 68% 12px no-repeat,
         #fff;
     }
-    .assistant {
-      border-left: 1px solid var(--line);
-      background: #fbfcff;
-      padding: 22px;
-    }
-    .assistant-title { display: flex; align-items: center; gap: 10px; font-weight: 800; margin-bottom: 22px; }
+    .assistant { padding: 22px; border-left: 1px solid var(--line); background: #fbfcff; }
+    .assistant-title { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; font-weight: 850; }
     .assistant-title img { width: 28px; height: 28px; border-radius: 7px; }
-    .pill { border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; margin-bottom: 10px; background: #fff; }
-    .pill strong { display: block; margin-bottom: 5px; }
-    .pill span { color: var(--muted); font-size: 13px; line-height: 1.55; }
-    .run { margin-top: 18px; height: 42px; border-radius: 8px; background: var(--blue); color: white; display: flex; align-items: center; justify-content: center; font-weight: 800; }
-    section { max-width: 1180px; margin: 0 auto; padding: 64px 32px; scroll-margin-top: 64px; }
-    .section-title { font-size: 30px; margin: 0 0 14px; }
-    .section-copy { color: var(--muted); line-height: 1.7; max-width: 760px; margin: 0 0 26px; }
-    .section-kicker { color: var(--blue); font-size: 13px; font-weight: 800; margin-bottom: 10px; }
-    .section-band { background: var(--soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-    .capabilities { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 44px; }
-    .capability {
+    .assistant-item { padding: 13px 0; border-top: 1px solid var(--line); }
+    .assistant-item strong { display: block; margin-bottom: 5px; }
+    .assistant-item span { color: var(--muted); font-size: 13px; line-height: 1.55; }
+    .run { height: 42px; display: flex; align-items: center; justify-content: center; margin-top: 18px; border-radius: 8px; background: var(--blue); color: var(--white); font-weight: 800; }
+
+    .section { max-width: 1180px; margin: 0 auto; padding: 88px 32px; }
+    .section-heading { max-width: 780px; margin-bottom: 42px; }
+    .section-heading.centered { margin-right: auto; margin-left: auto; text-align: center; }
+    .section-title { margin: 0 0 14px; font-size: 38px; line-height: 1.25; }
+    .section-copy { margin: 0; color: var(--muted); font-size: 16px; line-height: 1.75; }
+    .band { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--soft); }
+
+    .scenario-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--ink); }
+    .scenario { padding: 28px 28px 6px 0; }
+    .scenario + .scenario { padding-left: 28px; border-left: 1px solid var(--line); }
+    .scenario-label { color: var(--blue); font-size: 12px; font-weight: 850; }
+    .scenario h3 { margin: 20px 0 10px; font-size: 20px; }
+    .scenario p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.7; }
+
+    .capability-story {
       display: grid;
-      grid-template-columns: 34px 1fr;
-      gap: 14px;
-      padding: 22px 0;
+      grid-template-columns: minmax(0, 0.82fr) minmax(480px, 1.18fr);
+      align-items: center;
+      gap: 64px;
+      padding: 56px 0;
       border-top: 1px solid var(--line);
     }
-    .capability:nth-child(-n + 2) { border-top: 2px solid var(--ink); }
-    .capability-index { color: var(--blue); font-size: 13px; font-weight: 900; padding-top: 3px; }
-    .capability h3 { margin: 0 0 8px; font-size: 18px; }
-    .capability p { margin: 0; color: var(--muted); line-height: 1.65; }
+    .capability-story.is-reversed { grid-template-columns: minmax(480px, 1.18fr) minmax(0, 0.82fr); }
+    .capability-story:last-child { padding-bottom: 0; }
+    .story-kicker { margin-bottom: 10px; color: var(--blue); font-size: 12px; font-weight: 850; }
+    .story-copy h3 { margin: 0 0 16px; font-size: 30px; line-height: 1.25; }
+    .story-copy > p { margin: 0 0 26px; color: var(--muted); line-height: 1.75; }
+    .story-point { display: grid; grid-template-columns: 110px 1fr; gap: 14px; padding: 14px 0; border-top: 1px solid var(--line); }
+    .story-point strong { font-size: 13px; }
+    .story-point span { color: var(--muted); font-size: 13px; line-height: 1.6; }
+    .story-visual { min-height: 390px; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: #f5f7fb; box-shadow: 0 18px 46px rgba(15, 23, 42, 0.08); }
+    .visual-bar { height: 38px; display: flex; align-items: center; gap: 7px; padding: 0 14px; border-bottom: 1px solid var(--line); background: var(--white); }
+    .visual-bar span { width: 8px; height: 8px; border-radius: 50%; background: #d6dce7; }
+    .document-visual-body { position: relative; min-height: 350px; padding: 28px 34px; }
+    .document-sheet { width: 68%; min-height: 294px; padding: 28px 30px; border: 1px solid #e3e7ef; background: var(--white); box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06); }
+    .document-sheet-title { margin-bottom: 22px; text-align: center; font-size: 16px; font-weight: 800; }
+    .document-line { height: 8px; margin-top: 12px; background: #e5e9f0; }
+    .document-line.short { width: 66%; }
+    .document-line.medium { width: 82%; }
+    .document-selection { margin: 18px -8px 0; padding: 9px 8px; border-left: 3px solid var(--blue); background: var(--blue-soft); color: #41506a; font-size: 11px; line-height: 1.55; }
+    .document-insight { position: absolute; top: 58px; right: 28px; width: 210px; padding: 18px; border: 1px solid var(--line); border-radius: 8px; background: var(--white); box-shadow: 0 14px 32px rgba(15, 23, 42, 0.12); }
+    .insight-status { color: var(--green); font-size: 11px; font-weight: 850; }
+    .document-insight h4 { margin: 8px 0 14px; font-size: 15px; }
+    .insight-row { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
+    .insight-row b { color: var(--ink); }
+    .insight-action { margin-top: 12px; padding: 9px 10px; border-radius: 6px; background: var(--blue); color: var(--white); text-align: center; font-size: 11px; font-weight: 800; }
+    .workflow-visual { padding: 28px; }
+    .workflow-head { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-bottom: 26px; }
+    .workflow-head span { color: var(--green); font-size: 11px; font-weight: 850; }
+    .workflow-track { display: grid; gap: 10px; }
+    .workflow-step { display: grid; grid-template-columns: 32px 1fr auto; align-items: center; gap: 13px; padding: 13px 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--white); }
+    .workflow-step-mark { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 7px; background: var(--blue-soft); color: var(--blue); font-size: 12px; font-weight: 900; }
+    .workflow-step strong { display: block; margin-bottom: 3px; font-size: 13px; }
+    .workflow-step small { color: var(--muted); font-size: 11px; }
+    .workflow-step-state { color: var(--green); font-size: 11px; font-weight: 800; }
+    .workflow-step.is-active { border-color: #aab8ff; box-shadow: 0 0 0 2px var(--blue-soft); }
+    .workflow-step.is-active .workflow-step-state { color: var(--blue); }
+
+    .system-section { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: #f4f6fa; }
+    .system-section .section { padding-top: 88px; padding-bottom: 88px; }
+    .system-header { max-width: 780px; margin: 0 auto; text-align: center; }
+    .system-header .section-heading { max-width: none; margin-bottom: 0; }
+    .system-header .section-copy { max-width: 680px; margin: 0 auto; }
+    .system-demo { margin-top: 42px; }
+    .system-demo > input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+    .system-tabs { max-width: 620px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 0 auto; padding: 5px; border: 1px solid #dce2eb; border-radius: 8px; background: #e9edf4; }
+    .system-tabs label { min-height: 42px; display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: 6px; color: var(--muted); font-size: 13px; font-weight: 800; cursor: pointer; }
+    .system-tabs label span { color: #8a95a5; font-size: 11px; }
+    #system-agent:checked ~ .system-tabs label[for="system-agent"],
+    #system-skill:checked ~ .system-tabs label[for="system-skill"],
+    #system-workflow:checked ~ .system-tabs label[for="system-workflow"] { background: var(--white); color: var(--ink); box-shadow: 0 2px 7px rgba(15, 23, 42, 0.08); }
+    .system-panes { margin-top: 24px; }
+    .system-pane { min-height: 480px; display: none; grid-template-columns: minmax(300px, 0.72fr) minmax(0, 1.28fr); overflow: hidden; border: 1px solid #dce2eb; border-radius: 8px; background: var(--white); box-shadow: 0 20px 54px rgba(15, 23, 42, 0.08); }
+    #system-agent:checked ~ .system-panes .system-pane.is-agent,
+    #system-skill:checked ~ .system-panes .system-pane.is-skill,
+    #system-workflow:checked ~ .system-panes .system-pane.is-workflow { display: grid; }
+    .system-pane-copy { padding: 52px 44px; border-right: 1px solid var(--line); }
+    .system-pane-label { color: var(--blue); font-size: 12px; font-weight: 850; }
+    .system-pane.is-skill .system-pane-label { color: var(--green); }
+    .system-pane.is-workflow .system-pane-label { color: #9a6700; }
+    .system-pane h3 { margin: 16px 0 14px; font-size: 30px; line-height: 1.25; }
+    .system-pane-copy > p { margin: 0 0 28px; color: var(--muted); line-height: 1.75; }
+    .system-benefit { padding: 13px 0; border-top: 1px solid var(--line); }
+    .system-benefit strong { display: block; margin-bottom: 4px; font-size: 13px; }
+    .system-benefit span { color: var(--muted); font-size: 12px; line-height: 1.55; }
+    .system-pane-visual { min-width: 0; display: grid; place-items: center; padding: 34px; background: #f8f9fc; }
+    .demo-window { width: 100%; max-width: 680px; overflow: hidden; border: 1px solid #dbe1ea; border-radius: 8px; background: var(--white); box-shadow: 0 16px 38px rgba(15, 23, 42, 0.1); }
+    .demo-bar { height: 38px; display: flex; align-items: center; gap: 7px; padding: 0 13px; border-bottom: 1px solid var(--line); background: #f8fafc; }
+    .demo-bar i { width: 8px; height: 8px; border-radius: 50%; background: #cfd6e1; }
+    .agent-demo { min-height: 350px; display: grid; grid-template-columns: minmax(0, 1fr) 250px; }
+    .agent-document { padding: 42px 34px; }
+    .agent-document h4 { margin: 0 0 24px; text-align: center; font-size: 15px; }
+    .demo-line { height: 8px; margin-top: 12px; background: #e5e9f0; }
+    .demo-line.short { width: 64%; }
+    .demo-line.medium { width: 82%; }
+    .agent-selection { margin-top: 24px; padding: 11px 12px; border-left: 3px solid var(--blue); background: var(--blue-soft); color: #4b5870; font-size: 11px; line-height: 1.55; }
+    .agent-analysis { padding: 24px 20px; border-left: 1px solid var(--line); background: #fbfcff; }
+    .demo-status { color: var(--green); font-size: 11px; font-weight: 850; }
+    .agent-analysis h4 { margin: 9px 0 18px; font-size: 15px; }
+    .analysis-row { padding: 11px 0; border-top: 1px solid var(--line); }
+    .analysis-row span { display: block; color: var(--muted); font-size: 10px; }
+    .analysis-row strong { display: block; margin-top: 3px; font-size: 12px; }
+    .skill-demo { min-height: 350px; display: grid; grid-template-columns: 210px minmax(0, 1fr); }
+    .skill-list { padding: 20px 14px; border-right: 1px solid var(--line); background: #f8fafc; }
+    .skill-list-title { padding: 0 8px 12px; color: var(--muted); font-size: 10px; font-weight: 800; }
+    .skill-item { padding: 12px 11px; border-radius: 6px; font-size: 12px; font-weight: 750; }
+    .skill-item + .skill-item { margin-top: 4px; }
+    .skill-item.is-active { background: var(--white); color: var(--blue); box-shadow: 0 2px 8px rgba(15, 23, 42, 0.07); }
+    .skill-detail { padding: 30px 32px; }
+    .skill-detail-head { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; }
+    .skill-detail h4 { margin: 0 0 7px; font-size: 18px; }
+    .skill-detail-head span { padding: 4px 7px; border-radius: 999px; background: #eaf7f1; color: var(--green); font-size: 10px; font-weight: 800; }
+    .skill-detail > p { margin: 0 0 22px; color: var(--muted); font-size: 12px; line-height: 1.65; }
+    .skill-rule { display: flex; gap: 12px; padding: 12px 0; border-top: 1px solid var(--line); font-size: 11px; }
+    .skill-rule b { min-width: 74px; }
+    .skill-rule span { color: var(--muted); }
+    .skill-run { margin-top: 20px; padding: 10px; border-radius: 6px; background: var(--blue); color: var(--white); text-align: center; font-size: 11px; font-weight: 800; }
+    .workflow-demo { min-height: 350px; padding: 24px; background: #f8fafc; }
+    .workflow-demo-head { display: flex; justify-content: space-between; gap: 18px; margin-bottom: 18px; }
+    .workflow-demo-head strong { font-size: 14px; }
+    .workflow-demo-head span { color: var(--green); font-size: 10px; font-weight: 800; }
+    .demo-flow-step { display: grid; grid-template-columns: 28px 1fr auto; align-items: center; gap: 12px; padding: 11px 13px; border: 1px solid var(--line); border-radius: 7px; background: var(--white); }
+    .demo-flow-step + .demo-flow-step { margin-top: 8px; }
+    .demo-flow-step b { width: 26px; height: 26px; display: grid; place-items: center; border-radius: 6px; background: var(--blue-soft); color: var(--blue); font-size: 10px; }
+    .demo-flow-step strong { display: block; font-size: 12px; }
+    .demo-flow-step small { color: var(--muted); font-size: 10px; }
+    .demo-flow-state { color: var(--green); font-size: 10px; font-weight: 800; }
+    .demo-flow-step.is-active { border-color: #aab8ff; box-shadow: 0 0 0 2px var(--blue-soft); }
+    .demo-flow-step.is-active .demo-flow-state { color: var(--blue); }
+
     .plugin-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-    .plugin {
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 20px;
-      background: #fff;
-      display: flex;
-      flex-direction: column;
-      min-height: 250px;
-    }
-    .plugin-head { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
-    .plugin-icon { width: 48px; height: 48px; border-radius: 8px; border: 1px solid var(--line); object-fit: contain; padding: 7px; background: #fff; }
+    .plugin { min-height: 270px; display: flex; flex-direction: column; padding: 22px; border: 1px solid var(--line); border-radius: 8px; background: var(--white); }
+    .plugin-head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+    .plugin-icon { width: 48px; height: 48px; padding: 7px; object-fit: contain; border: 1px solid var(--line); border-radius: 8px; background: var(--white); }
     .plugin-title { min-width: 0; }
-    .plugin-title h3 { margin: 0 0 5px; font-size: 18px; }
+    .plugin-title h3 { margin: 0 0 4px; font-size: 19px; }
     .plugin-title span { color: var(--muted); font-size: 12px; }
-    .status { margin-left: auto; color: var(--green); background: #eaf7f1; border-radius: 999px; padding: 5px 8px; font-size: 11px; font-weight: 900; }
-    .plugin p { color: var(--muted); line-height: 1.65; margin: 0 0 18px; }
-    .plugin-meta { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 20px; }
-    .plugin-meta span { background: var(--soft); border: 1px solid var(--line); border-radius: 6px; padding: 5px 7px; color: #374151; font-size: 12px; }
+    .status { margin-left: auto; padding: 5px 8px; border-radius: 999px; background: #eaf7f1; color: var(--green); font-size: 11px; font-weight: 850; }
+    .plugin p { margin: 0 0 18px; color: var(--muted); line-height: 1.65; }
+    .plugin-facts { margin: 0 0 20px; padding: 0; list-style: none; font-size: 12px; }
+    .plugin-facts li { display: flex; justify-content: space-between; gap: 16px; padding: 8px 0; border-top: 1px solid var(--line); }
+    .plugin-facts span { color: var(--muted); }
     .plugin-link { margin-top: auto; color: var(--blue); font-size: 14px; font-weight: 800; }
-    .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-    .card { border: 1px solid var(--line); border-radius: 8px; padding: 20px; background: #fff; }
-    .card h3 { margin: 0 0 10px; font-size: 18px; }
-    .card p { margin: 0; color: var(--muted); line-height: 1.65; }
-    .platforms { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-    .platform { border: 1px solid var(--line); border-radius: 8px; padding: 18px; background: var(--soft); }
-    .platform b { display: block; margin-bottom: 8px; }
-    .platform span { color: var(--muted); line-height: 1.6; }
-    .footer { border-top: 1px solid var(--line); padding: 28px 32px; color: var(--muted); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+    .trust-layout { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(480px, 1.1fr); gap: 72px; align-items: start; }
+    .trust-links { border-top: 1px solid var(--ink); }
+    .trust-link { display: grid; grid-template-columns: 1fr auto; gap: 24px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+    .trust-link strong { display: block; margin-bottom: 6px; }
+    .trust-link span { color: var(--muted); font-size: 13px; line-height: 1.6; }
+    .trust-link b { color: var(--blue); font-size: 18px; }
+
+    .final-cta { padding: 78px 32px; background: var(--blue); color: var(--white); }
+    .final-cta-inner { max-width: 1180px; display: flex; justify-content: space-between; align-items: center; gap: 40px; margin: 0 auto; }
+    .final-cta h2 { max-width: 720px; margin: 0 0 12px; font-size: 38px; line-height: 1.25; }
+    .final-cta p { margin: 0; color: #dfe6ff; line-height: 1.7; }
+    .cta-link { flex: 0 0 auto; background: var(--white); color: var(--blue); }
+    .footer { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; padding: 30px 32px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
+    .footer a:hover { color: var(--ink); }
+
     @media (max-width: 960px) {
-      .nav-links { display: none; }
-      .hero { grid-template-columns: 1fr; padding-top: 42px; }
-      h1 { font-size: 42px; }
+      .nav-links, .nav > .nav-cta { display: none; }
+      .mobile-menu { display: block; margin-left: auto; }
+      .hero { min-height: 0; grid-template-columns: 1fr; padding-top: 54px; }
+      h1 { font-size: 46px; }
       .mock { grid-template-columns: 1fr; }
-      .assistant { border-left: 0; border-top: 1px solid var(--line); }
-      .cards, .platforms, .plugin-grid, .capabilities { grid-template-columns: 1fr; }
-      .capability:nth-child(2) { border-top: 1px solid var(--line); }
-      .host-proof-list { display: grid; grid-template-columns: 1fr; }
+      .doc { min-height: 330px; }
+      .assistant { border-top: 1px solid var(--line); border-left: 0; }
+      .scenario-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .scenario:nth-child(3) { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
+      .scenario:nth-child(4) { border-top: 1px solid var(--line); }
+      .capability-story, .capability-story.is-reversed { grid-template-columns: 1fr; gap: 34px; }
+      .capability-story.is-reversed .story-visual { order: 2; }
+      .system-pane { grid-template-columns: 1fr; }
+      .system-pane-copy { padding: 38px 34px; border-right: 0; border-bottom: 1px solid var(--line); }
+      .system-pane-visual { padding: 26px; }
+      .plugin-grid { grid-template-columns: 1fr; }
+      .trust-layout { grid-template-columns: 1fr; gap: 36px; }
+      .final-cta-inner { align-items: flex-start; flex-direction: column; }
+    }
+    @media (max-width: 560px) {
+      .nav { padding: 0 18px; }
+      .hero, .section { padding-right: 20px; padding-left: 20px; }
+      .hero { padding-top: 46px; padding-bottom: 58px; }
+      h1 { font-size: 39px; }
+      .lead { font-size: 16px; }
+      .primary, .secondary { width: 100%; }
+      .host-proof-list { display: grid; grid-template-columns: repeat(2, minmax(0, max-content)); gap: 12px 18px; }
+      .section { padding-top: 66px; padding-bottom: 66px; }
+      .section-title, .final-cta h2 { font-size: 30px; }
+      .scenario-grid { grid-template-columns: 1fr; }
+      .scenario, .scenario + .scenario { padding: 24px 0; border-top: 1px solid var(--line); border-left: 0; }
+      .scenario:first-child { border-top: 0; }
+      .story-copy h3 { font-size: 25px; }
+      .story-point { grid-template-columns: 1fr; gap: 5px; }
+      .story-visual { min-height: 330px; }
+      .document-visual-body { min-height: 290px; padding: 20px; }
+      .document-sheet { width: 78%; min-height: 250px; padding: 22px 18px; }
+      .document-insight { top: 48px; right: 14px; width: 174px; padding: 14px; }
+      .workflow-visual { padding: 18px; }
+      .workflow-step { grid-template-columns: 30px 1fr; }
+      .workflow-step-state { display: none; }
+      .plugin { min-height: 0; }
+      .system-section .section { padding-top: 66px; padding-bottom: 66px; }
+      .system-header { text-align: left; }
+      .system-tabs label span { display: none; }
+      .system-pane h3 { font-size: 25px; }
+      .system-pane-copy { padding: 30px 24px; }
+      .system-pane-visual { padding: 16px; }
+      .agent-demo, .skill-demo { grid-template-columns: 1fr; }
+      .agent-analysis { border-top: 1px solid var(--line); border-left: 0; }
+      .skill-list { display: flex; gap: 4px; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--line); }
+      .skill-list-title { display: none; }
+      .skill-item { white-space: nowrap; }
+      .skill-detail { padding: 24px 20px; }
+      .demo-flow-step { grid-template-columns: 28px 1fr; }
+      .demo-flow-state { display: none; }
+      .final-cta { padding: 62px 20px; }
+      .footer { padding: 26px 20px; }
     }
   </style>
 </head>
 <body>
-  <nav class="nav">
-    <a class="brand" href="./index.html">
-      <img src="./assets/brand-logo.png" alt="Coco" />
-      <span>Coco</span>
-    </a>
+  <nav class="nav" aria-label="主导航">
+    <a class="brand" href="./index.html"><img src="./assets/brand-logo.png" alt="Coco" /><span>Coco</span></a>
     <div class="nav-links">
+      <a href="#scenarios">应用场景</a>
       <a href="#capabilities">核心能力</a>
+      <a href="#system">工作体系</a>
       <a href="#plugins">插件支持</a>
-      <a href="#skills">技能</a>
-      <a href="#workflows">工作流</a>
-      <a href="./install.html">部署</a>
+      <a href="https://github.com/coco-vexel/coco">GitHub</a>
     </div>
     <a class="nav-cta" href="./install.html">安装部署</a>
+    <details class="mobile-menu">
+      <summary aria-label="打开导航菜单" title="导航菜单">☰</summary>
+      <div class="mobile-menu-links">
+        <a href="#scenarios">应用场景</a><a href="#capabilities">核心能力</a><a href="#system">工作体系</a><a href="#plugins">插件支持</a><a href="./install.html">安装部署</a><a href="https://github.com/coco-vexel/coco">GitHub</a>
+      </div>
+    </details>
   </nav>
 
-  <main class="hero">
-    <div>
-      <div class="eyebrow">面向复杂文档工作的智能体平台</div>
-      <h1>Coco 文档智能助手</h1>
-      <p class="lead">让智能体直接理解、拆解和处理文档任务。从读取上下文、调用 Skill、执行工作流，到人工确认和写回，Coco 把复杂文档工作变成可复用、可追踪的处理链路。</p>
-      <div class="actions">
-        <a class="primary" href="./install.html">查看安装方式</a>
-        <a class="secondary" href="#capabilities">查看核心能力</a>
-      </div>
-      <div class="host-proof" aria-label="支持的 Office 插件">
-        <div class="host-proof-label">一次安装，在熟悉的文档环境中直接使用</div>
-        <div class="host-proof-list">
-          <a class="host-chip" href="./install.html#wps"><img src="./assets/hosts/wps.png" alt="" /><span>WPS Office</span><small>已支持</small></a>
-          <a class="host-chip" href="./install.html#microsoft"><img src="./assets/hosts/word.png" alt="" /><span>Microsoft Word</span><small>已支持</small></a>
-          <a class="host-chip" href="./install.html#onlyoffice-desktop"><img src="./assets/hosts/onlyoffice.png" alt="" /><span>ONLYOFFICE</span><small>已支持</small></a>
+  <main>
+    <section class="hero">
+      <div>
+        <div class="eyebrow">WPS · Microsoft Word · ONLYOFFICE</div>
+        <h1>Coco 文档智能助手</h1>
+        <p class="lead">让智能体进入你正在编辑的文档，<strong>理解结构、调用专业能力、执行复杂流程，并在确认后安全写回。</strong></p>
+        <div class="actions">
+          <a class="primary" href="./install.html">查看安装方式</a>
+          <a class="secondary" href="#scenarios">看看能做什么</a>
+        </div>
+        <div class="host-proof" aria-label="支持的文档平台">
+          <div class="host-proof-label">三个主流文档平台均已接入</div>
+          <div class="host-proof-list">
+            <a class="host-chip" href="./install.html#wps"><img src="./assets/hosts/wps.png" alt="" /><span>WPS Office</span></a>
+            <a class="host-chip" href="./install.html#microsoft"><img src="./assets/hosts/word.png" alt="" /><span>Microsoft Word</span></a>
+            <a class="host-chip" href="./install.html#onlyoffice-desktop"><img src="./assets/hosts/onlyoffice.png" alt="" /><span>ONLYOFFICE</span></a>
+          </div>
         </div>
       </div>
-      <div class="stats">
-        <div><strong>Agent</strong>文档任务规划</div>
-        <div><strong>Skill</strong>技能化能力复用</div>
-        <div><strong>Workflow</strong>稳定流程执行</div>
-      </div>
-    </div>
 
-    <div class="product" aria-label="Coco product preview">
-      <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
-      <div class="mock">
-        <div class="doc"></div>
-        <aside class="assistant">
-          <div class="assistant-title">
-            <img src="./assets/brand-logo.png" alt="" />
-            <span>Coco 助手</span>
-          </div>
-          <div class="pill"><strong>任务理解</strong><span>识别用户意图、文档范围和处理目标。</span></div>
-          <div class="pill"><strong>Skill 调用</strong><span>按场景选择校审、清理、草拟、翻译等技能。</span></div>
-          <div class="pill"><strong>安全写回</strong><span>在确认后把结果落回文档，保留处理记录。</span></div>
-          <div class="run">交给智能体处理</div>
-        </aside>
-      </div>
-    </div>
-  </main>
-
-  <section id="capabilities">
-    <div class="section-kicker">CORE CAPABILITIES</div>
-    <h2 class="section-title">从理解文档到安全写回，完整覆盖文档任务</h2>
-    <p class="section-copy">Coco 不只是一个聊天侧边栏。它连接文档结构、AI 模型、可复用技能和工作流，让复杂任务能够被理解、执行、确认并真正落回文档。</p>
-    <div class="capabilities">
-      <article class="capability"><div class="capability-index">01</div><div><h3>文档上下文理解</h3><p>读取正文、段落、表格、选区、批注、修订和样式，让模型基于当前文档结构工作，而不是只看到一段复制文本。</p></div></article>
-      <article class="capability"><div class="capability-index">02</div><div><h3>智能排版与模板提取</h3><p>识别版式骨架、提取排版模板并应用到目标文档，支持公文、报告等对格式一致性要求高的场景。</p></div></article>
-      <article class="capability"><div class="capability-index">03</div><div><h3>审校、改写与内容生成</h3><p>覆盖校对、润色、翻译、摘要、续写和正式文本草拟，并可按选区、段落或全文控制处理范围。</p></div></article>
-      <article class="capability"><div class="capability-index">04</div><div><h3>多步骤工作流执行</h3><p>把读取、分块、模型处理、人工确认、写回和复核串成可重复执行的流程，减少复杂任务中的手工切换。</p></div></article>
-      <article class="capability"><div class="capability-index">05</div><div><h3>Skill 能力扩展</h3><p>将提示词、处理规则、文档操作和业务经验封装为 Skill，既能直接使用内置能力，也能沉淀团队专属技能。</p></div></article>
-      <article class="capability"><div class="capability-index">06</div><div><h3>可确认的安全写回</h3><p>在真正修改文档前展示处理过程和结果，让用户确认关键操作，降低模型输出直接影响原文档的风险。</p></div></article>
-    </div>
-  </section>
-
-  <div class="section-band">
-    <section id="plugins">
-      <div class="section-kicker">OFFICE PLUGINS</div>
-      <h2 class="section-title">同一套 Coco 能力，支持三个主流文档平台</h2>
-      <p class="section-copy">无需改变日常办公习惯。Coco 通过原生插件进入文档编辑器，在当前文档旁完成对话、排版、Skill 和 Workflow 操作。</p>
-      <div class="plugin-grid">
-        <article class="plugin">
-          <div class="plugin-head"><img class="plugin-icon" src="./assets/hosts/wps.png" alt="WPS Office" /><div class="plugin-title"><h3>WPS Office</h3><span>WPS Writer 插件</span></div><span class="status">已支持</span></div>
-          <p>在 WPS 文字中打开 Coco 侧边栏，直接读取当前文档、执行技能与工作流并写回处理结果。</p>
-          <div class="plugin-meta"><span>智能对话</span><span>排版</span><span>Workflow</span></div>
-          <a class="plugin-link" href="./install.html#wps">查看 WPS 安装方式 →</a>
-        </article>
-        <article class="plugin">
-          <div class="plugin-head"><img class="plugin-icon" src="./assets/hosts/word.png" alt="Microsoft Word" /><div class="plugin-title"><h3>Microsoft Word</h3><span>Office Add-in</span></div><span class="status">已支持</span></div>
-          <p>通过 Microsoft Office 加载项接入 Coco，在 Word 中调用统一的智能体、技能和文档处理能力。</p>
-          <div class="plugin-meta"><span>Office Add-in</span><span>Skill</span><span>文档写回</span></div>
-          <a class="plugin-link" href="./install.html#microsoft">查看 Microsoft 安装方式 →</a>
-        </article>
-        <article class="plugin">
-          <div class="plugin-head"><img class="plugin-icon" src="./assets/hosts/onlyoffice.png" alt="ONLYOFFICE" /><div class="plugin-title"><h3>ONLYOFFICE</h3><span>Desktop / Docker 插件</span></div><span class="status">已支持</span></div>
-          <p>支持 ONLYOFFICE Desktop Editors 与 Document Server 场景，在侧边栏内完成文档理解、排版与写回。</p>
-          <div class="plugin-meta"><span>Desktop</span><span>Docker</span><span>智能排版</span></div>
-          <a class="plugin-link" href="./install.html#onlyoffice-desktop">查看 ONLYOFFICE 安装方式 →</a>
-        </article>
+      <div class="product" aria-label="Coco 产品界面示意">
+        <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+        <div class="mock">
+          <div class="doc"></div>
+          <aside class="assistant">
+            <div class="assistant-title"><img src="./assets/brand-logo.png" alt="" /><span>Coco 助手</span></div>
+            <div class="assistant-item"><strong>理解当前文档</strong><span>识别内容范围、结构与编辑状态。</span></div>
+            <div class="assistant-item"><strong>选择专业能力</strong><span>调用排版、审校、改写与业务 Skill。</span></div>
+            <div class="assistant-item"><strong>确认后写回</strong><span>预览处理结果，再更新当前文档。</span></div>
+            <div class="run">交给 Coco 处理</div>
+          </aside>
+        </div>
       </div>
     </section>
-  </div>
 
-  <section id="agent">
-    <h2 class="section-title">让智能体进入文档现场</h2>
-    <p class="section-copy">Coco 的核心不是把大模型塞进侧边栏，而是让智能体围绕当前文档工作：理解上下文、选择工具、拆分步骤、展示过程，并在关键节点交给用户确认。</p>
-    <div class="cards">
-      <article class="card"><h3>读懂文档结构</h3><p>从正文、段落、批注、修订和选区中提取上下文，让模型面对的是可处理的文档语义。</p></article>
-      <article class="card"><h3>拆解复杂任务</h3><p>把“检查全文编号”“清理格式”“生成会议纪要”等请求拆成可执行步骤，过程透明可回看。</p></article>
-      <article class="card"><h3>确认后再写回</h3><p>对高风险操作提供预览、确认和回滚线索，避免模型输出直接污染原文档。</p></article>
+    <div class="band">
+      <section class="section" id="scenarios">
+        <div class="section-heading">
+          <div class="section-kicker">DOCUMENT WORK</div>
+          <h2 class="section-title">复杂文档工作，不必再从空白对话开始</h2>
+          <p class="section-copy">Coco 围绕当前文档工作，把常见任务变成可以直接执行、持续复用的处理方式。</p>
+        </div>
+        <div class="scenario-grid">
+          <article class="scenario"><span class="scenario-label">规范格式</span><h3>公文与报告排版</h3><p>识别版式骨架、提取模板，并把专业格式应用到目标文档。</p></article>
+          <article class="scenario"><span class="scenario-label">降低风险</span><h3>合同与长文审校</h3><p>结合全文上下文检查表达、编号、遗漏与前后一致性。</p></article>
+          <article class="scenario"><span class="scenario-label">提升效率</span><h3>摘要、改写与生成</h3><p>按选区、段落或全文完成摘要、润色、翻译和正式文本草拟。</p></article>
+          <article class="scenario"><span class="scenario-label">团队复用</span><h3>标准流程自动执行</h3><p>把多步骤任务沉淀为 Workflow，让同一套标准可以反复使用。</p></article>
+        </div>
+      </section>
     </div>
-  </section>
 
-  <section id="skills">
-    <h2 class="section-title">Skill 把经验沉淀成能力</h2>
-    <p class="section-copy">Skill 是 Coco 的能力单元。它把提示词、处理规则、文档操作和业务经验封装起来，让团队可以持续沉淀专用文档能力，而不是每次从空白对话开始。</p>
-    <div class="cards">
-      <article class="card"><h3>内置办公技能</h3><p>校对、润色、续写、翻译、文档清理、正式公文草拟等常用能力可以直接启用。</p></article>
-      <article class="card"><h3>业务专属技能</h3><p>面向合同、财务、政务、公文、纪要等场景定制规则和输出格式，减少人工反复说明。</p></article>
-      <article class="card"><h3>首页固定入口</h3><p>高频 Skill 和 Workflow 可以 Pin 到首页，用户打开插件就能直接启动常用处理流程。</p></article>
-    </div>
-  </section>
+    <section class="section" id="capabilities">
+      <div class="section-heading">
+        <div class="section-kicker">CORE CAPABILITIES</div>
+        <h2 class="section-title">不止生成文字，更真正参与文档工作</h2>
+        <p class="section-copy">Coco 连接文档结构、AI 模型和编辑能力，让理解、处理与写回发生在同一个工作现场。</p>
+      </div>
+      <div class="capability-story">
+        <div class="story-copy">
+          <div class="story-kicker">完整上下文</div>
+          <h3>读懂文档结构，而不只是看到复制文本</h3>
+          <p>直接读取当前文档的内容、结构、样式和编辑状态，让模型基于真实上下文判断任务。</p>
+          <div class="story-points">
+            <div class="story-point"><strong>读取范围</strong><span>正文、段落、表格、选区、批注与修订。</span></div>
+            <div class="story-point"><strong>版式理解</strong><span>识别样式关系与专业文档的排版骨架。</span></div>
+            <div class="story-point"><strong>精准处理</strong><span>按选区、段落或全文控制任务作用范围。</span></div>
+          </div>
+        </div>
+        <div class="story-visual" aria-label="Coco 文档理解界面示意">
+          <div class="visual-bar"><span></span><span></span><span></span></div>
+          <div class="document-visual-body">
+            <div class="document-sheet"><div class="document-sheet-title">项目推进情况报告</div><div class="document-line medium"></div><div class="document-line"></div><div class="document-line short"></div><div class="document-selection">已识别当前段落、关联表格与批注，正在基于完整上下文处理。</div><div class="document-line"></div><div class="document-line medium"></div></div>
+            <div class="document-insight"><div class="insight-status">文档结构已读取</div><h4>当前文档上下文</h4><div class="insight-row"><span>正文段落</span><b>28</b></div><div class="insight-row"><span>表格</span><b>3</b></div><div class="insight-row"><span>批注与修订</span><b>6</b></div><div class="insight-action">应用排版模板</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="capability-story is-reversed">
+        <div class="story-visual workflow-visual" aria-label="Coco Workflow 执行界面示意">
+          <div class="workflow-head"><strong>公文审校与排版</strong><span>正在执行</span></div>
+          <div class="workflow-track">
+            <div class="workflow-step"><div class="workflow-step-mark">1</div><div><strong>读取当前文档</strong><small>解析正文、样式与批注</small></div><div class="workflow-step-state">已完成</div></div>
+            <div class="workflow-step"><div class="workflow-step-mark">2</div><div><strong>调用审校 Skill</strong><small>检查表达、格式与一致性</small></div><div class="workflow-step-state">已完成</div></div>
+            <div class="workflow-step is-active"><div class="workflow-step-mark">3</div><div><strong>应用排版模板</strong><small>保留内容并调整文档版式</small></div><div class="workflow-step-state">处理中</div></div>
+            <div class="workflow-step"><div class="workflow-step-mark">4</div><div><strong>人工确认</strong><small>预览修改范围与处理结果</small></div><div class="workflow-step-state">待确认</div></div>
+            <div class="workflow-step"><div class="workflow-step-mark">5</div><div><strong>安全写回</strong><small>确认后更新当前文档</small></div><div class="workflow-step-state">等待中</div></div>
+          </div>
+        </div>
+        <div class="story-copy">
+          <div class="story-kicker">过程可控</div>
+          <h3>让复杂处理过程可见，让关键修改始终可确认</h3>
+          <p>Coco 不把模型结果直接覆盖到文档，而是展示执行步骤与状态，在关键节点交给用户确认。</p>
+          <div class="story-points">
+            <div class="story-point"><strong>过程可见</strong><span>每一步的输入、处理状态和结果都清晰可查。</span></div>
+            <div class="story-point"><strong>人工确认</strong><span>高风险修改先预览，再决定是否应用。</span></div>
+            <div class="story-point"><strong>安全写回</strong><span>确认后更新当前文档，降低误改原文风险。</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <section id="workflows">
-    <h2 class="section-title">把复杂文档任务交给 Workflow</h2>
-    <p class="section-copy">很多文档工作不是一句提示词就能完成。Coco Workflow 可以把读取、分块、模型处理、人工确认、写回和复核串成稳定流程，让团队反复使用同一套处理标准。</p>
-    <div class="platforms">
-      <div class="platform"><b>流程可复用</b><span>把编号校审、文档清理、批注生成、内容改写等任务沉淀为一键执行的流程。</span></div>
-      <div class="platform"><b>过程可见</b><span>每个节点的输入、输出、耗时和状态都能查看，模型处理过程不再是黑盒。</span></div>
-      <div class="platform"><b>结果可确认</b><span>在写回文档前让用户确认关键改动，适合审校、公文、合同等高风险场景。</span></div>
+    <div class="system-section" id="system">
+      <section class="section">
+        <div class="system-header">
+          <div class="section-heading">
+            <div class="section-kicker">COCO SYSTEM</div>
+            <h2 class="section-title">三种能力，在同一个文档任务中协作</h2>
+          </div>
+          <p class="section-copy">不是一张抽象架构图。切换查看 Agent、Skill 与 Workflow 在 Coco 中分别怎样参与真实文档工作。</p>
+        </div>
+        <div class="system-demo">
+          <input type="radio" name="system-tabs" id="system-agent" checked />
+          <input type="radio" name="system-tabs" id="system-skill" />
+          <input type="radio" name="system-tabs" id="system-workflow" />
+          <div class="system-tabs" role="tablist" aria-label="Coco 系统能力">
+            <label for="system-agent"><span>理解与决策</span>Agent</label>
+            <label for="system-skill"><span>专业能力</span>Skill</label>
+            <label for="system-workflow"><span>稳定执行</span>Workflow</label>
+          </div>
+          <div class="system-panes">
+            <article class="system-pane is-agent">
+              <div class="system-pane-copy">
+                <div class="system-pane-label">AGENT</div>
+                <h3>先理解文档，再决定怎么做</h3>
+                <p>Agent 结合当前文档与用户目标判断任务，不需要用户反复解释上下文和处理范围。</p>
+                <div class="system-benefit"><strong>理解当前现场</strong><span>读取正文、结构、样式、批注与编辑状态。</span></div>
+                <div class="system-benefit"><strong>拆解任务</strong><span>决定需要哪些能力、执行顺序和确认节点。</span></div>
+                <div class="system-benefit"><strong>保持用户掌控</strong><span>遇到不确定或高风险操作时主动请求确认。</span></div>
+              </div>
+              <div class="system-pane-visual">
+                <div class="demo-window">
+                  <div class="demo-bar"><i></i><i></i><i></i></div>
+                  <div class="agent-demo">
+                    <div class="agent-document"><h4>关于项目推进计划的报告</h4><div class="demo-line medium"></div><div class="demo-line"></div><div class="demo-line short"></div><div class="agent-selection">请检查全文格式，并按照正式公文要求完成排版。</div><div class="demo-line"></div><div class="demo-line medium"></div></div>
+                    <aside class="agent-analysis"><div class="demo-status">文档已理解</div><h4>任务判断</h4><div class="analysis-row"><span>处理范围</span><strong>全文</strong></div><div class="analysis-row"><span>需要能力</span><strong>公文审校、智能排版</strong></div><div class="analysis-row"><span>执行方式</span><strong>调用标准 Workflow</strong></div><div class="analysis-row"><span>确认节点</span><strong>写回前预览</strong></div></aside>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="system-pane is-skill">
+              <div class="system-pane-copy">
+                <div class="system-pane-label">SKILL</div>
+                <h3>把专业经验变成随时可用的能力</h3>
+                <p>Skill 把提示词、业务规则和文档操作封装起来，让复杂能力可以直接调用和持续复用。</p>
+                <div class="system-benefit"><strong>内置办公能力</strong><span>审校、改写、翻译、摘要和智能排版。</span></div>
+                <div class="system-benefit"><strong>业务规则沉淀</strong><span>面向合同、公文、财务等场景定制标准。</span></div>
+                <div class="system-benefit"><strong>统一团队输出</strong><span>让不同成员使用同一套处理规则和结果格式。</span></div>
+              </div>
+              <div class="system-pane-visual">
+                <div class="demo-window">
+                  <div class="demo-bar"><i></i><i></i><i></i></div>
+                  <div class="skill-demo">
+                    <div class="skill-list"><div class="skill-list-title">专业技能</div><div class="skill-item is-active">公文智能排版</div><div class="skill-item">合同风险审校</div><div class="skill-item">正式文本润色</div><div class="skill-item">长文档摘要</div></div>
+                    <div class="skill-detail"><div class="skill-detail-head"><div><h4>公文智能排版</h4><p>将专业公文版式应用到当前文档</p></div><span>已启用</span></div><div class="skill-rule"><b>输入</b><span>当前文档、参考模板或版式要求</span></div><div class="skill-rule"><b>处理规则</b><span>识别结构并保留正文内容，调整页面、段落和字体样式</span></div><div class="skill-rule"><b>输出</b><span>可预览、可确认的排版结果</span></div><div class="skill-run">应用到当前文档</div></div>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="system-pane is-workflow">
+              <div class="system-pane-copy">
+                <div class="system-pane-label">WORKFLOW</div>
+                <h3>让多步骤任务稳定执行到结果</h3>
+                <p>Workflow 串联文档读取、Skill 调用、模型处理、人工确认和安全写回，减少手工切换。</p>
+                <div class="system-benefit"><strong>过程可见</strong><span>每个节点的状态、输入和结果都清晰可查。</span></div>
+                <div class="system-benefit"><strong>标准可复用</strong><span>把成熟流程保存下来，团队可以反复执行。</span></div>
+                <div class="system-benefit"><strong>结果可确认</strong><span>关键修改在真正写回文档前由用户决定。</span></div>
+              </div>
+              <div class="system-pane-visual">
+                <div class="demo-window">
+                  <div class="demo-bar"><i></i><i></i><i></i></div>
+                  <div class="workflow-demo"><div class="workflow-demo-head"><strong>公文审校与排版</strong><span>正在执行</span></div><div class="demo-flow-step"><b>1</b><div><strong>读取当前文档</strong><small>解析正文、样式与批注</small></div><div class="demo-flow-state">已完成</div></div><div class="demo-flow-step"><b>2</b><div><strong>调用审校 Skill</strong><small>检查表达、格式与一致性</small></div><div class="demo-flow-state">已完成</div></div><div class="demo-flow-step is-active"><b>3</b><div><strong>应用排版模板</strong><small>保留内容并调整文档版式</small></div><div class="demo-flow-state">处理中</div></div><div class="demo-flow-step"><b>4</b><div><strong>人工确认</strong><small>预览修改范围与处理结果</small></div><div class="demo-flow-state">待确认</div></div><div class="demo-flow-step"><b>5</b><div><strong>安全写回</strong><small>确认后更新当前文档</small></div><div class="demo-flow-state">等待中</div></div></div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
     </div>
-  </section>
+
+    <div class="band">
+      <section class="section" id="plugins">
+        <div class="section-heading">
+          <div class="section-kicker">OFFICE PLUGINS</div>
+          <h2 class="section-title">在熟悉的文档编辑器里直接使用 Coco</h2>
+          <p class="section-copy">三个平台共享 Coco 的智能能力，并通过各自的原生插件适配文档读取、操作与部署方式。</p>
+        </div>
+        <div class="plugin-grid">
+          <article class="plugin"><div class="plugin-head"><img class="plugin-icon" src="./assets/hosts/wps.png" alt="WPS Office" /><div class="plugin-title"><h3>WPS Office</h3><span>WPS Writer 插件</span></div><span class="status">已支持</span></div><p>在 WPS 文字侧边栏中读取当前文档，执行对话、排版、Skill 与 Workflow。</p><ul class="plugin-facts"><li><span>接入形态</span><b>桌面插件</b></li><li><span>主要场景</span><b>对话 · 排版 · 工作流</b></li></ul><a class="plugin-link" href="./install.html#wps">查看 WPS 安装方式 →</a></article>
+          <article class="plugin"><div class="plugin-head"><img class="plugin-icon" src="./assets/hosts/word.png" alt="Microsoft Word" /><div class="plugin-title"><h3>Microsoft Word</h3><span>Office Add-in</span></div><span class="status">已支持</span></div><p>通过 Microsoft Office 加载项使用统一的智能体、专业技能与文档处理能力。</p><ul class="plugin-facts"><li><span>接入形态</span><b>Office Add-in</b></li><li><span>主要场景</span><b>内容处理 · Skill · 写回</b></li></ul><a class="plugin-link" href="./install.html#microsoft">查看 Word 安装方式 →</a></article>
+          <article class="plugin"><div class="plugin-head"><img class="plugin-icon" src="./assets/hosts/onlyoffice.png" alt="ONLYOFFICE" /><div class="plugin-title"><h3>ONLYOFFICE</h3><span>Desktop / Document Server</span></div><span class="status">已支持</span></div><p>覆盖 Desktop Editors 与 Document Server 场景，在侧边栏中完成文档理解、排版与写回。</p><ul class="plugin-facts"><li><span>接入形态</span><b>Desktop · Docker</b></li><li><span>主要场景</span><b>文档理解 · 智能排版</b></li></ul><a class="plugin-link" href="./install.html#onlyoffice-desktop">查看 ONLYOFFICE 安装方式 →</a></article>
+        </div>
+      </section>
+    </div>
+
+    <section class="section" id="community">
+      <div class="trust-layout">
+        <div>
+          <div class="section-kicker">OPEN COLLABORATION</div>
+          <h2 class="section-title">公开反馈，持续完善文档能力</h2>
+          <p class="section-copy">Coco 的公共仓库集中维护产品文档、安装说明、版本信息和社区反馈。你可以查看当前进展，也可以提交问题与建议。</p>
+        </div>
+        <div class="trust-links">
+          <a class="trust-link" href="https://github.com/coco-vexel/coco"><div><strong>GitHub 公共仓库</strong><span>查看文档、资源目录与项目进展。</span></div><b>→</b></a>
+          <a class="trust-link" href="https://github.com/coco-vexel/coco/issues"><div><strong>问题与功能建议</strong><span>提交宿主兼容问题、复现信息与产品建议。</span></div><b>→</b></a>
+          <a class="trust-link" href="./release-manifest.json"><div><strong>版本发布清单</strong><span>查看各插件与公共组件的当前发布信息。</span></div><b>→</b></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div class="final-cta-inner"><div><h2>让 Coco 进入你的文档工作现场</h2><p>选择正在使用的文档平台，按照安装说明开始体验。</p></div><a class="cta-link" href="./install.html">选择平台并安装 →</a></div>
+    </section>
+  </main>
 
   <footer class="footer">
     <span>Coco 文档智能助手</span>
-    <span><a href="./install.html">安装部署</a> · <a href="./release-manifest.json">发布清单</a></span>
+    <div class="footer-links"><a href="./install.html">安装部署</a><a href="https://github.com/coco-vexel/coco">GitHub</a><a href="https://github.com/coco-vexel/coco/issues">Issues</a><a href="./release-manifest.json">发布清单</a><a href="https://github.com/coco-vexel/coco/blob/main/SECURITY.md">安全说明</a></div>
   </footer>
 </body>
 </html>
