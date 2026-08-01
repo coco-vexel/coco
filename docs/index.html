@@ -90,7 +90,7 @@
       font-size: 13px;
       font-weight: 700;
     }
-    .host-chip img { width: 24px; height: 24px; border-radius: 5px; }
+    .host-chip img { width: 24px; height: 24px; object-fit: contain; padding: 2px; }
     .host-chip small { color: var(--green); font-size: 11px; font-weight: 800; }
     .stats { display: flex; gap: 26px; margin-top: 34px; color: var(--muted); font-size: 14px; flex-wrap: wrap; }
     .stats strong { display: block; color: var(--ink); font-size: 24px; margin-bottom: 4px; }
@@ -167,7 +167,7 @@
       min-height: 250px;
     }
     .plugin-head { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
-    .plugin-icon { width: 48px; height: 48px; border-radius: 8px; border: 1px solid var(--line); }
+    .plugin-icon { width: 48px; height: 48px; border-radius: 8px; border: 1px solid var(--line); object-fit: contain; padding: 7px; background: #fff; }
     .plugin-title { min-width: 0; }
     .plugin-title h3 { margin: 0 0 5px; font-size: 18px; }
     .plugin-title span { color: var(--muted); font-size: 12px; }
@@ -225,9 +225,9 @@
       <div class="host-proof" aria-label="支持的 Office 插件">
         <div class="host-proof-label">一次安装，在熟悉的文档环境中直接使用</div>
         <div class="host-proof-list">
-          <a class="host-chip" href="./install.html#wps"><img src="./coco-wps/icons/coco-ribbon.png" alt="" /><span>WPS Office</span><small>已支持</small></a>
-          <a class="host-chip" href="./install.html#microsoft"><img src="./microsoft/assets/icon-32.png" alt="" /><span>Microsoft Word</span><small>已支持</small></a>
-          <a class="host-chip" href="./install.html#onlyoffice-desktop"><img src="./onlyoffice/resources/light/icon.png" alt="" /><span>ONLYOFFICE</span><small>已支持</small></a>
+          <a class="host-chip" href="./install.html#wps"><img src="./assets/hosts/wps.png" alt="" /><span>WPS Office</span><small>已支持</small></a>
+          <a class="host-chip" href="./install.html#microsoft"><img src="./assets/hosts/word.png" alt="" /><span>Microsoft Word</span><small>已支持</small></a>
+          <a class="host-chip" href="./install.html#onlyoffice-desktop"><img src="./assets/hosts/onlyoffice.png" alt="" /><span>ONLYOFFICE</span><small>已支持</small></a>
         </div>
       </div>
       <div class="stats">
@@ -276,19 +276,19 @@
       <p class="section-copy">无需改变日常办公习惯。Coco 通过原生插件进入文档编辑器，在当前文档旁完成对话、排版、Skill 和 Workflow 操作。</p>
       <div class="plugin-grid">
         <article class="plugin">
-          <div class="plugin-head"><img class="plugin-icon" src="./coco-wps/icons/coco-ribbon.png" alt="Coco for WPS" /><div class="plugin-title"><h3>WPS Office</h3><span>WPS Writer 插件</span></div><span class="status">已支持</span></div>
+          <div class="plugin-head"><img class="plugin-icon" src="./assets/hosts/wps.png" alt="WPS Office" /><div class="plugin-title"><h3>WPS Office</h3><span>WPS Writer 插件</span></div><span class="status">已支持</span></div>
           <p>在 WPS 文字中打开 Coco 侧边栏，直接读取当前文档、执行技能与工作流并写回处理结果。</p>
           <div class="plugin-meta"><span>智能对话</span><span>排版</span><span>Workflow</span></div>
           <a class="plugin-link" href="./install.html#wps">查看 WPS 安装方式 →</a>
         </article>
         <article class="plugin">
-          <div class="plugin-head"><img class="plugin-icon" src="./microsoft/assets/icon-80.png" alt="Coco for Microsoft Word" /><div class="plugin-title"><h3>Microsoft Word</h3><span>Office Add-in</span></div><span class="status">已支持</span></div>
+          <div class="plugin-head"><img class="plugin-icon" src="./assets/hosts/word.png" alt="Microsoft Word" /><div class="plugin-title"><h3>Microsoft Word</h3><span>Office Add-in</span></div><span class="status">已支持</span></div>
           <p>通过 Microsoft Office 加载项接入 Coco，在 Word 中调用统一的智能体、技能和文档处理能力。</p>
           <div class="plugin-meta"><span>Office Add-in</span><span>Skill</span><span>文档写回</span></div>
           <a class="plugin-link" href="./install.html#microsoft">查看 Microsoft 安装方式 →</a>
         </article>
         <article class="plugin">
-          <div class="plugin-head"><img class="plugin-icon" src="./onlyoffice/resources/light/icon@2x.png" alt="Coco for ONLYOFFICE" /><div class="plugin-title"><h3>ONLYOFFICE</h3><span>Desktop / Docker 插件</span></div><span class="status">已支持</span></div>
+          <div class="plugin-head"><img class="plugin-icon" src="./assets/hosts/onlyoffice.png" alt="ONLYOFFICE" /><div class="plugin-title"><h3>ONLYOFFICE</h3><span>Desktop / Docker 插件</span></div><span class="status">已支持</span></div>
           <p>支持 ONLYOFFICE Desktop Editors 与 Document Server 场景，在侧边栏内完成文档理解、排版与写回。</p>
           <div class="plugin-meta"><span>Desktop</span><span>Docker</span><span>智能排版</span></div>
           <a class="plugin-link" href="./install.html#onlyoffice-desktop">查看 ONLYOFFICE 安装方式 →</a>
