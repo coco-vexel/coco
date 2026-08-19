@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Coco 是运行在 WPS、Microsoft Word 和 ONLYOFFICE 中的文档智能助手，支持文档理解、智能排版、专业 Skill 与可复用 Workflow。" />
-  <meta property="og:title" content="Coco 文档智能助手" />
-  <meta property="og:description" content="在熟悉的文档编辑器中，完成理解、排版、内容处理与安全写回。" />
+  <meta name="description" content="Coco 是运行在 WPS Office、Microsoft Office 和 ONLYOFFICE 中的 Word 与 Excel 智能助手，支持文档理解、表格处理、数据分析、专业 Skill 与可复用 Workflow。" />
+  <meta property="og:title" content="Coco Word 与 Excel 智能助手" />
+  <meta property="og:description" content="在熟悉的 Word 文档和 Excel 工作簿中，完成理解、处理、分析与安全写回。" />
   <meta property="og:type" content="website" />
-  <title>Coco 文档智能助手</title>
+  <title>Coco Word 与 Excel 智能助手</title>
   <link rel="icon" type="image/png" href="./assets/brand-logo.png" />
   <link rel="apple-touch-icon" href="./assets/brand-logo.png" />
   <style>
@@ -136,6 +136,34 @@
     .assistant-item strong { display: block; margin-bottom: 5px; }
     .assistant-item span { color: var(--muted); font-size: 13px; line-height: 1.55; }
     .run { height: 42px; display: flex; align-items: center; justify-content: center; margin-top: 18px; border-radius: 8px; background: var(--blue); color: var(--white); font-weight: 800; }
+
+    .product-lanes { padding-top: 26px; }
+    .product-lane-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .product-lane { min-height: 330px; display: grid; grid-template-columns: minmax(0, 0.82fr) minmax(250px, 1.18fr); gap: 24px; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: var(--white); }
+    .product-lane-copy { padding: 34px 0 34px 34px; }
+    .product-lane-label { color: var(--blue); font-size: 12px; font-weight: 850; }
+    .product-lane h3 { margin: 14px 0 12px; font-size: 25px; }
+    .product-lane p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.7; }
+    .product-lane-facts { display: grid; gap: 8px; margin-top: 24px; }
+    .product-lane-fact { display: flex; align-items: center; gap: 9px; color: #3f4a5d; font-size: 12px; font-weight: 750; }
+    .product-lane-fact::before { content: ""; width: 7px; height: 7px; flex: 0 0 auto; border-radius: 50%; background: var(--green); }
+    .product-lane-visual { min-height: 100%; display: grid; place-items: center; padding: 30px 28px; background: #f5f7fb; }
+    .mini-document { width: 210px; min-height: 252px; padding: 28px 24px; border: 1px solid #dfe4ed; background: var(--white); box-shadow: 0 12px 30px rgba(15, 23, 42, 0.09); }
+    .mini-document-title { height: 12px; width: 72%; margin: 0 auto 26px; background: #cfd8f8; }
+    .mini-document-line { height: 7px; margin-top: 12px; background: #e5e9f0; }
+    .mini-document-line.short { width: 66%; }
+    .mini-document-mark { margin-top: 20px; padding: 9px; border-left: 3px solid var(--blue); background: var(--blue-soft); color: #526078; font-size: 10px; line-height: 1.5; }
+    .mini-workbook { width: 100%; max-width: 330px; overflow: hidden; border: 1px solid #dfe4ed; background: var(--white); box-shadow: 0 12px 30px rgba(15, 23, 42, 0.09); }
+    .mini-workbook-bar { height: 30px; display: flex; align-items: center; gap: 7px; padding: 0 10px; border-bottom: 1px solid var(--line); background: #f8fafc; }
+    .mini-workbook-bar i { width: 7px; height: 7px; border-radius: 50%; background: #cfd6e1; }
+    .mini-grid { display: grid; grid-template-columns: 32px repeat(4, 1fr); font-size: 10px; }
+    .mini-grid span { min-height: 31px; display: flex; align-items: center; padding: 5px 7px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); color: #556176; }
+    .mini-grid .axis { justify-content: center; padding: 0; background: #f3f5f8; color: #7b8696; }
+    .mini-grid .header { background: var(--blue-soft); color: #3049a8; font-weight: 800; }
+    .mini-grid .metric { color: var(--ink); font-weight: 750; }
+    .mini-workbook-tabs { display: flex; gap: 2px; padding: 6px 8px; background: #f8fafc; }
+    .mini-workbook-tabs span { padding: 4px 8px; border-radius: 4px; color: var(--muted); font-size: 9px; }
+    .mini-workbook-tabs .active { background: var(--white); color: var(--green); font-weight: 850; box-shadow: 0 1px 4px rgba(15, 23, 42, 0.08); }
 
     .section { max-width: 1180px; margin: 0 auto; padding: 88px 32px; }
     .section-heading { max-width: 780px; margin-bottom: 42px; }
@@ -305,6 +333,8 @@
       .mock { grid-template-columns: 1fr; }
       .doc { min-height: 330px; }
       .assistant { border-top: 1px solid var(--line); border-left: 0; }
+      .product-lane { grid-template-columns: 1fr; }
+      .product-lane-copy { padding: 32px 32px 0; }
       .scenario-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .scenario:nth-child(3) { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
       .scenario:nth-child(4) { border-top: 1px solid var(--line); }
@@ -320,11 +350,16 @@
     @media (max-width: 560px) {
       .nav { padding: 0 18px; }
       .hero, .section { padding-right: 20px; padding-left: 20px; }
-      .hero { padding-top: 46px; padding-bottom: 58px; }
-      h1 { font-size: 39px; }
+      .hero { width: 100%; grid-template-columns: minmax(0, 1fr); padding-top: 46px; padding-bottom: 58px; }
+      .hero > *, .product, .mock, .mock > * { width: 100%; max-width: 100%; min-width: 0; }
+      h1 { max-width: 100%; overflow-wrap: anywhere; font-size: 36px; }
       .lead { font-size: 16px; }
       .primary, .secondary { width: 100%; }
       .host-proof-list { display: grid; grid-template-columns: repeat(2, minmax(0, max-content)); gap: 12px 18px; }
+      .product-lane-grid { grid-template-columns: 1fr; }
+      .product-lane { min-height: 0; }
+      .product-lane-copy { padding: 28px 24px 0; }
+      .product-lane-visual { min-height: 280px; padding: 24px; }
       .section { padding-top: 66px; padding-bottom: 66px; }
       .section-title, .final-cta h2 { font-size: 30px; }
       .scenario-grid { grid-template-columns: 1fr; }
@@ -381,18 +416,18 @@
   <main>
     <section class="hero">
       <div>
-        <div class="eyebrow">WPS · Microsoft Word · ONLYOFFICE</div>
-        <h1>Coco 文档智能助手</h1>
-        <p class="lead">让智能体进入你正在编辑的文档，<strong>理解结构、调用专业能力、执行复杂流程，并在确认后安全写回。</strong></p>
+        <div class="eyebrow">WORD 插件 · EXCEL 插件 · 多宿主接入</div>
+        <h1>Coco Office 智能助手</h1>
+        <p class="lead">让智能体进入你正在编辑的 Word 文档和 Excel 工作簿，<strong>理解结构、调用专业能力、执行复杂流程，并在确认后安全写回。</strong></p>
         <div class="actions">
           <a class="primary" href="./install.html">查看安装方式</a>
           <a class="secondary" href="#scenarios">看看能做什么</a>
         </div>
-        <div class="host-proof" aria-label="支持的文档平台">
-          <div class="host-proof-label">三个主流文档平台均已接入</div>
+        <div class="host-proof" aria-label="支持的办公平台">
+          <div class="host-proof-label">Word 与 Excel 插件已接入三个主流办公平台</div>
           <div class="host-proof-list">
             <a class="host-chip" href="./install.html#wps"><img src="./assets/hosts/wps.png" alt="" /><span>WPS Office</span></a>
-            <a class="host-chip" href="./install.html#microsoft"><img src="./assets/hosts/word.png" alt="" /><span>Microsoft Word</span></a>
+            <a class="host-chip" href="./install.html#microsoft"><img src="./assets/hosts/word.png" alt="" /><span>Microsoft Office</span></a>
             <a class="host-chip" href="./install.html#onlyoffice-desktop"><img src="./assets/hosts/onlyoffice.png" alt="" /><span>ONLYOFFICE</span></a>
           </div>
         </div>
@@ -404,27 +439,59 @@
           <div class="doc"></div>
           <aside class="assistant">
             <div class="assistant-title"><img src="./assets/brand-logo.png" alt="" /><span>Coco 助手</span></div>
-            <div class="assistant-item"><strong>理解当前文档</strong><span>识别内容范围、结构与编辑状态。</span></div>
-            <div class="assistant-item"><strong>选择专业能力</strong><span>调用排版、审校、改写与业务 Skill。</span></div>
-            <div class="assistant-item"><strong>确认后写回</strong><span>预览处理结果，再更新当前文档。</span></div>
+            <div class="assistant-item"><strong>理解当前文件</strong><span>识别文档或工作簿的内容、结构与编辑状态。</span></div>
+            <div class="assistant-item"><strong>选择专业能力</strong><span>调用排版、审校、数据处理与分析 Skill。</span></div>
+            <div class="assistant-item"><strong>确认后写回</strong><span>预览处理结果，再更新当前文件。</span></div>
             <div class="run">交给 Coco 处理</div>
           </aside>
         </div>
       </div>
     </section>
 
+    <section class="section product-lanes" id="products">
+      <div class="section-heading centered">
+        <div class="section-kicker">WORD + EXCEL</div>
+        <h2 class="section-title">一套 Coco，两种原生工作入口</h2>
+        <p class="section-copy">共享同一套 Agent、Skill 与 Workflow，同时针对 Word 文档和 Excel 工作簿提供清晰独立的插件体验。</p>
+      </div>
+      <div class="product-lane-grid">
+        <article class="product-lane">
+          <div class="product-lane-copy">
+            <div class="product-lane-label">WORD 插件</div>
+            <h3>理解、审校并处理专业文档</h3>
+            <p>围绕段落、表格、样式、批注和修订工作，支持内容生成、专业排版与确认后写回。</p>
+            <div class="product-lane-facts"><div class="product-lane-fact">文档理解与长文审校</div><div class="product-lane-fact">公文、合同与报告排版</div><div class="product-lane-fact">批注、修订与安全写回</div></div>
+          </div>
+          <div class="product-lane-visual" aria-label="Word 文档插件示意">
+            <div class="mini-document"><div class="mini-document-title"></div><div class="mini-document-line"></div><div class="mini-document-line"></div><div class="mini-document-line short"></div><div class="mini-document-mark">已识别当前段落、表格与批注，可以开始审校和排版。</div><div class="mini-document-line"></div></div>
+          </div>
+        </article>
+        <article class="product-lane">
+          <div class="product-lane-copy">
+            <div class="product-lane-label">EXCEL 插件</div>
+            <h3>处理表格，并生成可靠分析</h3>
+            <p>理解工作表、区域、公式和样式，完成数据清洗、批量操作、统计汇总、图表与分析报告。</p>
+            <div class="product-lane-facts"><div class="product-lane-fact">多工作表与区域级操作</div><div class="product-lane-fact">公式、格式和批量数据处理</div><div class="product-lane-fact">统计分析、图表与 HTML 报告</div></div>
+          </div>
+          <div class="product-lane-visual" aria-label="Excel 工作簿插件示意">
+            <div class="mini-workbook"><div class="mini-workbook-bar"><i></i><i></i><i></i></div><div class="mini-grid"><span class="axis"></span><span class="axis">A</span><span class="axis">B</span><span class="axis">C</span><span class="axis">D</span><span class="axis">1</span><span class="header">月份</span><span class="header">合同额</span><span class="header">收款额</span><span class="header">完成率</span><span class="axis">2</span><span>3 月</span><span class="metric">150,000</span><span class="metric">50,000</span><span>33%</span><span class="axis">3</span><span>4 月</span><span class="metric">89,000</span><span class="metric">189,000</span><span>100%</span><span class="axis">4</span><span>5 月</span><span class="metric">290,000</span><span class="metric">100,000</span><span>34%</span></div><div class="mini-workbook-tabs"><span>销售订单</span><span class="active">统计分析</span><span>收款单</span></div></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
     <div class="band">
       <section class="section" id="scenarios">
         <div class="section-heading">
-          <div class="section-kicker">DOCUMENT WORK</div>
-          <h2 class="section-title">复杂文档工作，不必再从空白对话开始</h2>
-          <p class="section-copy">Coco 围绕当前文档工作，把常见任务变成可以直接执行、持续复用的处理方式。</p>
+          <div class="section-kicker">WORD + EXCEL WORK</div>
+          <h2 class="section-title">文档与表格工作，都在当前文件里完成</h2>
+          <p class="section-copy">Coco 围绕当前 Word 文档或 Excel 工作簿工作，把常见任务变成可以直接执行、持续复用的处理方式。</p>
         </div>
         <div class="scenario-grid">
-          <article class="scenario"><span class="scenario-label">规范格式</span><h3>公文与报告排版</h3><p>识别版式骨架、提取模板，并把专业格式应用到目标文档。</p></article>
-          <article class="scenario"><span class="scenario-label">降低风险</span><h3>合同与长文审校</h3><p>结合全文上下文检查表达、编号、遗漏与前后一致性。</p></article>
-          <article class="scenario"><span class="scenario-label">提升效率</span><h3>摘要、改写与生成</h3><p>按选区、段落或全文完成摘要、润色、翻译和正式文本草拟。</p></article>
-          <article class="scenario"><span class="scenario-label">团队复用</span><h3>标准流程自动执行</h3><p>把多步骤任务沉淀为 Workflow，让同一套标准可以反复使用。</p></article>
+          <article class="scenario"><span class="scenario-label">Word 插件</span><h3>文档理解与审校</h3><p>结合全文结构检查表达、编号、遗漏、批注与前后一致性。</p></article>
+          <article class="scenario"><span class="scenario-label">Word 插件</span><h3>专业排版与写回</h3><p>识别版式骨架、应用专业格式，并在确认后更新目标文档。</p></article>
+          <article class="scenario"><span class="scenario-label">Excel 插件</span><h3>数据处理与公式</h3><p>按工作表和区域完成清洗、拆分、公式、格式与批量操作。</p></article>
+          <article class="scenario"><span class="scenario-label">Excel 插件</span><h3>统计分析与报告</h3><p>跨表汇总数据，生成图表和可查看、可下载的分析报告。</p></article>
         </div>
       </section>
     </div>
@@ -432,18 +499,18 @@
     <section class="section" id="capabilities">
       <div class="section-heading">
         <div class="section-kicker">CORE CAPABILITIES</div>
-        <h2 class="section-title">不止生成文字，更真正参与文档工作</h2>
-        <p class="section-copy">Coco 连接文档结构、AI 模型和编辑能力，让理解、处理与写回发生在同一个工作现场。</p>
+        <h2 class="section-title">不止生成内容，更真正参与 Office 工作</h2>
+        <p class="section-copy">Coco 连接文档与工作簿结构、AI 模型和编辑能力，让理解、处理、分析与写回发生在同一个工作现场。</p>
       </div>
       <div class="capability-story">
         <div class="story-copy">
           <div class="story-kicker">完整上下文</div>
-          <h3>读懂文档结构，而不只是看到复制文本</h3>
-          <p>直接读取当前文档的内容、结构、样式和编辑状态，让模型基于真实上下文判断任务。</p>
+          <h3>读懂文件结构，而不只是看到复制文本</h3>
+          <p>直接读取当前文档或工作簿的内容、结构、样式和编辑状态，让模型基于真实上下文判断任务。</p>
           <div class="story-points">
-            <div class="story-point"><strong>读取范围</strong><span>正文、段落、表格、选区、批注与修订。</span></div>
-            <div class="story-point"><strong>版式理解</strong><span>识别样式关系与专业文档的排版骨架。</span></div>
-            <div class="story-point"><strong>精准处理</strong><span>按选区、段落或全文控制任务作用范围。</span></div>
+            <div class="story-point"><strong>Word 上下文</strong><span>正文、段落、表格、选区、批注与修订。</span></div>
+            <div class="story-point"><strong>Excel 上下文</strong><span>工作表、区域、单元格、公式、样式与对象。</span></div>
+            <div class="story-point"><strong>精准范围</strong><span>按段落、选区、工作表或区域控制任务作用范围。</span></div>
           </div>
         </div>
         <div class="story-visual" aria-label="Coco 文档理解界面示意">
@@ -468,11 +535,11 @@
         <div class="story-copy">
           <div class="story-kicker">过程可控</div>
           <h3>让复杂处理过程可见，让关键修改始终可确认</h3>
-          <p>Coco 不把模型结果直接覆盖到文档，而是展示执行步骤与状态，在关键节点交给用户确认。</p>
+          <p>Coco 不把模型结果直接覆盖到文件，而是展示执行步骤与状态，在关键节点交给用户确认。</p>
           <div class="story-points">
             <div class="story-point"><strong>过程可见</strong><span>每一步的输入、处理状态和结果都清晰可查。</span></div>
             <div class="story-point"><strong>人工确认</strong><span>高风险修改先预览，再决定是否应用。</span></div>
-            <div class="story-point"><strong>安全写回</strong><span>确认后更新当前文档，降低误改原文风险。</span></div>
+            <div class="story-point"><strong>安全写回</strong><span>确认后更新当前文档或工作簿，降低误改风险。</span></div>
           </div>
         </div>
       </div>
@@ -483,9 +550,9 @@
         <div class="system-header">
           <div class="section-heading">
             <div class="section-kicker">COCO SYSTEM</div>
-            <h2 class="section-title">三种能力，在同一个文档任务中协作</h2>
+            <h2 class="section-title">三种能力，在同一个 Office 任务中协作</h2>
           </div>
-          <p class="section-copy">不是一张抽象架构图。切换查看 Agent、Skill 与 Workflow 在 Coco 中分别怎样参与真实文档工作。</p>
+          <p class="section-copy">不是一张抽象架构图。切换查看 Agent、Skill 与 Workflow 在 Coco 中分别怎样参与真实文档与表格工作。</p>
         </div>
         <div class="system-demo">
           <input type="radio" name="system-tabs" id="system-agent" checked />
@@ -500,9 +567,9 @@
             <article class="system-pane is-agent">
               <div class="system-pane-copy">
                 <div class="system-pane-label">AGENT</div>
-                <h3>先理解文档，再决定怎么做</h3>
-                <p>Agent 结合当前文档与用户目标判断任务，不需要用户反复解释上下文和处理范围。</p>
-                <div class="system-benefit"><strong>理解当前现场</strong><span>读取正文、结构、样式、批注与编辑状态。</span></div>
+                <h3>先理解当前文件，再决定怎么做</h3>
+                <p>Agent 结合当前文档或工作簿与用户目标判断任务，不需要用户反复解释上下文和处理范围。</p>
+                <div class="system-benefit"><strong>理解当前现场</strong><span>读取文档结构或工作簿、工作表与区域状态。</span></div>
                 <div class="system-benefit"><strong>拆解任务</strong><span>决定需要哪些能力、执行顺序和确认节点。</span></div>
                 <div class="system-benefit"><strong>保持用户掌控</strong><span>遇到不确定或高风险操作时主动请求确认。</span></div>
               </div>
@@ -520,8 +587,8 @@
               <div class="system-pane-copy">
                 <div class="system-pane-label">SKILL</div>
                 <h3>把专业经验变成随时可用的能力</h3>
-                <p>Skill 把提示词、业务规则和文档操作封装起来，让复杂能力可以直接调用和持续复用。</p>
-                <div class="system-benefit"><strong>内置办公能力</strong><span>审校、改写、翻译、摘要和智能排版。</span></div>
+                <p>Skill 把提示词、业务规则和 Office 操作封装起来，让复杂能力可以直接调用和持续复用。</p>
+                <div class="system-benefit"><strong>内置办公能力</strong><span>审校、排版、表格处理、统计分析与报告生成。</span></div>
                 <div class="system-benefit"><strong>业务规则沉淀</strong><span>面向合同、公文、财务等场景定制标准。</span></div>
                 <div class="system-benefit"><strong>统一团队输出</strong><span>让不同成员使用同一套处理规则和结果格式。</span></div>
               </div>
@@ -529,7 +596,7 @@
                 <div class="demo-window">
                   <div class="demo-bar"><i></i><i></i><i></i></div>
                   <div class="skill-demo">
-                    <div class="skill-list"><div class="skill-list-title">专业技能</div><div class="skill-item is-active">公文智能排版</div><div class="skill-item">合同风险审校</div><div class="skill-item">正式文本润色</div><div class="skill-item">长文档摘要</div></div>
+                    <div class="skill-list"><div class="skill-list-title">专业技能</div><div class="skill-item is-active">公文智能排版</div><div class="skill-item">合同风险审校</div><div class="skill-item">Excel 数据分析</div><div class="skill-item">长文档摘要</div></div>
                     <div class="skill-detail"><div class="skill-detail-head"><div><h4>公文智能排版</h4><p>将专业公文版式应用到当前文档</p></div><span>已启用</span></div><div class="skill-rule"><b>输入</b><span>当前文档、参考模板或版式要求</span></div><div class="skill-rule"><b>处理规则</b><span>识别结构并保留正文内容，调整页面、段落和字体样式</span></div><div class="skill-rule"><b>输出</b><span>可预览、可确认的排版结果</span></div><div class="skill-run">应用到当前文档</div></div>
                   </div>
                 </div>
@@ -539,7 +606,7 @@
               <div class="system-pane-copy">
                 <div class="system-pane-label">WORKFLOW</div>
                 <h3>让多步骤任务稳定执行到结果</h3>
-                <p>Workflow 串联文档读取、Skill 调用、模型处理、人工确认和安全写回，减少手工切换。</p>
+                <p>Workflow 串联文件读取、Skill 调用、模型处理、人工确认和安全写回，减少手工切换。</p>
                 <div class="system-benefit"><strong>过程可见</strong><span>每个节点的状态、输入和结果都清晰可查。</span></div>
                 <div class="system-benefit"><strong>标准可复用</strong><span>把成熟流程保存下来，团队可以反复执行。</span></div>
                 <div class="system-benefit"><strong>结果可确认</strong><span>关键修改在真正写回文档前由用户决定。</span></div>
@@ -560,13 +627,13 @@
       <section class="section" id="plugins">
         <div class="section-heading">
           <div class="section-kicker">OFFICE PLUGINS</div>
-          <h2 class="section-title">在熟悉的文档编辑器里直接使用 Coco</h2>
-          <p class="section-copy">三个平台共享 Coco 的智能能力，并通过各自的原生插件适配文档读取、操作与部署方式。</p>
+          <h2 class="section-title">在熟悉的 Word 与 Excel 编辑器里直接使用 Coco</h2>
+          <p class="section-copy">三个平台共享 Coco 的智能能力，并分别提供 Word 与 Excel 插件入口，适配文档、工作簿和各自的部署方式。</p>
         </div>
         <div class="plugin-grid">
-          <article class="plugin"><div class="plugin-head"><img class="plugin-icon" src="./assets/hosts/wps.png" alt="WPS Office" /><div class="plugin-title"><h3>WPS Office</h3><span>WPS Writer 插件</span></div><span class="status">已支持</span></div><p>在 WPS 文字侧边栏中读取当前文档，执行对话、排版、Skill 与 Workflow。</p><ul class="plugin-facts"><li><span>接入形态</span><b>桌面插件</b></li><li><span>主要场景</span><b>对话 · 排版 · 工作流</b></li></ul><a class="plugin-link" href="./install.html#wps">查看 WPS 安装方式 →</a></article>
-          <article class="plugin"><div class="plugin-head"><img class="plugin-icon" src="./assets/hosts/word.png" alt="Microsoft Word" /><div class="plugin-title"><h3>Microsoft Word</h3><span>Office Add-in</span></div><span class="status">已支持</span></div><p>通过 Microsoft Office 加载项使用统一的智能体、专业技能与文档处理能力。</p><ul class="plugin-facts"><li><span>接入形态</span><b>Office Add-in</b></li><li><span>主要场景</span><b>内容处理 · Skill · 写回</b></li></ul><a class="plugin-link" href="./install.html#microsoft">查看 Word 安装方式 →</a></article>
-          <article class="plugin"><div class="plugin-head"><img class="plugin-icon" src="./assets/hosts/onlyoffice.png" alt="ONLYOFFICE" /><div class="plugin-title"><h3>ONLYOFFICE</h3><span>Desktop / Document Server</span></div><span class="status">已支持</span></div><p>覆盖 Desktop Editors 与 Document Server 场景，在侧边栏中完成文档理解、排版与写回。</p><ul class="plugin-facts"><li><span>接入形态</span><b>Desktop · Docker</b></li><li><span>主要场景</span><b>文档理解 · 智能排版</b></li></ul><a class="plugin-link" href="./install.html#onlyoffice-desktop">查看 ONLYOFFICE 安装方式 →</a></article>
+          <article class="plugin"><div class="plugin-head"><img class="plugin-icon" src="./assets/hosts/wps.png" alt="WPS Office" /><div class="plugin-title"><h3>WPS Office</h3><span>Writer + Spreadsheets 插件</span></div><span class="status">已支持</span></div><p>在 WPS 文字和 WPS 表格侧边栏中使用 Coco，处理文档、工作簿与分析任务。</p><ul class="plugin-facts"><li><span>接入形态</span><b>桌面插件</b></li><li><span>插件支持</span><b>Word · Excel</b></li></ul><a class="plugin-link" href="./install.html#wps">查看 WPS 安装方式 →</a></article>
+          <article class="plugin"><div class="plugin-head"><img class="plugin-icon" src="./assets/hosts/word.png" alt="Microsoft Office" /><div class="plugin-title"><h3>Microsoft Office</h3><span>Word + Excel Add-ins</span></div><span class="status">已支持</span></div><p>通过 Microsoft Office 加载项使用统一的智能体、专业技能与文件处理能力。</p><ul class="plugin-facts"><li><span>接入形态</span><b>Office Add-in</b></li><li><span>插件支持</span><b>Word · Excel</b></li></ul><a class="plugin-link" href="./install.html#microsoft">查看 Microsoft Office 安装方式 →</a></article>
+          <article class="plugin"><div class="plugin-head"><img class="plugin-icon" src="./assets/hosts/onlyoffice.png" alt="ONLYOFFICE" /><div class="plugin-title"><h3>ONLYOFFICE</h3><span>Document + Spreadsheet 插件</span></div><span class="status">已支持</span></div><p>覆盖 Desktop Editors 与 Document Server，在文档和电子表格中提供独立的 Coco 插件入口。</p><ul class="plugin-facts"><li><span>接入形态</span><b>Desktop · Docker</b></li><li><span>插件支持</span><b>Word · Excel</b></li></ul><a class="plugin-link" href="./install.html#onlyoffice-desktop">查看 ONLYOFFICE 安装方式 →</a></article>
         </div>
       </section>
     </div>
@@ -575,8 +642,8 @@
       <div class="trust-layout">
         <div>
           <div class="section-kicker">OPEN COLLABORATION</div>
-          <h2 class="section-title">公开反馈，持续完善文档能力</h2>
-          <p class="section-copy">Coco 的公共仓库集中维护产品文档、安装说明、版本信息和社区反馈。你可以查看当前进展，也可以提交问题与建议。</p>
+          <h2 class="section-title">公开反馈，持续完善 Office 能力</h2>
+          <p class="section-copy">Coco 的公共仓库集中维护 Word 与 Excel 插件文档、安装说明、版本信息和社区反馈。你可以查看当前进展，也可以提交问题与建议。</p>
         </div>
         <div class="trust-links">
           <a class="trust-link" href="https://github.com/coco-vexel/coco"><div><strong>GitHub 公共仓库</strong><span>查看文档、资源目录与项目进展。</span></div><b>→</b></a>
@@ -587,12 +654,12 @@
     </section>
 
     <section class="final-cta">
-      <div class="final-cta-inner"><div><h2>让 Coco 进入你的文档工作现场</h2><p>选择正在使用的文档平台，按照安装说明开始体验。</p></div><a class="cta-link" href="./install.html">选择平台并安装 →</a></div>
+      <div class="final-cta-inner"><div><h2>让 Coco 进入你的 Word 与 Excel 工作现场</h2><p>选择正在使用的办公平台，按照安装说明开始体验。</p></div><a class="cta-link" href="./install.html">选择平台并安装 →</a></div>
     </section>
   </main>
 
   <footer class="footer">
-    <span>Coco 文档智能助手</span>
+    <span>Coco Word 与 Excel 智能助手</span>
     <div class="footer-links"><a href="./install.html">安装部署</a><a href="https://github.com/coco-vexel/coco">GitHub</a><a href="https://github.com/coco-vexel/coco/issues">Issues</a><a href="./release-manifest.json">发布清单</a><a href="https://github.com/coco-vexel/coco/blob/main/SECURITY.md">安全说明</a></div>
   </footer>
 </body>
