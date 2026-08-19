@@ -1,0 +1,670 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Coco Excel 是运行在 WPS 表格、Microsoft Excel 和 ONLYOFFICE Spreadsheet 中的工作簿智能助手，支持表格处理、公式与格式、统计分析、图表和安全写回。" />
+  <meta property="og:title" content="Coco Excel 智能助手" />
+  <meta property="og:description" content="在当前工作簿中完成数据理解、表格处理、统计分析、图表报告与安全写回。" />
+  <meta property="og:type" content="website" />
+  <title>Coco Excel 智能助手</title>
+  <link rel="icon" type="image/png" href="./assets/brand-logo.png" />
+  <link rel="apple-touch-icon" href="./assets/brand-logo.png" />
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #111827;
+      --muted: #5f6877;
+      --line: #e3e7ee;
+      --soft: #f6f8fb;
+      --blue: #3458e6;
+      --blue-soft: #edf2ff;
+      --green: #087f5b;
+      --white: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      overflow-x: hidden;
+      background: var(--white);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    .product-tabs-wrap { position: sticky; top: 64px; z-index: 19; border-bottom: 1px solid var(--line); background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(14px); }
+    .product-tabs { max-width: 1240px; display: flex; gap: 28px; margin: 0 auto; padding: 0 32px; }
+    .product-tab { position: relative; padding: 15px 2px 14px; color: var(--muted); font-size: 14px; font-weight: 800; }
+    .product-tab:hover { color: var(--ink); }
+    .product-tab[aria-current="page"] { color: var(--blue); }
+    .product-tab[aria-current="page"]::after { content: ""; position: absolute; right: 0; bottom: -1px; left: 0; height: 3px; background: var(--blue); }
+    .excel-main .product-lane-grid { grid-template-columns: 1fr; }
+    a:focus-visible, summary:focus-visible { outline: 3px solid rgba(52, 88, 230, 0.28); outline-offset: 3px; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 0 32px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(14px);
+    }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 850; }
+    .brand img { width: 30px; height: 30px; border-radius: 7px; }
+    .nav-links { display: flex; align-items: center; gap: 24px; margin-left: auto; color: var(--muted); font-size: 14px; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta, .primary, .secondary, .cta-link {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 18px;
+      border-radius: 8px;
+      font-weight: 800;
+    }
+    .nav-cta { min-height: 40px; background: var(--blue); color: var(--white); font-size: 14px; }
+    .mobile-menu { display: none; position: relative; }
+    .mobile-menu summary { width: 40px; height: 40px; display: grid; place-items: center; cursor: pointer; list-style: none; font-size: 22px; }
+    .mobile-menu summary::-webkit-details-marker { display: none; }
+    .mobile-menu-links {
+      position: absolute;
+      top: 48px;
+      right: 0;
+      width: 210px;
+      padding: 8px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--white);
+      box-shadow: 0 16px 42px rgba(15, 23, 42, 0.14);
+    }
+    .mobile-menu-links a { display: block; padding: 11px 12px; border-radius: 6px; font-size: 14px; }
+    .mobile-menu-links a:hover { background: var(--soft); }
+
+    main > section, .hero { scroll-margin-top: 116px; }
+    .hero {
+      max-width: 1240px;
+      min-height: min(780px, calc(100vh - 64px));
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(480px, 1.08fr);
+      align-items: center;
+      gap: 58px;
+      margin: 0 auto;
+      padding: 70px 32px 78px;
+    }
+    .hero > *, .capability-story > *, .trust-layout > *, .final-cta-inner > * { min-width: 0; }
+    .eyebrow, .section-kicker { margin-bottom: 12px; color: var(--blue); font-size: 13px; font-weight: 850; }
+    h1 { margin: 0; font-size: 58px; line-height: 1.06; }
+    .lead { max-width: 620px; margin: 22px 0 0; color: var(--muted); font-size: 18px; line-height: 1.75; }
+    .lead strong { color: var(--ink); }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .primary { background: var(--blue); color: var(--white); }
+    .secondary { border: 1px solid var(--line); background: var(--white); }
+    .primary:hover, .nav-cta:hover { background: #2949cb; }
+    .secondary:hover { border-color: #b9c2d0; background: var(--soft); }
+    .host-proof { margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--line); }
+    .host-proof-label { margin-bottom: 11px; color: var(--muted); font-size: 12px; }
+    .host-proof-list { display: flex; flex-wrap: wrap; gap: 20px; }
+    .host-chip { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 750; }
+    .host-chip img { width: 22px; height: 22px; object-fit: contain; }
+
+    .product {
+      width: 100%;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--white);
+      box-shadow: 0 24px 70px rgba(15, 23, 42, 0.13);
+    }
+    .bar { height: 42px; display: flex; align-items: center; gap: 8px; padding: 0 14px; border-bottom: 1px solid var(--line); background: #f8fafc; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: #cbd5e1; }
+    .mock { min-height: 480px; display: grid; grid-template-columns: 1fr 300px; }
+    .doc {
+      background:
+        linear-gradient(#eef2ff 0 0) 52px 72px / 190px 18px no-repeat,
+        linear-gradient(#dbeafe 0 0) 52px 118px / 78% 14px no-repeat,
+        linear-gradient(#e5e7eb 0 0) 52px 152px / 70% 12px no-repeat,
+        linear-gradient(#e5e7eb 0 0) 52px 184px / 76% 12px no-repeat,
+        linear-gradient(#fef3c7 0 0) 188px 242px / 44px 28px no-repeat,
+        linear-gradient(#e5e7eb 0 0) 52px 250px / 82% 12px no-repeat,
+        linear-gradient(#e5e7eb 0 0) 52px 282px / 68% 12px no-repeat,
+        #fff;
+    }
+    .assistant { padding: 22px; border-left: 1px solid var(--line); background: #fbfcff; }
+    .assistant-title { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; font-weight: 850; }
+    .assistant-title img { width: 28px; height: 28px; border-radius: 7px; }
+    .assistant-item { padding: 13px 0; border-top: 1px solid var(--line); }
+    .assistant-item strong { display: block; margin-bottom: 5px; }
+    .assistant-item span { color: var(--muted); font-size: 13px; line-height: 1.55; }
+    .run { height: 42px; display: flex; align-items: center; justify-content: center; margin-top: 18px; border-radius: 8px; background: var(--blue); color: var(--white); font-weight: 800; }
+
+    .product-lanes { padding-top: 26px; }
+    .product-lane-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .product-lane { min-height: 330px; display: grid; grid-template-columns: minmax(0, 0.82fr) minmax(250px, 1.18fr); gap: 24px; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: var(--white); }
+    .product-lane-copy { padding: 34px 0 34px 34px; }
+    .product-lane-label { color: var(--blue); font-size: 12px; font-weight: 850; }
+    .product-lane h3 { margin: 14px 0 12px; font-size: 25px; }
+    .product-lane p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.7; }
+    .product-lane-facts { display: grid; gap: 8px; margin-top: 24px; }
+    .product-lane-fact { display: flex; align-items: center; gap: 9px; color: #3f4a5d; font-size: 12px; font-weight: 750; }
+    .product-lane-fact::before { content: ""; width: 7px; height: 7px; flex: 0 0 auto; border-radius: 50%; background: var(--green); }
+    .product-lane-visual { min-height: 100%; display: grid; place-items: center; padding: 30px 28px; background: #f5f7fb; }
+    .mini-document { width: 210px; min-height: 252px; padding: 28px 24px; border: 1px solid #dfe4ed; background: var(--white); box-shadow: 0 12px 30px rgba(15, 23, 42, 0.09); }
+    .mini-document-title { height: 12px; width: 72%; margin: 0 auto 26px; background: #cfd8f8; }
+    .mini-document-line { height: 7px; margin-top: 12px; background: #e5e9f0; }
+    .mini-document-line.short { width: 66%; }
+    .mini-document-mark { margin-top: 20px; padding: 9px; border-left: 3px solid var(--blue); background: var(--blue-soft); color: #526078; font-size: 10px; line-height: 1.5; }
+    .mini-workbook { width: 100%; max-width: 330px; overflow: hidden; border: 1px solid #dfe4ed; background: var(--white); box-shadow: 0 12px 30px rgba(15, 23, 42, 0.09); }
+    .mini-workbook-bar { height: 30px; display: flex; align-items: center; gap: 7px; padding: 0 10px; border-bottom: 1px solid var(--line); background: #f8fafc; }
+    .mini-workbook-bar i { width: 7px; height: 7px; border-radius: 50%; background: #cfd6e1; }
+    .mini-grid { display: grid; grid-template-columns: 32px repeat(4, 1fr); font-size: 10px; }
+    .mini-grid span { min-height: 31px; display: flex; align-items: center; padding: 5px 7px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); color: #556176; }
+    .mini-grid .axis { justify-content: center; padding: 0; background: #f3f5f8; color: #7b8696; }
+    .mini-grid .header { background: var(--blue-soft); color: #3049a8; font-weight: 800; }
+    .mini-grid .metric { color: var(--ink); font-weight: 750; }
+    .mini-workbook-tabs { display: flex; gap: 2px; padding: 6px 8px; background: #f8fafc; }
+    .mini-workbook-tabs span { padding: 4px 8px; border-radius: 4px; color: var(--muted); font-size: 9px; }
+    .mini-workbook-tabs .active { background: var(--white); color: var(--green); font-weight: 850; box-shadow: 0 1px 4px rgba(15, 23, 42, 0.08); }
+
+    .section { max-width: 1180px; margin: 0 auto; padding: 88px 32px; }
+    .section-heading { max-width: 780px; margin-bottom: 42px; }
+    .section-heading.centered { margin-right: auto; margin-left: auto; text-align: center; }
+    .section-title { margin: 0 0 14px; font-size: 38px; line-height: 1.25; }
+    .section-copy { margin: 0; color: var(--muted); font-size: 16px; line-height: 1.75; }
+    .band { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--soft); }
+
+    .scenario-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--ink); }
+    .scenario { padding: 28px 28px 6px 0; }
+    .scenario + .scenario { padding-left: 28px; border-left: 1px solid var(--line); }
+    .scenario-label { color: var(--blue); font-size: 12px; font-weight: 850; }
+    .scenario h3 { margin: 20px 0 10px; font-size: 20px; }
+    .scenario p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.7; }
+
+    .capability-story {
+      display: grid;
+      grid-template-columns: minmax(0, 0.82fr) minmax(480px, 1.18fr);
+      align-items: center;
+      gap: 64px;
+      padding: 56px 0;
+      border-top: 1px solid var(--line);
+    }
+    .capability-story.is-reversed { grid-template-columns: minmax(480px, 1.18fr) minmax(0, 0.82fr); }
+    .capability-story:last-child { padding-bottom: 0; }
+    .story-kicker { margin-bottom: 10px; color: var(--blue); font-size: 12px; font-weight: 850; }
+    .story-copy h3 { margin: 0 0 16px; font-size: 30px; line-height: 1.25; }
+    .story-copy > p { margin: 0 0 26px; color: var(--muted); line-height: 1.75; }
+    .story-point { display: grid; grid-template-columns: 110px 1fr; gap: 14px; padding: 14px 0; border-top: 1px solid var(--line); }
+    .story-point strong { font-size: 13px; }
+    .story-point span { color: var(--muted); font-size: 13px; line-height: 1.6; }
+    .story-visual { min-height: 390px; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: #f5f7fb; box-shadow: 0 18px 46px rgba(15, 23, 42, 0.08); }
+    .visual-bar { height: 38px; display: flex; align-items: center; gap: 7px; padding: 0 14px; border-bottom: 1px solid var(--line); background: var(--white); }
+    .visual-bar span { width: 8px; height: 8px; border-radius: 50%; background: #d6dce7; }
+    .document-visual-body { position: relative; min-height: 350px; padding: 28px 34px; }
+    .document-sheet { width: 68%; min-height: 294px; padding: 28px 30px; border: 1px solid #e3e7ef; background: var(--white); box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06); }
+    .document-sheet-title { margin-bottom: 22px; text-align: center; font-size: 16px; font-weight: 800; }
+    .document-line { height: 8px; margin-top: 12px; background: #e5e9f0; }
+    .document-line.short { width: 66%; }
+    .document-line.medium { width: 82%; }
+    .document-selection { margin: 18px -8px 0; padding: 9px 8px; border-left: 3px solid var(--blue); background: var(--blue-soft); color: #41506a; font-size: 11px; line-height: 1.55; }
+    .document-insight { position: absolute; top: 58px; right: 28px; width: 210px; padding: 18px; border: 1px solid var(--line); border-radius: 8px; background: var(--white); box-shadow: 0 14px 32px rgba(15, 23, 42, 0.12); }
+    .insight-status { color: var(--green); font-size: 11px; font-weight: 850; }
+    .document-insight h4 { margin: 8px 0 14px; font-size: 15px; }
+    .insight-row { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
+    .insight-row b { color: var(--ink); }
+    .insight-action { margin-top: 12px; padding: 9px 10px; border-radius: 6px; background: var(--blue); color: var(--white); text-align: center; font-size: 11px; font-weight: 800; }
+    .workflow-visual { padding: 28px; }
+    .workflow-head { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-bottom: 26px; }
+    .workflow-head span { color: var(--green); font-size: 11px; font-weight: 850; }
+    .workflow-track { display: grid; gap: 10px; }
+    .workflow-step { display: grid; grid-template-columns: 32px 1fr auto; align-items: center; gap: 13px; padding: 13px 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--white); }
+    .workflow-step-mark { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 7px; background: var(--blue-soft); color: var(--blue); font-size: 12px; font-weight: 900; }
+    .workflow-step strong { display: block; margin-bottom: 3px; font-size: 13px; }
+    .workflow-step small { color: var(--muted); font-size: 11px; }
+    .workflow-step-state { color: var(--green); font-size: 11px; font-weight: 800; }
+    .workflow-step.is-active { border-color: #aab8ff; box-shadow: 0 0 0 2px var(--blue-soft); }
+    .workflow-step.is-active .workflow-step-state { color: var(--blue); }
+
+    .system-section { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: #f4f6fa; }
+    .system-section .section { padding-top: 88px; padding-bottom: 88px; }
+    .system-header { max-width: 780px; margin: 0 auto; text-align: center; }
+    .system-header .section-heading { max-width: none; margin-bottom: 0; }
+    .system-header .section-copy { max-width: 680px; margin: 0 auto; }
+    .system-demo { margin-top: 42px; }
+    .system-demo > input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+    .system-tabs { max-width: 620px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 0 auto; padding: 5px; border: 1px solid #dce2eb; border-radius: 8px; background: #e9edf4; }
+    .system-tabs label { min-height: 42px; display: flex; align-items: center; justify-content: center; gap: 8px; border-radius: 6px; color: var(--muted); font-size: 13px; font-weight: 800; cursor: pointer; }
+    .system-tabs label span { color: #8a95a5; font-size: 11px; }
+    #system-agent:checked ~ .system-tabs label[for="system-agent"],
+    #system-skill:checked ~ .system-tabs label[for="system-skill"],
+    #system-workflow:checked ~ .system-tabs label[for="system-workflow"] { background: var(--white); color: var(--ink); box-shadow: 0 2px 7px rgba(15, 23, 42, 0.08); }
+    .system-panes { margin-top: 24px; }
+    .system-pane { min-height: 480px; display: none; grid-template-columns: minmax(300px, 0.72fr) minmax(0, 1.28fr); overflow: hidden; border: 1px solid #dce2eb; border-radius: 8px; background: var(--white); box-shadow: 0 20px 54px rgba(15, 23, 42, 0.08); }
+    #system-agent:checked ~ .system-panes .system-pane.is-agent,
+    #system-skill:checked ~ .system-panes .system-pane.is-skill,
+    #system-workflow:checked ~ .system-panes .system-pane.is-workflow { display: grid; }
+    .system-pane-copy { padding: 52px 44px; border-right: 1px solid var(--line); }
+    .system-pane-label { color: var(--blue); font-size: 12px; font-weight: 850; }
+    .system-pane.is-skill .system-pane-label { color: var(--green); }
+    .system-pane.is-workflow .system-pane-label { color: #9a6700; }
+    .system-pane h3 { margin: 16px 0 14px; font-size: 30px; line-height: 1.25; }
+    .system-pane-copy > p { margin: 0 0 28px; color: var(--muted); line-height: 1.75; }
+    .system-benefit { padding: 13px 0; border-top: 1px solid var(--line); }
+    .system-benefit strong { display: block; margin-bottom: 4px; font-size: 13px; }
+    .system-benefit span { color: var(--muted); font-size: 12px; line-height: 1.55; }
+    .system-pane-visual { min-width: 0; display: grid; place-items: center; padding: 34px; background: #f8f9fc; }
+    .demo-window { width: 100%; max-width: 680px; overflow: hidden; border: 1px solid #dbe1ea; border-radius: 8px; background: var(--white); box-shadow: 0 16px 38px rgba(15, 23, 42, 0.1); }
+    .demo-bar { height: 38px; display: flex; align-items: center; gap: 7px; padding: 0 13px; border-bottom: 1px solid var(--line); background: #f8fafc; }
+    .demo-bar i { width: 8px; height: 8px; border-radius: 50%; background: #cfd6e1; }
+    .agent-demo { min-height: 350px; display: grid; grid-template-columns: minmax(0, 1fr) 250px; }
+    .agent-document { padding: 42px 34px; }
+    .agent-document h4 { margin: 0 0 24px; text-align: center; font-size: 15px; }
+    .demo-line { height: 8px; margin-top: 12px; background: #e5e9f0; }
+    .demo-line.short { width: 64%; }
+    .demo-line.medium { width: 82%; }
+    .agent-selection { margin-top: 24px; padding: 11px 12px; border-left: 3px solid var(--blue); background: var(--blue-soft); color: #4b5870; font-size: 11px; line-height: 1.55; }
+    .agent-analysis { padding: 24px 20px; border-left: 1px solid var(--line); background: #fbfcff; }
+    .demo-status { color: var(--green); font-size: 11px; font-weight: 850; }
+    .agent-analysis h4 { margin: 9px 0 18px; font-size: 15px; }
+    .analysis-row { padding: 11px 0; border-top: 1px solid var(--line); }
+    .analysis-row span { display: block; color: var(--muted); font-size: 10px; }
+    .analysis-row strong { display: block; margin-top: 3px; font-size: 12px; }
+    .skill-demo { min-height: 350px; display: grid; grid-template-columns: 210px minmax(0, 1fr); }
+    .skill-list { padding: 20px 14px; border-right: 1px solid var(--line); background: #f8fafc; }
+    .skill-list-title { padding: 0 8px 12px; color: var(--muted); font-size: 10px; font-weight: 800; }
+    .skill-item { padding: 12px 11px; border-radius: 6px; font-size: 12px; font-weight: 750; }
+    .skill-item + .skill-item { margin-top: 4px; }
+    .skill-item.is-active { background: var(--white); color: var(--blue); box-shadow: 0 2px 8px rgba(15, 23, 42, 0.07); }
+    .skill-detail { padding: 30px 32px; }
+    .skill-detail-head { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; }
+    .skill-detail h4 { margin: 0 0 7px; font-size: 18px; }
+    .skill-detail-head span { padding: 4px 7px; border-radius: 999px; background: #eaf7f1; color: var(--green); font-size: 10px; font-weight: 800; }
+    .skill-detail > p { margin: 0 0 22px; color: var(--muted); font-size: 12px; line-height: 1.65; }
+    .skill-rule { display: flex; gap: 12px; padding: 12px 0; border-top: 1px solid var(--line); font-size: 11px; }
+    .skill-rule b { min-width: 74px; }
+    .skill-rule span { color: var(--muted); }
+    .skill-run { margin-top: 20px; padding: 10px; border-radius: 6px; background: var(--blue); color: var(--white); text-align: center; font-size: 11px; font-weight: 800; }
+    .workflow-demo { min-height: 350px; padding: 24px; background: #f8fafc; }
+    .workflow-demo-head { display: flex; justify-content: space-between; gap: 18px; margin-bottom: 18px; }
+    .workflow-demo-head strong { font-size: 14px; }
+    .workflow-demo-head span { color: var(--green); font-size: 10px; font-weight: 800; }
+    .demo-flow-step { display: grid; grid-template-columns: 28px 1fr auto; align-items: center; gap: 12px; padding: 11px 13px; border: 1px solid var(--line); border-radius: 7px; background: var(--white); }
+    .demo-flow-step + .demo-flow-step { margin-top: 8px; }
+    .demo-flow-step b { width: 26px; height: 26px; display: grid; place-items: center; border-radius: 6px; background: var(--blue-soft); color: var(--blue); font-size: 10px; }
+    .demo-flow-step strong { display: block; font-size: 12px; }
+    .demo-flow-step small { color: var(--muted); font-size: 10px; }
+    .demo-flow-state { color: var(--green); font-size: 10px; font-weight: 800; }
+    .demo-flow-step.is-active { border-color: #aab8ff; box-shadow: 0 0 0 2px var(--blue-soft); }
+    .demo-flow-step.is-active .demo-flow-state { color: var(--blue); }
+
+    .plugin-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    .plugin { min-height: 270px; display: flex; flex-direction: column; padding: 22px; border: 1px solid var(--line); border-radius: 8px; background: var(--white); }
+    .plugin-head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+    .plugin-icon { width: 48px; height: 48px; padding: 7px; object-fit: contain; border: 1px solid var(--line); border-radius: 8px; background: var(--white); }
+    .plugin-title { min-width: 0; }
+    .plugin-title h3 { margin: 0 0 4px; font-size: 19px; }
+    .plugin-title span { color: var(--muted); font-size: 12px; }
+    .status { margin-left: auto; padding: 5px 8px; border-radius: 999px; background: #eaf7f1; color: var(--green); font-size: 11px; font-weight: 850; }
+    .plugin p { margin: 0 0 18px; color: var(--muted); line-height: 1.65; }
+    .plugin-facts { margin: 0 0 20px; padding: 0; list-style: none; font-size: 12px; }
+    .plugin-facts li { display: flex; justify-content: space-between; gap: 16px; padding: 8px 0; border-top: 1px solid var(--line); }
+    .plugin-facts span { color: var(--muted); }
+    .plugin-link { margin-top: auto; color: var(--blue); font-size: 14px; font-weight: 800; }
+
+    .trust-layout { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(480px, 1.1fr); gap: 72px; align-items: start; }
+    .trust-links { border-top: 1px solid var(--ink); }
+    .trust-link { display: grid; grid-template-columns: 1fr auto; gap: 24px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+    .trust-link strong { display: block; margin-bottom: 6px; }
+    .trust-link span { color: var(--muted); font-size: 13px; line-height: 1.6; }
+    .trust-link b { color: var(--blue); font-size: 18px; }
+
+    .final-cta { padding: 78px 32px; background: var(--blue); color: var(--white); }
+    .final-cta-inner { max-width: 1180px; display: flex; justify-content: space-between; align-items: center; gap: 40px; margin: 0 auto; }
+    .final-cta h2 { max-width: 720px; margin: 0 0 12px; font-size: 38px; line-height: 1.25; }
+    .final-cta p { margin: 0; color: #dfe6ff; line-height: 1.7; }
+    .cta-link { flex: 0 0 auto; background: var(--white); color: var(--blue); }
+    .footer { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; padding: 30px 32px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
+    .footer a:hover { color: var(--ink); }
+
+    @media (max-width: 960px) {
+      .nav-links, .nav > .nav-cta { display: none; }
+      .mobile-menu { display: block; margin-left: auto; }
+      .hero { min-height: 0; grid-template-columns: 1fr; padding-top: 54px; }
+      h1 { font-size: 46px; }
+      .mock { grid-template-columns: 1fr; }
+      .doc { min-height: 330px; }
+      .assistant { border-top: 1px solid var(--line); border-left: 0; }
+      .product-lane { grid-template-columns: 1fr; }
+      .product-lane-copy { padding: 32px 32px 0; }
+      .scenario-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .scenario:nth-child(3) { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
+      .scenario:nth-child(4) { border-top: 1px solid var(--line); }
+      .capability-story, .capability-story.is-reversed { grid-template-columns: 1fr; gap: 34px; }
+      .capability-story.is-reversed .story-visual { order: 2; }
+      .system-pane { grid-template-columns: 1fr; }
+      .system-pane-copy { padding: 38px 34px; border-right: 0; border-bottom: 1px solid var(--line); }
+      .system-pane-visual { padding: 26px; }
+      .plugin-grid { grid-template-columns: 1fr; }
+      .trust-layout { grid-template-columns: 1fr; gap: 36px; }
+      .final-cta-inner { align-items: flex-start; flex-direction: column; }
+    }
+    @media (max-width: 560px) {
+      .product-tabs { gap: 24px; padding: 0 20px; }
+      .nav { padding: 0 18px; }
+      .hero, .section { padding-right: 20px; padding-left: 20px; }
+      .hero { width: 100%; grid-template-columns: minmax(0, 1fr); padding-top: 46px; padding-bottom: 58px; }
+      .hero > *, .product, .mock, .mock > * { width: 100%; max-width: 100%; min-width: 0; }
+      h1 { max-width: 100%; overflow-wrap: anywhere; font-size: 36px; }
+      .lead { font-size: 16px; }
+      .primary, .secondary { width: 100%; }
+      .host-proof-list { display: grid; grid-template-columns: repeat(2, minmax(0, max-content)); gap: 12px 18px; }
+      .product-lane-grid { grid-template-columns: 1fr; }
+      .product-lane { min-height: 0; }
+      .product-lane-copy { padding: 28px 24px 0; }
+      .product-lane-visual { min-height: 280px; padding: 24px; }
+      .section { padding-top: 66px; padding-bottom: 66px; }
+      .section-title, .final-cta h2 { font-size: 30px; }
+      .scenario-grid { grid-template-columns: 1fr; }
+      .scenario, .scenario + .scenario { padding: 24px 0; border-top: 1px solid var(--line); border-left: 0; }
+      .scenario:first-child { border-top: 0; }
+      .story-copy h3 { font-size: 25px; }
+      .story-point { grid-template-columns: 1fr; gap: 5px; }
+      .story-visual { min-height: 330px; }
+      .document-visual-body { min-height: 290px; padding: 20px; }
+      .document-sheet { width: 78%; min-height: 250px; padding: 22px 18px; }
+      .document-insight { top: 48px; right: 14px; width: 174px; padding: 14px; }
+      .workflow-visual { padding: 18px; }
+      .workflow-step { grid-template-columns: 30px 1fr; }
+      .workflow-step-state { display: none; }
+      .plugin { min-height: 0; }
+      .system-section .section { padding-top: 66px; padding-bottom: 66px; }
+      .system-header { text-align: left; }
+      .system-tabs label span { display: none; }
+      .system-pane h3 { font-size: 25px; }
+      .system-pane-copy { padding: 30px 24px; }
+      .system-pane-visual { padding: 16px; }
+      .agent-demo, .skill-demo { grid-template-columns: 1fr; }
+      .agent-analysis { border-top: 1px solid var(--line); border-left: 0; }
+      .skill-list { display: flex; gap: 4px; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--line); }
+      .skill-list-title { display: none; }
+      .skill-item { white-space: nowrap; }
+      .skill-detail { padding: 24px 20px; }
+      .demo-flow-step { grid-template-columns: 28px 1fr; }
+      .demo-flow-state { display: none; }
+      .final-cta { padding: 62px 20px; }
+      .footer { padding: 26px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="主导航">
+    <a class="brand" href="./index.html"><img src="./assets/brand-logo.png" alt="Coco" /><span>Coco</span></a>
+    <div class="nav-links">
+      <a href="#scenarios">应用场景</a>
+      <a href="#capabilities">核心能力</a>
+      <a href="#system">工作体系</a>
+      <a href="#plugins">插件支持</a>
+      <a href="https://github.com/coco-vexel/coco">GitHub</a>
+    </div>
+    <a class="nav-cta" href="./install.html">安装部署</a>
+    <details class="mobile-menu">
+      <summary aria-label="打开导航菜单" title="导航菜单">☰</summary>
+      <div class="mobile-menu-links">
+        <a href="#scenarios">应用场景</a><a href="#capabilities">核心能力</a><a href="#system">工作体系</a><a href="#plugins">插件支持</a><a href="./install.html">安装部署</a><a href="https://github.com/coco-vexel/coco">GitHub</a>
+      </div>
+    </details>
+  </nav>
+
+  <div class="product-tabs-wrap">
+    <div class="product-tabs" role="navigation" aria-label="产品切换">
+      <a class="product-tab" href="./index.html">Word 插件</a>
+      <a class="product-tab" href="./excel.html" aria-current="page">Excel 插件</a>
+    </div>
+  </div>
+
+  <main class="excel-main">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">WPS 表格 · MICROSOFT EXCEL · ONLYOFFICE SPREADSHEET</div>
+        <h1>Coco Excel 智能助手</h1>
+        <p class="lead">让智能体进入你正在编辑的工作簿，<strong>理解工作表与数据关系，完成清洗、公式、格式、统计分析和图表报告。</strong></p>
+        <div class="actions">
+          <a class="primary" href="./install.html">查看安装方式</a>
+          <a class="secondary" href="#scenarios">看看能做什么</a>
+        </div>
+        <div class="host-proof" aria-label="支持的电子表格平台">
+          <div class="host-proof-label">三个主流电子表格宿主均已接入</div>
+          <div class="host-proof-list">
+            <a class="host-chip" href="./install.html#wps"><img src="./assets/hosts/wps.png" alt="" /><span>WPS Office</span></a>
+            <a class="host-chip" href="./install.html#microsoft"><img src="./assets/hosts/word.png" alt="" /><span>Microsoft Excel</span></a>
+            <a class="host-chip" href="./install.html#onlyoffice-desktop"><img src="./assets/hosts/onlyoffice.png" alt="" /><span>ONLYOFFICE Spreadsheet</span></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product" aria-label="Coco Excel 产品界面示意">
+        <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+        <div class="mock">
+          <div class="doc"><div class="mini-workbook"><div class="mini-workbook-bar"><i></i><i></i><i></i></div><div class="mini-grid"><span class="axis"></span><span class="axis">A</span><span class="axis">B</span><span class="axis">C</span><span class="axis">D</span><span class="axis">1</span><span class="header">月份</span><span class="header">合同额</span><span class="header">收款额</span><span class="header">完成率</span><span class="axis">2</span><span>3 月</span><span class="metric">150,000</span><span class="metric">50,000</span><span>33%</span><span class="axis">3</span><span>4 月</span><span class="metric">89,000</span><span class="metric">189,000</span><span>100%</span><span class="axis">4</span><span>5 月</span><span class="metric">290,000</span><span class="metric">100,000</span><span>34%</span></div><div class="mini-workbook-tabs"><span>销售订单</span><span class="active">统计分析</span><span>收款单</span></div></div></div>
+          <aside class="assistant">
+            <div class="assistant-title"><img src="./assets/brand-logo.png" alt="" /><span>Coco 助手</span></div>
+            <div class="assistant-item"><strong>理解工作簿</strong><span>识别工作表、区域、公式、样式和数据关系。</span></div>
+            <div class="assistant-item"><strong>执行表格任务</strong><span>调用清洗、批量处理、统计与分析 Skill。</span></div>
+            <div class="assistant-item"><strong>验证并写回</strong><span>核对结果后，按宿主能力安全更新工作簿。</span></div>
+            <div class="run">交给 Coco 处理</div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section product-lanes" id="products">
+      <div class="section-heading centered">
+        <div class="section-kicker">WORKBOOK INTELLIGENCE</div>
+        <h2 class="section-title">面向工作簿，而不是一段复制出来的数据</h2>
+        <p class="section-copy">Coco Excel 以工作簿结构为上下文，让模型知道数据在哪张表、如何关联、哪些单元格包含公式，以及结果应该写回哪里。</p>
+      </div>
+      <div class="product-lane-grid">
+        <article class="product-lane">
+          <div class="product-lane-copy">
+            <div class="product-lane-label">EXCEL 插件</div>
+            <h3>从数据处理，到可交付的分析结果</h3>
+            <p>在同一个插件里读取多张工作表、修改区域和公式、运行确定性统计，并把图表或 HTML 分析报告交付给用户。</p>
+            <div class="product-lane-facts"><div class="product-lane-fact">工作簿、工作表、区域与单元格</div><div class="product-lane-fact">值、公式、格式、表格与图表</div><div class="product-lane-fact">统计汇总、数据分析与报告产物</div></div>
+          </div>
+          <div class="product-lane-visual" aria-label="Excel 工作簿插件示意">
+            <div class="mini-workbook"><div class="mini-workbook-bar"><i></i><i></i><i></i></div><div class="mini-grid"><span class="axis"></span><span class="axis">A</span><span class="axis">B</span><span class="axis">C</span><span class="axis">D</span><span class="axis">1</span><span class="header">月份</span><span class="header">合同额</span><span class="header">收款额</span><span class="header">完成率</span><span class="axis">2</span><span>3 月</span><span class="metric">150,000</span><span class="metric">50,000</span><span>33%</span><span class="axis">3</span><span>4 月</span><span class="metric">89,000</span><span class="metric">189,000</span><span>100%</span><span class="axis">4</span><span>5 月</span><span class="metric">290,000</span><span class="metric">100,000</span><span>34%</span></div><div class="mini-workbook-tabs"><span>销售订单</span><span class="active">统计分析</span><span>收款单</span></div></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="band">
+      <section class="section" id="scenarios">
+        <div class="section-heading">
+          <div class="section-kicker">SPREADSHEET WORK</div>
+          <h2 class="section-title">常见表格任务，直接在当前工作簿里完成</h2>
+          <p class="section-copy">从一列数据的清洗，到跨工作表统计和完整分析报告，Coco Excel 保持任务范围、执行过程与结果可见。</p>
+        </div>
+        <div class="scenario-grid">
+          <article class="scenario"><span class="scenario-label">整理数据</span><h3>拆分、清洗与批量填充</h3><p>识别目标列与数据规律，批量拆分、替换、补齐和规范化内容。</p></article>
+          <article class="scenario"><span class="scenario-label">构建结果</span><h3>公式、格式与条件处理</h3><p>更新公式、数字格式、颜色、边框、行高和列宽，并保留工作簿语义。</p></article>
+          <article class="scenario"><span class="scenario-label">连接数据</span><h3>跨表汇总与关联统计</h3><p>连接订单、客户、员工与收款等工作表，按维度生成可靠汇总。</p></article>
+          <article class="scenario"><span class="scenario-label">形成洞察</span><h3>图表与数据分析报告</h3><p>用确定性统计支撑结论，生成图表和可查看、可下载的 HTML 报告。</p></article>
+        </div>
+      </section>
+    </div>
+
+    <section class="section" id="capabilities">
+      <div class="section-heading">
+        <div class="section-kicker">CORE CAPABILITIES</div>
+        <h2 class="section-title">理解表格语义，也能把结果真正落回工作簿</h2>
+        <p class="section-copy">Coco Excel 连接工作簿结构、确定性计算与宿主编辑能力，让读取、处理、验证和交付发生在同一个表格现场。</p>
+      </div>
+      <div class="capability-story">
+        <div class="story-copy">
+          <div class="story-kicker">工作簿上下文</div>
+          <h3>知道数据在哪里，也知道它们如何关联</h3>
+          <p>直接读取当前工作簿的工作表、区域、值、公式和样式，让模型基于真实结构定位数据和规划修改。</p>
+          <div class="story-points">
+            <div class="story-point"><strong>结构读取</strong><span>识别工作表、区域、单元格、表格和图表。</span></div>
+            <div class="story-point"><strong>语义保留</strong><span>同时理解值、公式、格式和跨表引用关系。</span></div>
+            <div class="story-point"><strong>精准范围</strong><span>按工作表、区域或目标单元格控制任务作用范围。</span></div>
+          </div>
+        </div>
+        <div class="story-visual" aria-label="Coco Excel 工作簿理解界面示意">
+          <div class="visual-bar"><span></span><span></span><span></span></div>
+          <div class="document-visual-body">
+            <div class="document-sheet"><div class="document-sheet-title">销售订单 / 收款单 / 客户</div><div class="document-line medium"></div><div class="document-line"></div><div class="document-line short"></div><div class="document-selection">已定位日期、合同金额与客户区域字段，正在构建跨表统计范围。</div><div class="document-line"></div><div class="document-line medium"></div></div>
+            <div class="document-insight"><div class="insight-status">工作簿结构已读取</div><h4>当前工作簿</h4><div class="insight-row"><span>工作表</span><b>5</b></div><div class="insight-row"><span>数据区域</span><b>12</b></div><div class="insight-row"><span>公式单元格</span><b>38</b></div><div class="insight-action">生成统计分析</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="capability-story is-reversed">
+        <div class="story-visual workflow-visual" aria-label="Coco Workflow 执行界面示意">
+          <div class="workflow-head"><strong>月度经营数据分析</strong><span>正在执行</span></div>
+          <div class="workflow-track">
+            <div class="workflow-step"><div class="workflow-step-mark">1</div><div><strong>读取工作簿</strong><small>定位订单、收款和客户数据</small></div><div class="workflow-step-state">已完成</div></div>
+            <div class="workflow-step"><div class="workflow-step-mark">2</div><div><strong>运行统计 Skill</strong><small>按月份和区域聚合指标</small></div><div class="workflow-step-state">已完成</div></div>
+            <div class="workflow-step is-active"><div class="workflow-step-mark">3</div><div><strong>生成图表</strong><small>构建柱状图与区域分布图</small></div><div class="workflow-step-state">处理中</div></div>
+            <div class="workflow-step"><div class="workflow-step-mark">4</div><div><strong>核对结果</strong><small>验证汇总值和目标范围</small></div><div class="workflow-step-state">待确认</div></div>
+            <div class="workflow-step"><div class="workflow-step-mark">5</div><div><strong>安全交付</strong><small>写回工作簿或生成分析报告</small></div><div class="workflow-step-state">等待中</div></div>
+          </div>
+        </div>
+        <div class="story-copy">
+          <div class="story-kicker">过程可控</div>
+          <h3>让每次表格处理都有范围、有验证、有结果</h3>
+          <p>Coco Excel 展示任务范围、执行步骤与写回状态，并在宿主能力受限时选择安全的交付方式。</p>
+          <div class="story-points">
+            <div class="story-point"><strong>过程可见</strong><span>每一步的输入、处理状态和结果都清晰可查。</span></div>
+            <div class="story-point"><strong>结果验证</strong><span>重要汇总与写入结果可回读核对。</span></div>
+            <div class="story-point"><strong>宿主适配</strong><span>按宿主能力选择原位更新或安全兜底。</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="system-section" id="system">
+      <section class="section">
+        <div class="system-header">
+          <div class="section-heading">
+            <div class="section-kicker">COCO SYSTEM</div>
+            <h2 class="section-title">三种能力，在同一个表格任务中协作</h2>
+          </div>
+          <p class="section-copy">切换查看 Agent、Skill 与 Workflow 如何理解工作簿、运行专业处理，并把结果稳定交付。</p>
+        </div>
+        <div class="system-demo">
+          <input type="radio" name="system-tabs" id="system-agent" checked />
+          <input type="radio" name="system-tabs" id="system-skill" />
+          <input type="radio" name="system-tabs" id="system-workflow" />
+          <div class="system-tabs" role="tablist" aria-label="Coco 系统能力">
+            <label for="system-agent"><span>理解与决策</span>Agent</label>
+            <label for="system-skill"><span>专业能力</span>Skill</label>
+            <label for="system-workflow"><span>稳定执行</span>Workflow</label>
+          </div>
+          <div class="system-panes">
+            <article class="system-pane is-agent">
+              <div class="system-pane-copy">
+                <div class="system-pane-label">AGENT</div>
+                <h3>先理解工作簿，再决定怎么处理</h3>
+                <p>Agent 结合工作簿结构、数据关系和用户目标判断任务，不需要用户反复解释表格位置与处理范围。</p>
+                <div class="system-benefit"><strong>理解当前现场</strong><span>读取工作簿、工作表、区域和公式状态。</span></div>
+                <div class="system-benefit"><strong>拆解任务</strong><span>决定需要哪些能力、执行顺序和确认节点。</span></div>
+                <div class="system-benefit"><strong>保持用户掌控</strong><span>遇到不确定或高风险操作时主动请求确认。</span></div>
+              </div>
+              <div class="system-pane-visual">
+                <div class="demo-window">
+                  <div class="demo-bar"><i></i><i></i><i></i></div>
+                  <div class="agent-demo">
+                    <div class="agent-document"><h4>经营数据工作簿</h4><div class="demo-line medium"></div><div class="demo-line"></div><div class="demo-line short"></div><div class="agent-selection">统计每月合同额与收款额，并按销售区域生成分布图。</div><div class="demo-line"></div><div class="demo-line medium"></div></div>
+                    <aside class="agent-analysis"><div class="demo-status">工作簿已理解</div><h4>任务判断</h4><div class="analysis-row"><span>数据来源</span><strong>3 张工作表</strong></div><div class="analysis-row"><span>需要能力</span><strong>跨表统计、图表</strong></div><div class="analysis-row"><span>执行方式</span><strong>调用分析 Workflow</strong></div><div class="analysis-row"><span>交付结果</span><strong>工作表与 HTML 报告</strong></div></aside>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="system-pane is-skill">
+              <div class="system-pane-copy">
+                <div class="system-pane-label">SKILL</div>
+                <h3>把专业经验变成随时可用的能力</h3>
+                <p>Skill 把分析方法、业务规则和表格操作组织起来，让高频处理可以组合调用和持续复用。</p>
+                <div class="system-benefit"><strong>内置表格能力</strong><span>数据清洗、公式处理、统计分析与报告生成。</span></div>
+                <div class="system-benefit"><strong>业务规则沉淀</strong><span>面向销售、财务、运营等数据场景定制标准。</span></div>
+                <div class="system-benefit"><strong>统一团队输出</strong><span>让不同成员使用同一套处理规则和结果格式。</span></div>
+              </div>
+              <div class="system-pane-visual">
+                <div class="demo-window">
+                  <div class="demo-bar"><i></i><i></i><i></i></div>
+                  <div class="skill-demo">
+                    <div class="skill-list"><div class="skill-list-title">专业技能</div><div class="skill-item is-active">Excel 数据分析</div><div class="skill-item">数据清洗</div><div class="skill-item">公式与格式处理</div><div class="skill-item">经营指标汇总</div></div>
+                    <div class="skill-detail"><div class="skill-detail-head"><div><h4>Excel 数据分析</h4><p>从当前工作簿生成可核对的分析结果</p></div><span>已启用</span></div><div class="skill-rule"><b>输入</b><span>工作簿数据、分析目标和统计维度</span></div><div class="skill-rule"><b>处理规则</b><span>读取相关工作表，确定性聚合指标并检查数据质量</span></div><div class="skill-rule"><b>输出</b><span>汇总表、图表和可下载的 HTML 报告</span></div><div class="skill-run">分析当前工作簿</div></div>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="system-pane is-workflow">
+              <div class="system-pane-copy">
+                <div class="system-pane-label">WORKFLOW</div>
+                <h3>让多步骤任务稳定执行到结果</h3>
+                <p>Workflow 串联工作簿读取、Skill 调用、确定性计算、结果验证和安全交付，减少手工切换。</p>
+                <div class="system-benefit"><strong>过程可见</strong><span>每个节点的状态、输入和结果都清晰可查。</span></div>
+                <div class="system-benefit"><strong>标准可复用</strong><span>把成熟流程保存下来，团队可以反复执行。</span></div>
+                <div class="system-benefit"><strong>结果可确认</strong><span>重要修改在真正写回工作簿前由用户决定。</span></div>
+              </div>
+              <div class="system-pane-visual">
+                <div class="demo-window">
+                  <div class="demo-bar"><i></i><i></i><i></i></div>
+                  <div class="workflow-demo"><div class="workflow-demo-head"><strong>跨表统计与图表报告</strong><span>正在执行</span></div><div class="demo-flow-step"><b>1</b><div><strong>读取工作簿</strong><small>定位相关工作表与数据范围</small></div><div class="demo-flow-state">已完成</div></div><div class="demo-flow-step"><b>2</b><div><strong>调用分析 Skill</strong><small>按月份和区域聚合指标</small></div><div class="demo-flow-state">已完成</div></div><div class="demo-flow-step is-active"><b>3</b><div><strong>生成图表</strong><small>构建趋势与分布可视化</small></div><div class="demo-flow-state">处理中</div></div><div class="demo-flow-step"><b>4</b><div><strong>结果验证</strong><small>核对统计值和目标范围</small></div><div class="demo-flow-state">待确认</div></div><div class="demo-flow-step"><b>5</b><div><strong>安全交付</strong><small>写回工作簿或生成报告</small></div><div class="demo-flow-state">等待中</div></div></div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="band">
+      <section class="section" id="plugins">
+        <div class="section-heading">
+          <div class="section-kicker">OFFICE PLUGINS</div>
+          <h2 class="section-title">在熟悉的电子表格里直接使用 Coco Excel</h2>
+          <p class="section-copy">三个 Spreadsheet 宿主使用同一套 Excel Agent 与核心 SDK，并根据各自能力适配读取、执行与写回路径。</p>
+        </div>
+        <div class="plugin-grid">
+          <article class="plugin"><div class="plugin-head"><img class="plugin-icon" src="./assets/hosts/wps.png" alt="WPS 表格" /><div class="plugin-title"><h3>WPS 表格</h3><span>WPS Spreadsheets 插件</span></div><span class="status">已支持</span></div><p>在 WPS 表格侧边栏中读取工作簿、执行 Excel Agent 任务并交付分析结果。</p><ul class="plugin-facts"><li><span>接入形态</span><b>桌面插件</b></li><li><span>主要场景</span><b>表格处理 · 分析 · 写回</b></li></ul><a class="plugin-link" href="./install.html#wps">查看 WPS 安装方式 →</a></article>
+          <article class="plugin"><div class="plugin-head"><img class="plugin-icon" src="./assets/hosts/word.png" alt="Microsoft Excel" /><div class="plugin-title"><h3>Microsoft Excel</h3><span>Office Add-in</span></div><span class="status">已支持</span></div><p>通过 Excel 加载项使用统一的工作簿理解、表格操作、统计分析与报告能力。</p><ul class="plugin-facts"><li><span>接入形态</span><b>Office Add-in</b></li><li><span>主要场景</span><b>数据处理 · 公式 · 图表</b></li></ul><a class="plugin-link" href="./install.html#microsoft">查看 Excel 安装方式 →</a></article>
+          <article class="plugin"><div class="plugin-head"><img class="plugin-icon" src="./assets/hosts/onlyoffice.png" alt="ONLYOFFICE Spreadsheet" /><div class="plugin-title"><h3>ONLYOFFICE Spreadsheet</h3><span>Desktop / Document Server</span></div><span class="status">已支持</span></div><p>覆盖 Desktop Editors 与 Document Server，通过独立 Excel 入口处理电子表格任务。</p><ul class="plugin-facts"><li><span>接入形态</span><b>Desktop · Docker</b></li><li><span>写回策略</span><b>宿主适配 · 安全兜底</b></li></ul><a class="plugin-link" href="./install.html#onlyoffice-desktop">查看 ONLYOFFICE 安装方式 →</a></article>
+        </div>
+      </section>
+    </div>
+
+    <section class="section" id="community">
+      <div class="trust-layout">
+        <div>
+          <div class="section-kicker">OPEN COLLABORATION</div>
+          <h2 class="section-title">公开反馈，持续完善 Excel 能力</h2>
+          <p class="section-copy">Coco 的公共仓库集中维护 Excel 插件说明、宿主兼容信息、版本清单和社区反馈。你可以查看当前进展，也可以提交问题与建议。</p>
+        </div>
+        <div class="trust-links">
+          <a class="trust-link" href="https://github.com/coco-vexel/coco"><div><strong>GitHub 公共仓库</strong><span>查看文档、资源目录与项目进展。</span></div><b>→</b></a>
+          <a class="trust-link" href="https://github.com/coco-vexel/coco/issues"><div><strong>问题与功能建议</strong><span>提交宿主兼容问题、复现信息与产品建议。</span></div><b>→</b></a>
+          <a class="trust-link" href="./release-manifest.json"><div><strong>版本发布清单</strong><span>查看各插件与公共组件的当前发布信息。</span></div><b>→</b></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div class="final-cta-inner"><div><h2>让 Coco 进入你的 Excel 工作现场</h2><p>选择正在使用的电子表格宿主，按照安装说明开始体验。</p></div><a class="cta-link" href="./install.html">选择平台并安装 →</a></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>Coco Excel 智能助手</span>
+    <div class="footer-links"><a href="./install.html">安装部署</a><a href="https://github.com/coco-vexel/coco">GitHub</a><a href="https://github.com/coco-vexel/coco/issues">Issues</a><a href="./release-manifest.json">发布清单</a><a href="https://github.com/coco-vexel/coco/blob/main/SECURITY.md">安全说明</a></div>
+  </footer>
+</body>
+</html>
