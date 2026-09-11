@@ -1,0 +1,28 @@
+/* Shared navigation and footer for every public site page. */
+.site-header { position:sticky; top:0; z-index:50; background:rgba(255,255,255,.97); border-bottom:1px solid #e5e9f0; backdrop-filter:blur(14px); }
+.site-nav { max-width:1220px; height:72px; margin:auto; padding:0 36px; display:flex; gap:30px; align-items:center; color:#152034; font:14px -apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif; }
+.site-brand { display:inline-flex; align-items:center; gap:10px; font-size:22px; font-weight:750; text-decoration:none; color:#152034; flex-shrink:0; }
+.site-brand img { width:32px; height:32px; object-fit:contain; }
+.site-links { display:flex; align-items:center; gap:28px; margin-left:auto; }
+.site-links a, .site-menu a { color:#5c6677; text-decoration:none; white-space:nowrap; }
+.site-links a:hover, .site-links a[aria-current="page"], .site-menu a[aria-current="page"] { color:#3458e6; }
+.site-chat { display:inline-flex; gap:14px; align-items:center; justify-content:center; min-height:42px; padding:0 18px; border-radius:6px; background:#3659db; color:white; font-weight:750; text-decoration:none; white-space:nowrap; }
+.site-chat:hover { background:#2547ca; }
+.site-menu { display:none; position:relative; }
+.site-menu summary { padding:10px; cursor:pointer; list-style:none; font-size:22px; }
+.site-menu summary::-webkit-details-marker { display:none; }
+.site-menu > div { position:absolute; right:0; top:48px; width:210px; padding:10px; background:white; border:1px solid #e5e9f0; border-radius:10px; box-shadow:0 16px 32px #15203418; }
+.site-menu a { display:block; padding:12px; }
+.site-footer { max-width:1220px; padding:56px 32px 64px; margin:auto; display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:40px; border-top:1px solid #e5e9f0; color:#5c6677; font:14px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif; }
+.site-footer h2 { font-size:14px; color:#152034; margin:0 0 18px; }
+.site-footer > div > a:not(.site-brand) { display:block; color:#5c6677; text-decoration:none; margin:10px 0; }
+.site-footer a:hover { color:#3458e6; }
+.site-footer p { margin-top:16px; }
+.site-nav a:focus-visible, .site-nav summary:focus-visible, .site-footer a:focus-visible { outline:3px solid #3458e655; outline-offset:4px; }
+.product-tabs-wrap { top:72px; }
+@media(max-width:960px) { .site-links { display:none; } .site-chat { margin-left:auto; } .site-menu { display:block; } .site-nav { gap:16px; } }
+@media(max-width:600px) { .site-nav { height:64px; padding:0 20px; gap:8px; } .site-chat { min-height:38px; padding:0 12px; } .site-brand { font-size:20px; } .site-footer { grid-template-columns:1fr 1fr; gap:28px; padding:40px 20px; } .footer-brand { grid-column:1 / -1; } .product-tabs-wrap { top:64px; } }
+
+.site-header { background:#fff; backdrop-filter:none; }
+.site-footer { padding-top:58px; padding-bottom:68px; }
+.site-links a[aria-current="page"] { font-weight:650; }
