@@ -1,0 +1,28 @@
+# 官网页面职责与发布准备
+
+## 浏览路径
+
+首页 → 场景示例或产品详情 → 对应获取入口。主导航直接展开三种产品，产品比较为辅助页面，不要求用户逐层选择。
+开发者有独立路径：SDK 比较 → 各 SDK 的 API 与集成边界。
+
+## 页面职责
+
+- index.html：说明核心用途并带向具体任务，不承担全部产品文档。
+- scenarios.html：并排展示合成输入与人工编排的结果示例，逐项说明依据，不标为实际运行记录。
+- products.html：比较浏览器、Office 宿主和本地工作区三种使用方式。
+- web.html / plugins.html / desktop.html：各产品的工作流程与使用条件。
+- word.html / excel.html：插件领域能力。
+- download.html：统一获取路径与可用状态；install.html 保留安装步骤。
+- start.html：兼容旧链接的开始使用页。全站“开始对话”直接进入 https://chat.cooco.me。
+- developers.html：先选择 Core、Editor 或 OOJSON，再看代码与边界。
+- core.html / editor.html / oojson.html：具体 API 与集成说明。
+- support.html：兼容性与 FAQ。
+
+## 上线前仍需真实材料
+
+1. 网页版正式访问地址为 https://chat.cooco.me，已接入全站“开始对话”按钮。
+2. 桌面安装包已由维护者上传，下载地址为官网域名根目录下的 `/download/Coco-Setup.exe`。
+3. 主案例运行证据：合成场景不可标记为真实执行。真实案例应包含脱敏输入、用户要求、实际执行记录、输出文件和验收结果。
+4. SDK 正式发布状态：未验证分发前不提供假定可用的包安装命令。
+
+保留独立产品页。全站标题使用统一无衬线字体，主导航按产品、场景、获取、开发者分组。

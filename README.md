@@ -1,6 +1,8 @@
 # Coco
 
-Coco 是面向文档工作的智能助手与开放能力生态，目标是在 WPS、Microsoft Word 和 ONLYOFFICE 中提供一致的文档理解、编辑、工作流与技能体验。
+Coco 是面向文档工作的智能助手与开放能力生态，提供网页版 Agent、Office 插件和本地多文档桌面应用，并提供文档 SDK 与实验性浏览器编辑器能力。不同产品处于不同阶段，具体范围以各产品说明为准。
+
+[官网产品总览](https://coco-vexel.github.io/coco/) · [Word 插件](https://coco-vexel.github.io/coco/word.html) · [Excel 插件](https://coco-vexel.github.io/coco/excel.html) · [能力状态](https://coco-vexel.github.io/coco/support.html#status)
 
 本仓库是 Coco 的公共入口，用于：
 
@@ -9,16 +11,22 @@ Coco 是面向文档工作的智能助手与开放能力生态，目标是在 WP
 - 官方及社区 workflow、skill、template 资源；
 - 公开兼容性信息与已知问题。
 
+## 官网结构
+
+首页仅介绍产品与使用入口。网页版、插件支持、桌面下载、开发者和帮助中心分别使用独立页面；Word、Excel、Core、Editor 与 OOJSON 各自提供详情页。静态页面位于 `docs/`，全站导航与页脚样式位于 `docs/site-shell.css`，产品页组件样式位于 `docs/overview.css`，品牌视觉层位于 `docs/brand-theme.css`，阅读层级与首页成果演示样式位于 `docs/readability.css`。`docs/site.js` 仅用于产品示意的文档切换与菜单交互，不调用模型或访问文件。示意内容使用合成材料，API 示例依据当前 SDK 文档编写。
+
 ## 项目组成
 
 | 项目 | 状态 | 说明 |
 |---|---|---|
 | `coco` | 已建立 | 公共社区、文档、Issue、Release 与资源入口 |
-| `coco-office` | 筹备中 | `core + oojson`：OOXML 文档 SDK 与 OOJSON / Flat OPC 转换 |
+| `coco-office` | 发布候选；Editor 实验性 | `core + editor + oojson`：Word、Excel、PPT 文档 API、浏览器编辑与格式转换；公开分发以发布公告为准 |
 | `coco-engine` | 私有 | `agent + workflow + skeleton + typeset` 智能能力层 |
-| WPS 插件 | 开发中 | WPS Writer 宿主插件 |
-| Microsoft 插件 | 开发中 | Microsoft Word Office.js 加载项 |
-| ONLYOFFICE 插件 | 开发中 | ONLYOFFICE 桌面与 Web 插件 |
+| WPS 插件 | 已接入 | Writer / Spreadsheets 插件，具体能力取决于宿主 |
+| Microsoft 插件 | 已接入 | Word / Excel Office.js 加载项，具体能力取决于宿主 |
+| ONLYOFFICE 插件 | 已接入 | 文档 / 电子表格，Desktop Editors 与 Document Server 插件 |
+| Coco Desktop | 开发中 | 独立桌面产品，本地工作区与多文档任务 |
+| 网页版 Agent | 已具备 Agent 能力 | 浏览器对话与文档工作空间，与纯编辑器演示分开演进 |
 
 ## 反馈问题
 
