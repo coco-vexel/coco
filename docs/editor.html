@@ -1,0 +1,124 @@
+<!doctype html><html lang="zh-CN">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Editor 浏览器编辑器 · Coco</title><meta name="description" content="在浏览器中集成 Word、Excel 和 PPT 编辑，了解 Coco Office Editor 的挂载与导出路径。" /><meta property="og:title" content="Editor 浏览器编辑器 · Coco" /><meta property="og:description" content="在浏览器中集成 Word、Excel 和 PPT 编辑，了解 Coco Office Editor 的挂载与导出路径。" /><meta property="og:type" content="website" /><link rel="icon" href="./assets/brand-logo.png" /><link rel="stylesheet" href="./overview.css?v=20260911-nav" /><link rel="stylesheet" href="./site-shell.css?v=20260911-nav" /><script src="./site.js?v=20260911-nav" defer></script>
+<link rel="stylesheet" href="./brand-theme.css?v=20260911-nav" />
+<link rel="stylesheet" href="./readability.css?v=20260911-nav" />
+<link rel="stylesheet" href="./structure.css?v=20260911-nav" />
+</head>
+<body>
+<header class="site-header"><nav class="site-nav" aria-label="主导航"><a class="site-brand" href="./index.html?v=20260911-unified"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a><div class="site-links"><details class="product-menu"><summary>产品</summary><div><a href="./web.html?v=20260911-unified">网页版 Agent</a><a href="./plugins.html?v=20260911-unified">Office 插件</a><a href="./desktop.html?v=20260911-unified">桌面应用</a><a href="./products.html?v=20260911-unified">比较使用方式</a></div></details><a href="./scenarios.html?v=20260911-unified">应用场景</a><a href="./download.html?v=20260911-unified">下载与安装</a><a href="./developers.html?v=20260911-unified" aria-current="page">开发者</a></div><a class="site-chat" href="https://chat.cooco.me" target="_blank" rel="noopener noreferrer">开始对话 ↗</a><details class="site-menu"><summary aria-label="打开导航菜单">☰</summary><div><a href="./web.html?v=20260911-unified">网页版 Agent</a><a href="./plugins.html?v=20260911-unified">Office 插件</a><a href="./desktop.html?v=20260911-unified">桌面应用</a><a href="./scenarios.html?v=20260911-unified">应用场景</a><a href="./download.html?v=20260911-unified">下载与安装</a><a href="./developers.html?v=20260911-unified" aria-current="page">开发者</a><a href="./support.html?v=20260911-unified">帮助与支持</a></div></details></nav></header>
+<main><div class="page-context"><nav aria-label="面包屑"><a href="./developers.html?v=20260911-unified">开发者</a><span>/</span><span>Editor</span></nav><nav aria-label="相关产品"><a href="./core.html?v=20260911-unified">Core</a><a href="./editor.html?v=20260911-unified" aria-current="page">Editor</a><a href="./oojson.html?v=20260911-unified">OOJSON</a></nav></div>
+<section class="intro ">
+
+<h1>浏览器文档编辑器
+</h1>
+<p class="lead">基于 Core 的文档数据，提供 Word、电子表格与固定画布 PPT 编辑界面。打开本地文件，进行受支持的编辑，再导出副本。</p>
+<div class="actions"><a class="primary" href="./editor.html?v=20260911-unified#integration">查看集成方式<span aria-hidden="true"> ↗</span></a><a class="secondary" href="./developers.html?v=20260911-unified">开发者总览<span aria-hidden="true"> ↗</span></a>
+</div>
+</section>
+<section class="hero-showcase">
+<div class="editor-triptych">
+<div><span>WORD</span>
+<div class="paper">
+
+<h3>项目推进情况报告</h3>
+<p class="paper-sub">阶段进展与下一步安排</p><h4>一、项目进展</h4>
+<p>本阶段已完成需求调研与方案评审，核心功能进入联调阶段。</p><h4>二、待确认事项</h4>
+<p class="selected-text">验收时间、交付范围与负责人仍需补充确认。</p><h4>三、下一步计划</h4>
+<p>整理问题清单，明确各项工作的完成时间，并安排下一轮评审。</p>
+<div class="paper-footer">项目组 · 工作材料</div>
+</div>
+</div>
+<div><span>EXCEL</span>
+<div class="sheet">
+<div class="formula">fx <span>=SUM(B2:B4)</span>
+</div>
+<table><thead>
+<tr><th></th><th>A</th><th>B</th><th>C</th>
+</tr></thead><tbody>
+<tr><th>1</th><td>区域</td><td>合同额 / 万元</td><td>收款额 / 万元</td>
+</tr>
+<tr><th>2</th><td>华东</td><td>120</td><td>96</td>
+</tr>
+<tr><th>3</th><td>华南</td><td>80</td><td>64</td>
+</tr>
+<tr><th>4</th><td>华北</td><td>100</td><td>90</td>
+</tr>
+<tr><th>5</th><td>合计</td><td class="selected-cell">300</td><td>250</td>
+</tr></tbody>
+</table>
+<div class="sheet-tabs">经营数据 <span>区域汇总</span>
+</div>
+<div class="mini-chart"><span data-label="华东 · 120" style="--bar:80%">华东</span><span data-label="华南 · 80" style="--bar:53%">华南</span><span data-label="华北 · 100" style="--bar:67%">华北</span>
+</div>
+</div>
+</div>
+<div><span>PPT</span>
+<div class="slide-stage">
+<div class="slide-thumbs"><span>01</span><span>02</span><span>03</span>
+</div>
+<div class="slide"><span class="slide-kicker">PROJECT REVIEW</span>
+<h3>项目进展<br />与下一步计划</h3>
+<div class="slide-rule">
+</div>
+<p>阶段回顾 / 待确认事项 / 行动安排</p><small>2026 · 项目工作汇报</small>
+</div>
+</div>
+</div>
+</div>
+<p class="figure-caption">文档类型与编辑场景示意。Editor 当前处于实验阶段。</p>
+</section>
+<section class="section">
+<div class="section-heading">
+<div>
+
+<h2>打开、编辑、导出副本。</h2>
+</div>
+<p>应用掌握文件来源与结果交付方式，Editor 提供文档编辑界面。</p>
+</div><dl class="feature-list">
+<div><dt>打开文件</dt><dd>通过浏览器 File API 提供 DOCX、XLSX 或 PPTX 字节，建立对应编辑会话。</dd>
+</div>
+<div><dt>承载界面</dt><dd>将编辑器挂载到应用提供的 DOM 容器。Word、电子表格与 PPT 使用各自入口。</dd>
+</div>
+<div><dt>导出与释放</dt><dd>检查编辑结果与导出限制；切换文件或离开页面时销毁旧编辑会话。</dd>
+</div></dl>
+</section>
+<section class="section" id="integration">
+<figure class="code-block">
+<figcaption>电子表格 / 挂载与导出<span>JavaScript</span>
+</figcaption><pre><code><span class="token-keyword">import</span> { renderSpreadsheetEditor }
+  <span class="token-keyword">from</span> <span class="token-string">&#x27;@coco-vexel/coco-office-editor/spreadsheet&#x27;</span>;
+
+<span class="token-keyword">const</span> editor = <span class="token-keyword">await</span> renderSpreadsheetEditor(mount, bytes, {
+  workbookId: <span class="token-string">&#x27;report.xlsx&#x27;</span>,
+  showSheetTabs: true,
+  styleIsolation: <span class="token-string">&#x27;shadow&#x27;</span>,
+});
+
+<span class="token-keyword">const</span> outputBytes = <span class="token-keyword">await</span> editor.toZip();
+<span class="token-comment">// 由应用将 outputBytes 下载为副本</span>
+editor.destroy();</code></pre>
+</figure>
+<p class="muted">mount 为应用提供的 DOM 元素，bytes 为 XLSX 字节。示例与本地浏览器演示使用相同的公开入口。</p>
+</section>
+<section class="closing">
+<div>
+<h2>需要的是 Agent 对话工作台？</h2>
+<p>Editor 是供应用集成的编辑能力；Coco 网页版将文档预览与 Agent 对话组织成完整工作体验。</p>
+</div><a class="primary" href="./web.html?v=20260911-unified">了解网页版 Agent<span aria-hidden="true"> ↗</span></a>
+</section>
+</main>
+<footer class="site-footer">
+<div class="footer-brand"><a class="site-brand" href="./index.html?v=20260911-unified"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a>
+<p>让文档工作走到结果。</p>
+</div>
+<div>
+<h2>产品</h2><a href="./web.html?v=20260911-unified">网页版 Agent</a><a href="./plugins.html?v=20260911-unified">Office 插件</a><a href="./desktop.html?v=20260911-unified">桌面应用</a>
+</div>
+<div>
+<h2>开发者</h2><a href="./developers.html?v=20260911-unified">开发者总览</a><a href="./core.html?v=20260911-unified">文档 SDK</a><a href="./editor.html?v=20260911-unified">浏览器编辑器</a><a href="./oojson.html?v=20260911-unified">格式转换</a>
+</div>
+<div>
+<h2>支持与资源</h2><a href="./install.html?v=20260911-unified">安装指南</a><a href="./support.html?v=20260911-unified">帮助与兼容性</a><a href="https://github.com/coco-vexel/coco/releases">版本公告</a><a href="https://github.com/coco-vexel/coco/issues">反馈问题</a><a href="https://github.com/coco-vexel/coco">GitHub</a>
+</div>
+</footer>
+</body></html>

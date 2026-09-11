@@ -1,0 +1,102 @@
+<!doctype html><html lang="zh-CN">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>OOJSON 格式转换 · Coco</title><meta name="description" content="了解 Word OOJSON 与 OOXML / Flat OPC 转换、PPT 适配和转换诊断。" /><meta property="og:title" content="OOJSON 格式转换 · Coco" /><meta property="og:description" content="了解 Word OOJSON 与 OOXML / Flat OPC 转换、PPT 适配和转换诊断。" /><meta property="og:type" content="website" /><link rel="icon" href="./assets/brand-logo.png" /><link rel="stylesheet" href="./overview.css?v=20260911-nav" /><link rel="stylesheet" href="./site-shell.css?v=20260911-nav" /><script src="./site.js?v=20260911-nav" defer></script>
+<link rel="stylesheet" href="./brand-theme.css?v=20260911-nav" />
+<link rel="stylesheet" href="./readability.css?v=20260911-nav" />
+<link rel="stylesheet" href="./structure.css?v=20260911-nav" />
+</head>
+<body>
+<header class="site-header"><nav class="site-nav" aria-label="主导航"><a class="site-brand" href="./index.html?v=20260911-unified"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a><div class="site-links"><details class="product-menu"><summary>产品</summary><div><a href="./web.html?v=20260911-unified">网页版 Agent</a><a href="./plugins.html?v=20260911-unified">Office 插件</a><a href="./desktop.html?v=20260911-unified">桌面应用</a><a href="./products.html?v=20260911-unified">比较使用方式</a></div></details><a href="./scenarios.html?v=20260911-unified">应用场景</a><a href="./download.html?v=20260911-unified">下载与安装</a><a href="./developers.html?v=20260911-unified" aria-current="page">开发者</a></div><a class="site-chat" href="https://chat.cooco.me" target="_blank" rel="noopener noreferrer">开始对话 ↗</a><details class="site-menu"><summary aria-label="打开导航菜单">☰</summary><div><a href="./web.html?v=20260911-unified">网页版 Agent</a><a href="./plugins.html?v=20260911-unified">Office 插件</a><a href="./desktop.html?v=20260911-unified">桌面应用</a><a href="./scenarios.html?v=20260911-unified">应用场景</a><a href="./download.html?v=20260911-unified">下载与安装</a><a href="./developers.html?v=20260911-unified" aria-current="page">开发者</a><a href="./support.html?v=20260911-unified">帮助与支持</a></div></details></nav></header>
+<main><div class="page-context"><nav aria-label="面包屑"><a href="./developers.html?v=20260911-unified">开发者</a><span>/</span><span>OOJSON</span></nav><nav aria-label="相关产品"><a href="./core.html?v=20260911-unified">Core</a><a href="./editor.html?v=20260911-unified">Editor</a><a href="./oojson.html?v=20260911-unified" aria-current="page">OOJSON</a></nav></div>
+<section class="intro ">
+
+<h1>OOJSON 格式转换
+</h1>
+<p class="lead">提供 Word OOJSON 与 OOXML / Flat OPC 转换，以及 PPT 内容和模型适配。将格式接入与真实宿主写回分开处理。</p>
+<div class="actions"><a class="primary" href="./oojson.html?v=20260911-unified#conversion">查看转换示例<span aria-hidden="true"> ↗</span></a><a class="secondary" href="./developers.html?v=20260911-unified">开发者总览<span aria-hidden="true"> ↗</span></a>
+</div>
+</section>
+<section class="section">
+<div class="section-heading">
+<div>
+
+<h2>从宿主数据，到文档处理。</h2>
+</div>
+<p>转换结果与诊断信息一并交给调用方。</p>
+</div>
+<div class="conversion-path">
+<div><small>输入</small><b>ONLYOFFICE-shaped JSON</b>
+<p>Word 段落、文本与表格</p>
+</div><span>⇄</span>
+<div><small>转换</small><b>OOJSON</b>
+<p>转换结果 + gaps / diagnostics</p>
+</div><span>⇄</span>
+<div><small>输出</small><b>OOXML / Flat OPC</b>
+<p>连接 Core 文档包处理</p>
+</div>
+</div>
+</section>
+<section class="section" id="conversion">
+<figure class="code-block">
+<figcaption>Word / JSON 与 XML 往返<span>JavaScript</span>
+</figcaption><pre><code><span class="token-keyword">import</span> { jsonToOoxml, ooxmlToJson }
+  <span class="token-keyword">from</span> <span class="token-string">&#x27;@coco-vexel/coco-office-oojson&#x27;</span>;
+
+<span class="token-keyword">const</span> input = {
+  type: <span class="token-string">&#x27;document&#x27;</span>,
+  content: [{
+    type: <span class="token-string">&#x27;paragraph&#x27;</span>, pPr: {},
+    content: [{ type: <span class="token-string">&#x27;run&#x27;</span>, rPr: {}, content: [<span class="token-string">&#x27;Hello Coco&#x27;</span>] }],
+  }],
+};
+<span class="token-keyword">const</span> xml = jsonToOoxml(input);
+<span class="token-keyword">const</span> { doc, gaps } = ooxmlToJson(xml);
+<span class="token-comment">// 检查 gaps，了解未映射的内容；xml 不是 DOCX ZIP 字节。</span></code></pre>
+</figure>
+</section>
+<section class="section">
+<div class="section-heading">
+<div>
+
+<h2>在接入前，确认这些边界。</h2>
+</div>
+<p>转换成功与真实编辑器写回成功，需要分别验证。</p>
+</div>
+<div class="table-wrap" tabindex="0" role="region" aria-label="能力说明表，可横向滚动">
+<table><thead>
+<tr><th scope="col">范围</th><th scope="col">说明</th>
+</tr></thead><tbody>
+<tr><th scope="row">Word</th><td>正文 JSON ↔ OOXML / Flat OPC，包含受支持的段落、文本、表格及格式。</td>
+</tr>
+<tr><th scope="row">PPT</th><td>文本内容与 Core text body、deck 与 Core model 适配；高级几何、图表、动画有范围限制。</td>
+</tr>
+<tr><th scope="row">Excel</th><td>不是 Excel JSON 转换器。</td>
+</tr>
+<tr><th scope="row">运行时</th><td>ESM JavaScript，面向 Node.js 和浏览器打包；初始版本不含 TypeScript 声明或 CommonJS 入口。</td>
+</tr>
+<tr><th scope="row">宿主写回</th><td>由独立适配器应用转换结果，并检查 gaps 与写回 diagnostics；转换库不直接修改实时编辑器。</td>
+</tr></tbody>
+</table>
+</div>
+</section>
+<section class="closing">
+<div>
+<h2>从格式转换，继续走向文档操作。</h2>
+<p>通过 Core 完成文档包读取、修改与导出。</p>
+</div><a class="primary" href="./core.html?v=20260911-unified">了解 Core<span aria-hidden="true"> ↗</span></a>
+</section>
+</main>
+<footer class="site-footer">
+<div class="footer-brand"><a class="site-brand" href="./index.html?v=20260911-unified"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a>
+<p>让文档工作走到结果。</p>
+</div>
+<div>
+<h2>产品</h2><a href="./web.html?v=20260911-unified">网页版 Agent</a><a href="./plugins.html?v=20260911-unified">Office 插件</a><a href="./desktop.html?v=20260911-unified">桌面应用</a>
+</div>
+<div>
+<h2>开发者</h2><a href="./developers.html?v=20260911-unified">开发者总览</a><a href="./core.html?v=20260911-unified">文档 SDK</a><a href="./editor.html?v=20260911-unified">浏览器编辑器</a><a href="./oojson.html?v=20260911-unified">格式转换</a>
+</div>
+<div>
+<h2>支持与资源</h2><a href="./install.html?v=20260911-unified">安装指南</a><a href="./support.html?v=20260911-unified">帮助与兼容性</a><a href="https://github.com/coco-vexel/coco/releases">版本公告</a><a href="https://github.com/coco-vexel/coco/issues">反馈问题</a><a href="https://github.com/coco-vexel/coco">GitHub</a>
+</div>
+</footer>
+</body></html>

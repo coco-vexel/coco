@@ -1,0 +1,100 @@
+<!doctype html><html lang="zh-CN">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>开发者工具 · Coco</title><meta name="description" content="Coco Office Core、Editor 与 OOJSON，为产品提供文档处理、浏览器编辑和格式转换能力。" /><meta property="og:title" content="开发者工具 · Coco" /><meta property="og:description" content="Coco Office Core、Editor 与 OOJSON，为产品提供文档处理、浏览器编辑和格式转换能力。" /><meta property="og:type" content="website" /><link rel="icon" href="./assets/brand-logo.png" /><link rel="stylesheet" href="./overview.css?v=20260911-nav" /><link rel="stylesheet" href="./site-shell.css?v=20260911-nav" /><script src="./site.js?v=20260911-nav" defer></script>
+<link rel="stylesheet" href="./brand-theme.css?v=20260911-nav" />
+<link rel="stylesheet" href="./readability.css?v=20260911-nav" />
+<link rel="stylesheet" href="./structure.css?v=20260911-nav" />
+</head>
+<body>
+<header class="site-header"><nav class="site-nav" aria-label="主导航"><a class="site-brand" href="./index.html?v=20260911-unified"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a><div class="site-links"><details class="product-menu"><summary>产品</summary><div><a href="./web.html?v=20260911-unified">网页版 Agent</a><a href="./plugins.html?v=20260911-unified">Office 插件</a><a href="./desktop.html?v=20260911-unified">桌面应用</a><a href="./products.html?v=20260911-unified">比较使用方式</a></div></details><a href="./scenarios.html?v=20260911-unified">应用场景</a><a href="./download.html?v=20260911-unified">下载与安装</a><a href="./developers.html?v=20260911-unified" aria-current="page">开发者</a></div><a class="site-chat" href="https://chat.cooco.me" target="_blank" rel="noopener noreferrer">开始对话 ↗</a><details class="site-menu"><summary aria-label="打开导航菜单">☰</summary><div><a href="./web.html?v=20260911-unified">网页版 Agent</a><a href="./plugins.html?v=20260911-unified">Office 插件</a><a href="./desktop.html?v=20260911-unified">桌面应用</a><a href="./scenarios.html?v=20260911-unified">应用场景</a><a href="./download.html?v=20260911-unified">下载与安装</a><a href="./developers.html?v=20260911-unified" aria-current="page">开发者</a><a href="./support.html?v=20260911-unified">帮助与支持</a></div></details></nav></header>
+<main>
+<section class="intro ">
+
+<h1>Coco Office 开发者工具
+</h1>
+<p class="lead">用 JavaScript 读取、查询、修改和导出 Office 文件。根据产品需要，组合文档内核、浏览器编辑器与格式转换。</p>
+<div class="actions"><a class="primary" href="./developers.html?v=20260911-unified#packages">比较 SDK<span aria-hidden="true"> ↗</span></a><a class="secondary" href="./core.html?v=20260911-unified">查看 API 示例<span aria-hidden="true"> ↗</span></a>
+</div>
+</section>
+
+<section class="section" id="packages">
+<div class="section-heading">
+<div>
+
+<h2>按需要接入，保持边界清楚。</h2>
+</div>
+<p>Core 不依赖 Editor 或特定 Office 宿主。产品与 Agent 在外层组合这些能力。</p>
+</div>
+<div class="package-list"><a href="./core.html?v=20260911-unified"><span>01</span>
+<div>
+<h3>Core · 文档 SDK</h3>
+<p>浏览器与 Node.js 中的 Word、Excel、PPT 文档 API。</p><code>@coco-vexel/coco-office</code>
+</div><b>↗</b></a><a href="./editor.html?v=20260911-unified"><span>02</span>
+<div>
+<h3>Editor · 浏览器编辑器</h3>
+<p>以 Core 为文档基础，提供三类文件的编辑界面。</p><code>@coco-vexel/coco-office-editor</code>
+</div><b>↗</b></a><a href="./oojson.html?v=20260911-unified"><span>03</span>
+<div>
+<h3>OOJSON · 格式转换</h3>
+<p>Word OOJSON ↔ OOXML / Flat OPC，以及 PPT 内容与模型适配。</p><code>@coco-vexel/coco-office-oojson</code>
+</div><b>↗</b></a>
+</div>
+</section><section class="hero-showcase code-showcase">
+<figure class="code-block">
+<figcaption>修改 PPT 标题 · Core API 示例<span>JavaScript</span>
+</figcaption><pre><code><span class="token-keyword">import</span> { Presentation } <span class="token-keyword">from</span> <span class="token-string">&#x27;@coco-vexel/coco-office/ppt&#x27;</span>;
+
+<span class="token-keyword">const</span> deck = <span class="token-keyword">await</span> Presentation.fromZip(inputBytes);
+<span class="token-keyword">try</span> {
+  <span class="token-keyword">const</span> title = deck.slides.getItem(0).shapes.getItem(<span class="token-string">&#x27;Title&#x27;</span>);
+  <span class="token-keyword">await</span> title.text.setText(<span class="token-string">&#x27;项目进展与下一步计划&#x27;</span>);
+  <span class="token-keyword">const</span> outputBytes = <span class="token-keyword">await</span> deck.toZip();
+  <span class="token-comment">// 由应用保存为新的 .pptx 文件</span>
+} <span class="token-keyword">finally</span> {
+  <span class="token-keyword">await</span> deck.dispose();
+}</code></pre>
+</figure>
+<p class="figure-caption">示例假定第一页存在名为 Title 的文本形状。inputBytes 由应用提供；文件保存由应用完成。</p>
+</section>
+<section class="section">
+<div class="section-heading">
+<div>
+
+<h2>文件处理与产品体验，各司其职。</h2>
+</div>
+<p>宿主接口、文件权限、模型服务和业务流程由产品侧决定。</p>
+</div>
+<div class="architecture">
+<div><small>你的产品</small><b>Web · Desktop · Office Host · Agent</b>
+</div><span>↓ 组合能力</span>
+<div class="architecture-pair">
+<div><b>Editor</b><small>浏览器界面</small>
+</div>
+<div><b>OOJSON</b><small>格式转换</small>
+</div>
+</div><span>↓ 依赖文档内核</span>
+<div class="core-layer"><b>Core</b><small>解析 · 查询 · 修改 · 导出</small>
+</div>
+</div>
+</section>
+<section class="closing">
+<div>
+<h2>接入前确认版本与能力范围</h2>
+<p>当前为发布候选，Editor 为实验性。原创代码采用 Apache-2.0，公开包与文档以正式发布公告为准。</p>
+</div><a class="primary" href="./support.html?v=20260911-unified#status">查看发布与能力状态<span aria-hidden="true"> ↗</span></a>
+</section>
+</main>
+<footer class="site-footer">
+<div class="footer-brand"><a class="site-brand" href="./index.html?v=20260911-unified"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a>
+<p>让文档工作走到结果。</p>
+</div>
+<div>
+<h2>产品</h2><a href="./web.html?v=20260911-unified">网页版 Agent</a><a href="./plugins.html?v=20260911-unified">Office 插件</a><a href="./desktop.html?v=20260911-unified">桌面应用</a>
+</div>
+<div>
+<h2>开发者</h2><a href="./developers.html?v=20260911-unified">开发者总览</a><a href="./core.html?v=20260911-unified">文档 SDK</a><a href="./editor.html?v=20260911-unified">浏览器编辑器</a><a href="./oojson.html?v=20260911-unified">格式转换</a>
+</div>
+<div>
+<h2>支持与资源</h2><a href="./install.html?v=20260911-unified">安装指南</a><a href="./support.html?v=20260911-unified">帮助与兼容性</a><a href="https://github.com/coco-vexel/coco/releases">版本公告</a><a href="https://github.com/coco-vexel/coco/issues">反馈问题</a><a href="https://github.com/coco-vexel/coco">GitHub</a>
+</div>
+</footer>
+</body></html>
