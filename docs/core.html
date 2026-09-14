@@ -1,18 +1,25 @@
 <!doctype html><html lang="zh-CN">
-<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Core 文档 SDK · Coco</title><meta name="description" content="通过 JavaScript 操作 Word、Excel 和 PPT 文件，了解 Coco Office Core API 与应用边界。" /><meta property="og:title" content="Core 文档 SDK · Coco" /><meta property="og:description" content="通过 JavaScript 操作 Word、Excel 和 PPT 文件，了解 Coco Office Core API 与应用边界。" /><meta property="og:type" content="website" /><link rel="icon" href="./assets/brand-logo.png" /><link rel="stylesheet" href="./overview.css?v=20260911-nav" /><link rel="stylesheet" href="./site-shell.css?v=20260911-nav" /><script src="./site.js?v=20260911-nav" defer></script>
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Coco Office Core SDK｜Word、Excel、PPT 文档 API</title><meta property="og:type" content="website" /><link rel="icon" href="./assets/brand-logo.png" /><link rel="stylesheet" href="./overview.css?v=20260911-nav" /><link rel="stylesheet" href="./site-shell.css?v=20260911-nav" /><script src="./site.js?v=20260911-nav" defer></script>
 <link rel="stylesheet" href="./brand-theme.css?v=20260911-nav" />
 <link rel="stylesheet" href="./readability.css?v=20260911-nav" />
 <link rel="stylesheet" href="./structure.css?v=20260911-nav" />
+
+<meta name="description" content="了解 Coco Office Core 的 JavaScript 文档 API，在浏览器与 Node.js 中读取、查询、修改和导出 Office 文件，查看代码示例与能力边界。" />
+<link rel="canonical" href="https://www.cooco.me/core.html" />
+<meta property="og:title" content="Coco Office Core SDK｜Word、Excel、PPT 文档 API" />
+<meta property="og:description" content="了解 Coco Office Core 的 JavaScript 文档 API，在浏览器与 Node.js 中读取、查询、修改和导出 Office 文件，查看代码示例与能力边界。" />
+<meta property="og:url" content="https://www.cooco.me/core.html" />
+<meta property="og:locale" content="zh_CN" />
 </head>
 <body>
-<header class="site-header"><nav class="site-nav" aria-label="主导航"><a class="site-brand" href="./index.html?v=20260911-unified"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a><div class="site-links"><details class="product-menu"><summary>产品</summary><div><a href="./web.html?v=20260911-unified">网页版 Agent</a><a href="./plugins.html?v=20260911-unified">Office 插件</a><a href="./desktop.html?v=20260911-unified">桌面应用</a><a href="./products.html?v=20260911-unified">比较使用方式</a></div></details><a href="./scenarios.html?v=20260911-unified">应用场景</a><a href="./download.html?v=20260911-unified">下载与安装</a><a href="./developers.html?v=20260911-unified" aria-current="page">开发者</a></div><a class="site-chat" href="https://chat.cooco.me" target="_blank" rel="noopener noreferrer">开始对话 ↗</a><details class="site-menu"><summary aria-label="打开导航菜单">☰</summary><div><a href="./web.html?v=20260911-unified">网页版 Agent</a><a href="./plugins.html?v=20260911-unified">Office 插件</a><a href="./desktop.html?v=20260911-unified">桌面应用</a><a href="./scenarios.html?v=20260911-unified">应用场景</a><a href="./download.html?v=20260911-unified">下载与安装</a><a href="./developers.html?v=20260911-unified" aria-current="page">开发者</a><a href="./support.html?v=20260911-unified">帮助与支持</a></div></details></nav></header>
-<main><div class="page-context"><nav aria-label="面包屑"><a href="./developers.html?v=20260911-unified">开发者</a><span>/</span><span>Core</span></nav><nav aria-label="相关产品"><a href="./core.html?v=20260911-unified" aria-current="page">Core</a><a href="./editor.html?v=20260911-unified">Editor</a><a href="./oojson.html?v=20260911-unified">OOJSON</a></nav></div>
+<header class="site-header"><nav class="site-nav" aria-label="主导航"><a class="site-brand" href="./"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a><div class="site-links"><details class="product-menu"><summary>产品</summary><div><a href="./web.html">网页版 Agent</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a><a href="./products.html">比较使用方式</a></div></details><a href="./scenarios.html">应用场景</a><a href="./download.html">下载与安装</a><a href="./developers.html" aria-current="page">开发者</a></div><a class="site-chat" href="https://chat.cooco.me" target="_blank" rel="noopener noreferrer">开始对话 ↗</a><details class="site-menu"><summary aria-label="打开导航菜单">☰</summary><div><a href="./web.html">网页版 Agent</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a><a href="./scenarios.html">应用场景</a><a href="./download.html">下载与安装</a><a href="./developers.html" aria-current="page">开发者</a><a href="./support.html">帮助与支持</a></div></details></nav></header>
+<main><div class="page-context"><nav aria-label="面包屑"><a href="./developers.html">开发者</a><span>/</span><span>Core</span></nav><nav aria-label="相关产品"><a href="./core.html" aria-current="page">Core</a><a href="./editor.html">Editor</a><a href="./oojson.html">OOJSON</a></nav></div>
 <section class="intro ">
 
 <h1>Core 文档 SDK
 </h1>
 <p class="lead">面向浏览器和 Node.js 的文档 SDK。输入 Office 文件，使用各文档领域的 API 读取和修改，再导出结果。</p>
-<div class="actions"><a class="primary" href="./core.html?v=20260911-unified#api">阅读 API 示例<span aria-hidden="true"> ↗</span></a><a class="secondary" href="./developers.html?v=20260911-unified">开发者总览<span aria-hidden="true"> ↗</span></a>
+<div class="actions"><a class="primary" href="./core.html#api">阅读 API 示例<span aria-hidden="true"> ↗</span></a><a class="secondary" href="./developers.html">开发者总览<span aria-hidden="true"> ↗</span></a>
 </div>
 </section>
 <section class="section">
@@ -79,21 +86,21 @@
 <div>
 <h2>需要让用户直接编辑文档？</h2>
 <p>在 Core 之上接入浏览器编辑界面。</p>
-</div><a class="primary" href="./editor.html?v=20260911-unified">了解 Editor<span aria-hidden="true"> ↗</span></a>
+</div><a class="primary" href="./editor.html">了解 Editor<span aria-hidden="true"> ↗</span></a>
 </section>
 </main>
 <footer class="site-footer">
-<div class="footer-brand"><a class="site-brand" href="./index.html?v=20260911-unified"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a>
+<div class="footer-brand"><a class="site-brand" href="./"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a>
 <p>让文档工作走到结果。</p>
 </div>
 <div>
-<h2>产品</h2><a href="./web.html?v=20260911-unified">网页版 Agent</a><a href="./plugins.html?v=20260911-unified">Office 插件</a><a href="./desktop.html?v=20260911-unified">桌面应用</a>
+<h2>产品</h2><a href="./web.html">网页版 Agent</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a>
 </div>
 <div>
-<h2>开发者</h2><a href="./developers.html?v=20260911-unified">开发者总览</a><a href="./core.html?v=20260911-unified">文档 SDK</a><a href="./editor.html?v=20260911-unified">浏览器编辑器</a><a href="./oojson.html?v=20260911-unified">格式转换</a>
+<h2>开发者</h2><a href="./developers.html">开发者总览</a><a href="./core.html">文档 SDK</a><a href="./editor.html">浏览器编辑器</a><a href="./oojson.html">格式转换</a>
 </div>
 <div>
-<h2>支持与资源</h2><a href="./install.html?v=20260911-unified">安装指南</a><a href="./support.html?v=20260911-unified">帮助与兼容性</a><a href="https://github.com/coco-vexel/coco/releases">版本公告</a><a href="https://github.com/coco-vexel/coco/issues">反馈问题</a><a href="https://github.com/coco-vexel/coco">GitHub</a>
+<h2>支持与资源</h2><a href="./install.html">安装指南</a><a href="./support.html">帮助与兼容性</a><a href="https://github.com/coco-vexel/coco/releases">版本公告</a><a href="https://github.com/coco-vexel/coco/issues">反馈问题</a><a href="https://github.com/coco-vexel/coco">GitHub</a>
 </div>
 </footer>
 </body></html>

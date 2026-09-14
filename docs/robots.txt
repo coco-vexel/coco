@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /coco-wps/
+Disallow: /microsoft/
+Disallow: /onlyoffice/
+Disallow: /install/
+Disallow: /download/
+
+Sitemap: https://www.cooco.me/sitemap.xml

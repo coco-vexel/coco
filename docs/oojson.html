@@ -1,18 +1,25 @@
 <!doctype html><html lang="zh-CN">
-<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>OOJSON 格式转换 · Coco</title><meta name="description" content="了解 Word OOJSON 与 OOXML / Flat OPC 转换、PPT 适配和转换诊断。" /><meta property="og:title" content="OOJSON 格式转换 · Coco" /><meta property="og:description" content="了解 Word OOJSON 与 OOXML / Flat OPC 转换、PPT 适配和转换诊断。" /><meta property="og:type" content="website" /><link rel="icon" href="./assets/brand-logo.png" /><link rel="stylesheet" href="./overview.css?v=20260911-nav" /><link rel="stylesheet" href="./site-shell.css?v=20260911-nav" /><script src="./site.js?v=20260911-nav" defer></script>
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Coco OOJSON｜Office 文档格式转换</title><meta property="og:type" content="website" /><link rel="icon" href="./assets/brand-logo.png" /><link rel="stylesheet" href="./overview.css?v=20260911-nav" /><link rel="stylesheet" href="./site-shell.css?v=20260911-nav" /><script src="./site.js?v=20260911-nav" defer></script>
 <link rel="stylesheet" href="./brand-theme.css?v=20260911-nav" />
 <link rel="stylesheet" href="./readability.css?v=20260911-nav" />
 <link rel="stylesheet" href="./structure.css?v=20260911-nav" />
+
+<meta name="description" content="了解 Coco OOJSON 的 Word OOJSON、OOXML 与 Flat OPC 转换，以及 PPT 内容与模型适配，查看代码示例和使用边界。" />
+<link rel="canonical" href="https://www.cooco.me/oojson.html" />
+<meta property="og:title" content="Coco OOJSON｜Office 文档格式转换" />
+<meta property="og:description" content="了解 Coco OOJSON 的 Word OOJSON、OOXML 与 Flat OPC 转换，以及 PPT 内容与模型适配，查看代码示例和使用边界。" />
+<meta property="og:url" content="https://www.cooco.me/oojson.html" />
+<meta property="og:locale" content="zh_CN" />
 </head>
 <body>
-<header class="site-header"><nav class="site-nav" aria-label="主导航"><a class="site-brand" href="./index.html?v=20260911-unified"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a><div class="site-links"><details class="product-menu"><summary>产品</summary><div><a href="./web.html?v=20260911-unified">网页版 Agent</a><a href="./plugins.html?v=20260911-unified">Office 插件</a><a href="./desktop.html?v=20260911-unified">桌面应用</a><a href="./products.html?v=20260911-unified">比较使用方式</a></div></details><a href="./scenarios.html?v=20260911-unified">应用场景</a><a href="./download.html?v=20260911-unified">下载与安装</a><a href="./developers.html?v=20260911-unified" aria-current="page">开发者</a></div><a class="site-chat" href="https://chat.cooco.me" target="_blank" rel="noopener noreferrer">开始对话 ↗</a><details class="site-menu"><summary aria-label="打开导航菜单">☰</summary><div><a href="./web.html?v=20260911-unified">网页版 Agent</a><a href="./plugins.html?v=20260911-unified">Office 插件</a><a href="./desktop.html?v=20260911-unified">桌面应用</a><a href="./scenarios.html?v=20260911-unified">应用场景</a><a href="./download.html?v=20260911-unified">下载与安装</a><a href="./developers.html?v=20260911-unified" aria-current="page">开发者</a><a href="./support.html?v=20260911-unified">帮助与支持</a></div></details></nav></header>
-<main><div class="page-context"><nav aria-label="面包屑"><a href="./developers.html?v=20260911-unified">开发者</a><span>/</span><span>OOJSON</span></nav><nav aria-label="相关产品"><a href="./core.html?v=20260911-unified">Core</a><a href="./editor.html?v=20260911-unified">Editor</a><a href="./oojson.html?v=20260911-unified" aria-current="page">OOJSON</a></nav></div>
+<header class="site-header"><nav class="site-nav" aria-label="主导航"><a class="site-brand" href="./"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a><div class="site-links"><details class="product-menu"><summary>产品</summary><div><a href="./web.html">网页版 Agent</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a><a href="./products.html">比较使用方式</a></div></details><a href="./scenarios.html">应用场景</a><a href="./download.html">下载与安装</a><a href="./developers.html" aria-current="page">开发者</a></div><a class="site-chat" href="https://chat.cooco.me" target="_blank" rel="noopener noreferrer">开始对话 ↗</a><details class="site-menu"><summary aria-label="打开导航菜单">☰</summary><div><a href="./web.html">网页版 Agent</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a><a href="./scenarios.html">应用场景</a><a href="./download.html">下载与安装</a><a href="./developers.html" aria-current="page">开发者</a><a href="./support.html">帮助与支持</a></div></details></nav></header>
+<main><div class="page-context"><nav aria-label="面包屑"><a href="./developers.html">开发者</a><span>/</span><span>OOJSON</span></nav><nav aria-label="相关产品"><a href="./core.html">Core</a><a href="./editor.html">Editor</a><a href="./oojson.html" aria-current="page">OOJSON</a></nav></div>
 <section class="intro ">
 
 <h1>OOJSON 格式转换
 </h1>
 <p class="lead">提供 Word OOJSON 与 OOXML / Flat OPC 转换，以及 PPT 内容和模型适配。将格式接入与真实宿主写回分开处理。</p>
-<div class="actions"><a class="primary" href="./oojson.html?v=20260911-unified#conversion">查看转换示例<span aria-hidden="true"> ↗</span></a><a class="secondary" href="./developers.html?v=20260911-unified">开发者总览<span aria-hidden="true"> ↗</span></a>
+<div class="actions"><a class="primary" href="./oojson.html#conversion">查看转换示例<span aria-hidden="true"> ↗</span></a><a class="secondary" href="./developers.html">开发者总览<span aria-hidden="true"> ↗</span></a>
 </div>
 </section>
 <section class="section">
@@ -82,21 +89,21 @@
 <div>
 <h2>从格式转换，继续走向文档操作。</h2>
 <p>通过 Core 完成文档包读取、修改与导出。</p>
-</div><a class="primary" href="./core.html?v=20260911-unified">了解 Core<span aria-hidden="true"> ↗</span></a>
+</div><a class="primary" href="./core.html">了解 Core<span aria-hidden="true"> ↗</span></a>
 </section>
 </main>
 <footer class="site-footer">
-<div class="footer-brand"><a class="site-brand" href="./index.html?v=20260911-unified"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a>
+<div class="footer-brand"><a class="site-brand" href="./"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a>
 <p>让文档工作走到结果。</p>
 </div>
 <div>
-<h2>产品</h2><a href="./web.html?v=20260911-unified">网页版 Agent</a><a href="./plugins.html?v=20260911-unified">Office 插件</a><a href="./desktop.html?v=20260911-unified">桌面应用</a>
+<h2>产品</h2><a href="./web.html">网页版 Agent</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a>
 </div>
 <div>
-<h2>开发者</h2><a href="./developers.html?v=20260911-unified">开发者总览</a><a href="./core.html?v=20260911-unified">文档 SDK</a><a href="./editor.html?v=20260911-unified">浏览器编辑器</a><a href="./oojson.html?v=20260911-unified">格式转换</a>
+<h2>开发者</h2><a href="./developers.html">开发者总览</a><a href="./core.html">文档 SDK</a><a href="./editor.html">浏览器编辑器</a><a href="./oojson.html">格式转换</a>
 </div>
 <div>
-<h2>支持与资源</h2><a href="./install.html?v=20260911-unified">安装指南</a><a href="./support.html?v=20260911-unified">帮助与兼容性</a><a href="https://github.com/coco-vexel/coco/releases">版本公告</a><a href="https://github.com/coco-vexel/coco/issues">反馈问题</a><a href="https://github.com/coco-vexel/coco">GitHub</a>
+<h2>支持与资源</h2><a href="./install.html">安装指南</a><a href="./support.html">帮助与兼容性</a><a href="https://github.com/coco-vexel/coco/releases">版本公告</a><a href="https://github.com/coco-vexel/coco/issues">反馈问题</a><a href="https://github.com/coco-vexel/coco">GitHub</a>
 </div>
 </footer>
 </body></html>
