@@ -1,76 +1,49 @@
-# Coco plugin installers
+# Coco combined plugin installers
 
-WPS and Microsoft Office load remote entries from the release server. ONLYOFFICE Docs / Document Server can use either remote pluginsData or the local sdkjs-plugins installer. ONLYOFFICE Desktop keeps a tiny local entry shell because Desktop Editors does not reliably navigate plugin config.json.url to a remote page; the shell loads Coco UI assets from the release server.
+Each host installer registers both Coco Word and Coco Excel in one run.
 
-## WPS
+## WPS (Windows)
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\wps-install.ps1
+.\wps-install.ps1 -BaseUrl "https://coco-vexel.github.io/coco"
 ```
 
-```cmd
-wps-install.cmd "<wps-entry-url>"
+## Microsoft Office (Windows)
+
+```powershell
+.\microsoft-install.ps1 -BaseUrl "https://coco-vexel.github.io/coco"
 ```
+
+## ONLYOFFICE
+
+The Desktop and Docker installers install the Word and Spreadsheet plugin configurations together.
+
+### Desktop (Windows)
+
+```powershell
+.\onlyoffice-desktop-install.ps1 -BaseUrl "https://coco-vexel.github.io/coco"
+```
+
+Pass `-ApiBaseUrl "https://your-server.example/api/v1"` when the plugin should connect to a separately hosted Coco API.
+
+### Desktop (macOS/Linux)
 
 ```bash
-chmod +x ./wps-install.sh
-./wps-install.sh
+./onlyoffice-desktop-install.sh "https://coco-vexel.github.io/coco"
 ```
 
-## ONLYOFFICE Desktop
+Set `COCO_DESKTOP_API_BASE_URL` to configure a separately hosted Coco API.
+
+### Docker Document Server (PowerShell)
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\onlyoffice-desktop-install.ps1 -BaseUrl "<release-base-url>"
+.\onlyoffice-docker-install.ps1 -BaseUrl "https://coco-vexel.github.io/coco" -Container "onlyoffice-documentserver" -Apply
 ```
 
-```cmd
-onlyoffice-desktop-install.cmd "<release-base-url>"
-```
+Without `-Apply`, the script only generates the two plugin packages locally.
+
+### Docker Document Server (bash)
 
 ```bash
-chmod +x ./onlyoffice-desktop-install.sh
-COCO_RELEASE_BASE_URL="<release-base-url>" ./onlyoffice-desktop-install.sh
-```
-
-## ONLYOFFICE Docker - remote pluginsData
-
-```js
-editorConfig: {
-  plugins: {
-    pluginsData: [
-      "<release-base-url>/onlyoffice/config.json"
-    ],
-    autostart: [
-      "asc.{8D9B5A2C-1F3E-4C7A-9B0D-2E6F1A4C8B30}"
-    ]
-  }
-}
-```
-
-Add this to the application that creates the DocsAPI.DocEditor config. The Document Server container does not need files copied into sdkjs-plugins for the remote loading mode.
-
-## ONLYOFFICE Docker - local sdkjs-plugins
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\onlyoffice-docker-install.ps1 -Container onlyoffice-documentserver
-```
-
-```cmd
-onlyoffice-docker-install.cmd onlyoffice-documentserver "<release-base-url>"
-```
-
-```bash
-COCO_RELEASE_BASE_URL="<release-base-url>" ./onlyoffice-docker-install.sh onlyoffice-documentserver
-```
-
-Use this mode when the integration application cannot inject editorConfig.plugins.pluginsData. The script creates a local plugin shell under the Document Server sdkjs-plugins directory.
-
-## Microsoft Office
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\microsoft-install.ps1
-```
-
-```cmd
-microsoft-install.cmd "<manifest-url>"
+COCO_DOCKER_APPLY=1 ./onlyoffice-docker-install.sh "https://coco-vexel.github.io/coco" "onlyoffice-documentserver"
 ```

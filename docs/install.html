@@ -247,7 +247,7 @@
       <section id="overview" class="hero">
       <div>
           <h1>Coco 插件安装部署</h1>
-          <p>将整个 coco 目录发布为静态资源后，从本页执行安装。WPS 和 Microsoft Office 走远端入口；ONLYOFFICE Docker 支持远端 pluginsData 或容器本地 sdkjs-plugins；ONLYOFFICE Desktop 写入本地轻量入口壳，再从当前发布地址加载 UI 资源。按你的 Office 环境选择对应方式即可。</p>
+          <p>每种宿主只需执行一次对应安装命令，即可同时安装 Coco Word 与 Coco Excel。WPS 和 Microsoft Office 走远端入口；ONLYOFFICE Docker 支持远端 pluginsData 或容器本地 sdkjs-plugins；ONLYOFFICE Desktop 写入两套独立插件入口，再从当前发布地址加载 UI 资源。</p>
           <div class="tag-row">
             <span class="tag">远端资源</span>
             <span class="tag">轻量入口</span>
@@ -261,7 +261,7 @@
 
       <section id="wps" class="section">
         <h2>WPS</h2>
-        <p>注册 WPS 的 publish.xml，让 WPS Writer 从远端地址加载 Coco。</p>
+        <p>一次更新 WPS 的 publish.xml，同时注册 Writer 与 Spreadsheets 两个 Coco 插件入口。</p>
         <div class="tabs">
           <input type="radio" name="wps-tabs" id="wps-win" checked />
           <input type="radio" name="wps-tabs" id="wps-unix" />
@@ -273,25 +273,25 @@
             <div class="tab-panel">
               <div class="cmd" data-label="PowerShell"><pre>$script = Join-Path $env:TEMP "coco-wps-install.ps1"
 Invoke-WebRequest __BASE_URL__/install/wps-install.ps1 -OutFile $script
-powershell -ExecutionPolicy Bypass -File $script -EntryUrl "__WPS_ENTRY__"</pre>
+powershell -ExecutionPolicy Bypass -File $script -BaseUrl "__BASE_URL__"</pre>
               </div>
               <div class="cmd" data-label="CMD"><pre>set "SCRIPT=%TEMP%\coco-wps-install.cmd"
 curl -L -f -o "%SCRIPT%" "__BASE_URL__/install/wps-install.cmd" || certutil -urlcache -split -f "__BASE_URL__/install/wps-install.cmd" "%SCRIPT%"
-call "%SCRIPT%" "__WPS_ENTRY__"</pre>
+call "%SCRIPT%" "__BASE_URL__"</pre>
               </div>
             </div>
             <div class="tab-panel"><div class="cmd" data-label="Shell"><pre>curl -fsSL __BASE_URL__/install/wps-install.sh -o wps-install.sh
 chmod +x ./wps-install.sh
-COCO_WPS_ENTRY_URL="__WPS_ENTRY__" ./wps-install.sh</pre>
+COCO_RELEASE_BASE_URL="__BASE_URL__" ./wps-install.sh</pre>
             </div></div>
           </div>
         </div>
-        <div class="note">执行后需要完全退出并重启 WPS Writer。</div>
+        <div class="note">执行后需要完全退出并重启 WPS Writer 与 WPS Spreadsheets。</div>
       </section>
 
       <section id="onlyoffice-desktop" class="section">
         <h2>ONLYOFFICE Desktop</h2>
-        <p>Desktop Editors 需要本地插件入口。脚本会写入本地 config、图标和三个轻量 HTML 壳；壳内的 UI/脚本资源仍从当前发布地址加载。</p>
+        <p>Desktop Editors 需要本地插件入口。脚本会同时安装 Word 与 Spreadsheet 两套独立 GUID/config，入口壳内的 UI/脚本资源仍从当前发布地址加载。</p>
         <div class="tabs">
           <input type="radio" name="oo-desktop-tabs" id="oo-desktop-win" checked />
           <input type="radio" name="oo-desktop-tabs" id="oo-desktop-unix" />
@@ -321,7 +321,7 @@ COCO_RELEASE_BASE_URL="__DESKTOP_BASE_URL__" __DESKTOP_API_ENV__./onlyoffice-des
 
       <section id="onlyoffice-docker" class="section">
         <h2>ONLYOFFICE Docker</h2>
-        <p>支持两种方式：推荐在业务系统生成 DocsAPI.DocEditor 配置时注入远端 pluginsData；如果业务系统暂时不能改配置，也可以沿用容器本地 sdkjs-plugins 安装脚本。</p>
+        <p>支持两种合并安装方式：在 DocsAPI.DocEditor 配置中同时注入 Word 与 Spreadsheet 的 pluginsData，或用脚本一次写入容器中的两套 sdkjs-plugins。</p>
         <div class="tabs">
           <input type="radio" name="oo-docker-tabs" id="oo-docker-config" checked />
           <input type="radio" name="oo-docker-tabs" id="oo-docker-local" />
@@ -333,15 +333,18 @@ COCO_RELEASE_BASE_URL="__DESKTOP_BASE_URL__" __DESKTOP_API_ENV__./onlyoffice-des
             <div class="tab-panel"><div class="cmd" data-label="JavaScript"><pre>editorConfig: {
   plugins: {
     pluginsData: [
-      "__BASE_URL__/onlyoffice/config.json"
+      "__BASE_URL__/onlyoffice/config.json",
+      "__BASE_URL__/onlyoffice/config.excel.json"
     ],
     autostart: [
-      "asc.{8D9B5A2C-1F3E-4C7A-9B0D-2E6F1A4C8B30}"
+      "asc.{8D9B5A2C-1F3E-4C7A-9B0D-2E6F1A4C8B30}",
+      "asc.{A9551FA7-1158-4A6E-9DE0-9A36684B7934}"
     ]
   }
 }</pre>
               </div>
-              <div class="cmd" data-label="config.json"><pre>__BASE_URL__/onlyoffice/config.json</pre>
+              <div class="cmd" data-label="Plugin configs"><pre>Word:  __BASE_URL__/onlyoffice/config.json
+Excel: __BASE_URL__/onlyoffice/config.excel.json</pre>
             </div></div>
             <div class="tab-panel">
               <div class="cmd" data-label="Shell"><pre>curl -fsSL __BASE_URL__/install/onlyoffice-docker-install.sh -o onlyoffice-docker-install.sh
@@ -363,7 +366,7 @@ call "%SCRIPT%" onlyoffice-documentserver "__BASE_URL__" apply</pre>
 
       <section id="microsoft" class="section">
         <h2>Microsoft Office</h2>
-        <p>Word 通过 manifest 加载远端 taskpane。Windows 可使用脚本侧载；企业环境建议通过 M365 管理中心集中部署。</p>
+        <p>一次下载并登记 Word 与 Excel 两份 manifest。Windows 可使用脚本侧载；企业环境建议通过 M365 管理中心分别上传两份 manifest。</p>
         <div class="tabs">
           <input type="radio" name="ms-tabs" id="ms-win" checked />
           <input type="radio" name="ms-tabs" id="ms-admin" />
@@ -375,27 +378,28 @@ call "%SCRIPT%" onlyoffice-documentserver "__BASE_URL__" apply</pre>
             <div class="tab-panel">
               <div class="cmd" data-label="PowerShell"><pre>$script = Join-Path $env:TEMP "coco-microsoft-install.ps1"
 Invoke-WebRequest __DESKTOP_BASE_URL__/install/microsoft-install.ps1 -OutFile $script
-powershell -ExecutionPolicy Bypass -File $script -ManifestUrl "__DESKTOP_BASE_URL__/microsoft/manifest.xml"</pre>
+powershell -ExecutionPolicy Bypass -File $script -BaseUrl "__DESKTOP_BASE_URL__"</pre>
               </div>
               <div class="cmd" data-label="CMD"><pre>set "SCRIPT=%TEMP%\coco-microsoft-install.cmd"
 curl -L -f -o "%SCRIPT%" "__DESKTOP_BASE_URL__/install/microsoft-install.cmd" || certutil -urlcache -split -f "__DESKTOP_BASE_URL__/install/microsoft-install.cmd" "%SCRIPT%"
-call "%SCRIPT%" "__DESKTOP_BASE_URL__/microsoft/manifest.xml"</pre>
+call "%SCRIPT%" "__DESKTOP_BASE_URL__"</pre>
               </div>
             </div>
-            <div class="tab-panel"><div class="cmd" data-label="Manifest"><pre>manifest: __DESKTOP_BASE_URL__/microsoft/manifest.xml
+            <div class="tab-panel"><div class="cmd" data-label="Manifests"><pre>Word:  __DESKTOP_BASE_URL__/microsoft/manifest.xml
+Excel: __DESKTOP_BASE_URL__/microsoft/manifest-excel.xml
 Admin Center: Integrated apps -> Upload custom apps</pre>
             </div></div>
           </div>
         </div>
-        <div class="note">Windows 脚本会下载 manifest 并登记共享目录；完成后仍需在 Word 中手动添加一次：打开 Word → 插入 → 我的加载项 → 共享文件夹 → 选择 Coco Microsoft → 点击右下角「添加」。如果看不到 Coco，先点加载项窗口右上角「刷新」。</div>
+        <div class="note">Windows 脚本会下载并登记两份 manifest。完成后分别在 Word 与 Excel 的「插入 → 我的加载项 → 共享文件夹」中添加 Coco；如果看不到入口，先刷新加载项列表。</div>
       </section>
 
       <section id="verify" class="section">
         <h2>验证方式</h2>
         <div class="steps">
-          <div class="step"><strong>WPS：</strong>重启 WPS Writer，确认功能区出现 Coco 入口，点击后右侧面板正常打开。</div>
-          <div class="step"><strong>ONLYOFFICE：</strong>打开任意文档，进入插件菜单，确认 Coco 插件能打开侧边栏。</div>
-          <div class="step"><strong>Microsoft Office：</strong>重启 Word，打开 插入 → 我的加载项 → 共享文件夹，选择 Coco Microsoft 后点击「添加」，再确认功能区出现「打开 Coco」。</div>
+          <div class="step"><strong>WPS：</strong>分别重启 Writer 与 Spreadsheets，确认两边都出现对应的 Coco 入口。</div>
+          <div class="step"><strong>ONLYOFFICE：</strong>分别打开文档与电子表格，确认 Coco Word 与 Coco Excel 都能打开各自侧边栏。</div>
+          <div class="step"><strong>Microsoft Office：</strong>分别重启 Word 与 Excel，在共享文件夹中添加对应 Coco 加载项并验证面板。</div>
         </div>
       </section>
     </div>
@@ -412,7 +416,6 @@ Admin Center: Integrated apps -> Upload custom apps</pre>
         desktopBaseUrl = "https://127.0.0.1:8443";
         desktopApiBaseUrl = "https://127.0.0.1:8443/api/v1";
       }
-      const wpsEntryUrl = baseUrl + "/coco-wps/worker/word/";
       document.querySelectorAll("pre").forEach((node) => {
         const desktopApiArgPs = desktopApiBaseUrl ? ' -ApiBaseUrl "' + desktopApiBaseUrl + '"' : "";
         const desktopApiArgCmd = desktopApiBaseUrl ? ' "' + desktopApiBaseUrl + '"' : "";
@@ -423,7 +426,6 @@ Admin Center: Integrated apps -> Upload custom apps</pre>
           .replaceAll("__DESKTOP_API_ARG_CMD__", desktopApiArgCmd)
           .replaceAll("__DESKTOP_API_ENV__", desktopApiEnv)
           .replaceAll("__DESKTOP_API_BASE_URL__", desktopApiBaseUrl)
-          .replaceAll("__WPS_ENTRY__", wpsEntryUrl)
           .replaceAll("__BASE_URL__", baseUrl);
       });
       document.querySelectorAll(".cmd").forEach((block) => {
