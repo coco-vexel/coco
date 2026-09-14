@@ -1,0 +1,39 @@
+{
+  "name": "Coco Excel",
+  "nameLocale": {
+    "zh": "Coco Excel",
+    "en": "Coco Excel"
+  },
+  "guid": "asc.{A9551FA7-1158-4A6E-9DE0-9A36684B7934}",
+  "version": "0.0.5",
+  "minVersion": "7.0.0",
+  "variations": [
+    {
+      "description": "Coco Excel assistant",
+      "descriptionLocale": {
+        "zh": "Coco Excel 助手"
+      },
+      "url": "./excel.html?v=mszojqzi",
+      "icons": [
+        "resources/light/icon.png",
+        "resources/light/icon@2x.png"
+      ],
+      "isViewer": true,
+      "EditorsSupport": [
+        "cell"
+      ],
+      "isVisual": true,
+      "isModal": false,
+      "isInsideMode": true,
+      "initDataType": "none",
+      "initData": "",
+      "isUpdateOften": true,
+      "buttons": [],
+      "size": [
+        320,
+        600
+      ],
+      "events": []
+    }
+  ]
+}

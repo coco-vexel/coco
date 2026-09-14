@@ -1,110 +1,46 @@
 #!/usr/bin/env bash
 set -euo pipefail
-
-BASE_URL="${COCO_RELEASE_BASE_URL:-}"
-API_BASE_URL="${COCO_DESKTOP_API_BASE_URL:-}"
-GUID="{8D9B5A2C-1F3E-4C7A-9B0D-2E6F1A4C8B30}"
-ASC_GUID="asc.{8D9B5A2C-1F3E-4C7A-9B0D-2E6F1A4C8B30}"
-
-if [ -z "$BASE_URL" ]; then
-  echo "Missing COCO_RELEASE_BASE_URL. Run this script from the command shown on install.html." >&2
-  exit 1
-fi
-case "$BASE_URL" in
-  https://*) ;;
-  http://localhost:*|http://localhost/*|http://127.0.0.1:*|http://127.0.0.1/*|http://[::1]:*|http://[::1]/*) ;;
-  *) echo "ONLYOFFICE Desktop requires an HTTPS release BaseUrl, except localhost HTTP for local development. Open the HTTPS install page or set COCO_RELEASE_BASE_URL=https://... ." >&2; exit 1 ;;
-esac
-if [ -n "$API_BASE_URL" ]; then
-  case "$API_BASE_URL" in
-    https://*) ;;
-    http://localhost:*|http://localhost/*|http://127.0.0.1:*|http://127.0.0.1/*|http://[::1]:*|http://[::1]/*) ;;
-    *) echo "ONLYOFFICE Desktop requires an HTTPS API base URL, except localhost HTTP for local development. Set COCO_DESKTOP_API_BASE_URL=https://.../api/v1 ." >&2; exit 1 ;;
+BASE_URL="${COCO_RELEASE_BASE_URL:-${1:-}}"
+[ -n "$BASE_URL" ] || { echo 'Missing release base URL.' >&2; exit 1; }
+BASE_URL="${BASE_URL%/}"
+API_BASE_URL="${COCO_DESKTOP_API_BASE_URL:-${2:-}}"
+is_allowed_url() {
+  case "$1" in
+    https://*|http://localhost|http://localhost/*|http://localhost:*|http://127.0.0.1|http://127.0.0.1/*|http://127.0.0.1:*) return 0 ;;
+    *) return 1 ;;
   esac
+}
+is_allowed_url "$BASE_URL" || { echo 'ONLYOFFICE Desktop requires HTTPS, except localhost development URLs.' >&2; exit 1; }
+if [ -n "$API_BASE_URL" ]; then
+  API_BASE_URL="${API_BASE_URL%/}"
+  is_allowed_url "$API_BASE_URL" || { echo 'API base URL must use HTTPS, except localhost.' >&2; exit 1; }
 fi
-
 case "$(uname -s)" in
-  Darwin)
-    PLUGIN_ROOT="$HOME/Library/Application Support/ONLYOFFICE/DesktopEditors/data/sdkjs-plugins"
-    ;;
-  Linux)
-    PLUGIN_ROOT="$HOME/.local/share/ONLYOFFICE/DesktopEditors/data/sdkjs-plugins"
-    ;;
-  *)
-    PLUGIN_ROOT="$HOME/.local/share/ONLYOFFICE/DesktopEditors/data/sdkjs-plugins"
-    ;;
+  Darwin) ROOT="$HOME/Library/Application Support/ONLYOFFICE/DesktopEditors/data/sdkjs-plugins" ;;
+  Linux) ROOT="$HOME/.local/share/ONLYOFFICE/DesktopEditors/data/sdkjs-plugins" ;;
+  *) echo 'Unsupported platform.' >&2; exit 1 ;;
 esac
-
-PLUGIN_DIR="$PLUGIN_ROOT/$GUID"
-rm -rf "$PLUGIN_ROOT/$ASC_GUID" "$PLUGIN_ROOT/$GUID"
-mkdir -p "$PLUGIN_DIR"
-mkdir -p "$PLUGIN_DIR/resources/light"
-curl -fsSL "$BASE_URL/onlyoffice/resources/light/icon.png" -o "$PLUGIN_DIR/resources/light/icon.png"
-curl -fsSL "$BASE_URL/onlyoffice/resources/light/icon@2x.png" -o "$PLUGIN_DIR/resources/light/icon@2x.png"
-
-cat > "$PLUGIN_DIR/config.json" <<JSON
-{
-  "name": "Coco",
-  "nameLocale": { "zh": "Coco 助手", "en": "Coco" },
-  "guid": "$ASC_GUID",
-  "version": "0.0.1",
-  "minVersion": "7.0.0",
-  "variations": [
-    {
-      "description": "Coco 文档智能助手",
-      "descriptionLocale": { "zh": "Coco 文档智能助手" },
-      "url": "index.html?v=ms8wofto",
-      "icons": [
-        "resources/light/icon.png",
-        "resources/light/icon@2x.png"
-      ],
-      "isViewer": true,
-      "EditorsSupport": ["word", "cell", "slide"],
-      "isVisual": true,
-      "isModal": false,
-      "isInsideMode": true,
-      "initDataType": "none",
-      "initData": "",
-      "isUpdateOften": false,
-      "buttons": [],
-      "size": [320, 600],
-      "events": []
-    }
-  ]
-}
-JSON
-
-if [ -n "$API_BASE_URL" ]; then
-cat > "$PLUGIN_DIR/coco-runtime-config.js" <<JSON
-window.__COCO_RUNTIME_CONFIG__ = {
-  "apiBaseUrl": "$API_BASE_URL"
-};
-JSON
-fi
-
-write_remote_loader() {
-  file_name="$1"
-  html="$(curl -fsSL "$BASE_URL/onlyoffice/$file_name?v=ms8wofto" \
-    | sed -e 's#\(["'\''"]\)\./v1/#\1../v1/#g' \
-          -e "s#\([\"']\)\./assets/#\1$BASE_URL/onlyoffice/assets/#g" \
-    | sed -E "s#(src=[\"'][^\"']*/onlyoffice/assets/[^\"']+\.js)([\"'])#\1?v=ms8wofto\2#g" \
-    | sed -E "s#(href=[\"'][^\"']*/onlyoffice/assets/[^\"']+\.css)([\"'])#\1?v=ms8wofto\2#g")"
+install_plugin() {
+  local label="$1" raw="$2" asc="$3" config="$4" dir="$ROOT/$raw"
+  rm -rf "$ROOT/$raw" "$ROOT/$asc"
+  mkdir -p "$dir/resources/light"
+  curl -fsSL "$BASE_URL/onlyoffice/$config" -o "$dir/config.json"
+  curl -fsSL "$BASE_URL/onlyoffice/resources/light/icon.png" -o "$dir/resources/light/icon.png"
+  curl -fsSL "$BASE_URL/onlyoffice/resources/light/icon@2x.png" -o "$dir/resources/light/icon@2x.png"
   if [ -n "$API_BASE_URL" ]; then
-    html="$(printf '%s' "$html" | sed -e 's#</head>#  <script src="./coco-runtime-config.js"></script></head>#')"
+    printf 'window.__COCO_RUNTIME_CONFIG__ = {"apiBaseUrl":"%s"};
+' "$API_BASE_URL" > "$dir/coco-runtime-config.js"
   fi
-  printf '%s' "$html" > "$PLUGIN_DIR/$file_name"
+  for page in index.html excel.html settings.html workflow-editor.html; do
+    curl -fsSL "$BASE_URL/onlyoffice/$page?v=mszojqzi" | sed       -e 's#"[.]/v1/#"../v1/#g'       -e "s#\"[.]/assets/#\"$BASE_URL/onlyoffice/assets/#g"       > "$dir/$page"
+    if [ -n "$API_BASE_URL" ]; then
+      sed -i.bak 's#</head>#  <script src="./coco-runtime-config.js"></script></head>#' "$dir/$page"
+      rm -f "$dir/$page.bak"
+    fi
+  done
+  echo "  $label: $dir"
 }
-
-write_remote_loader "index.html"
-write_remote_loader "settings.html"
-write_remote_loader "workflow-editor.html"
-
-echo "Coco ONLYOFFICE Desktop local shell installed:"
-echo "  $PLUGIN_DIR"
-echo "Remote UI:"
-echo "  $BASE_URL/onlyoffice/?v=ms8wofto"
-if [ -n "$API_BASE_URL" ]; then
-  echo "API:"
-  echo "  $API_BASE_URL"
-fi
-echo "Fully quit and restart ONLYOFFICE Desktop Editors."
+mkdir -p "$ROOT"
+install_plugin Word '{8D9B5A2C-1F3E-4C7A-9B0D-2E6F1A4C8B30}' 'asc.{8D9B5A2C-1F3E-4C7A-9B0D-2E6F1A4C8B30}' config.json
+install_plugin Excel '{A9551FA7-1158-4A6E-9DE0-9A36684B7934}' 'asc.{A9551FA7-1158-4A6E-9DE0-9A36684B7934}' config.excel.json
+echo 'Coco ONLYOFFICE Word + Excel plugins installed. Restart ONLYOFFICE Desktop Editors.'

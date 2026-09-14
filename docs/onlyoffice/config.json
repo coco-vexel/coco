@@ -5,15 +5,15 @@
     "en": "Coco"
   },
   "guid": "asc.{8D9B5A2C-1F3E-4C7A-9B0D-2E6F1A4C8B30}",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "minVersion": "7.0.0",
   "variations": [
     {
-      "description": "Coco 文档智能助手",
+      "description": "Coco document assistant",
       "descriptionLocale": {
-        "zh": "Coco 文档智能助手"
+        "zh": "Coco 文档助手"
       },
-      "url": "./?v=ms8wofto",
+      "url": "./?v=mszojqzi",
       "icons": [
         "resources/light/icon.png",
         "resources/light/icon@2x.png"
@@ -21,7 +21,6 @@
       "isViewer": true,
       "EditorsSupport": [
         "word",
-        "cell",
         "slide"
       ],
       "isVisual": true,

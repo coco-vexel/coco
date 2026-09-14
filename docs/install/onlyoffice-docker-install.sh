@@ -1,111 +1,53 @@
 #!/usr/bin/env bash
 set -euo pipefail
-
+if [ -n "${COCO_RELEASE_BASE_URL:-}" ]; then
+  BASE_URL="$COCO_RELEASE_BASE_URL"
+  CONTAINER="${COCO_ONLYOFFICE_CONTAINER:-${1:-onlyoffice-documentserver}}"
+else
+  BASE_URL="${1:-}"
+  CONTAINER="${COCO_ONLYOFFICE_CONTAINER:-${2:-onlyoffice-documentserver}}"
+fi
+[ -n "$BASE_URL" ] || { echo 'Missing release base URL.' >&2; exit 1; }
+BASE_URL="${BASE_URL%/}"
+RELEASE_ROOT="${BASE_URL%/coco}"
+API_BASE_URL="${COCO_DESKTOP_API_BASE_URL:-$RELEASE_ROOT/api/v1}"
+API_BASE_URL="${API_BASE_URL%/}"
 APPLY="${COCO_DOCKER_APPLY:-0}"
-if [ "${1:-}" = "--apply" ]; then
-  APPLY="1"
-  shift
-fi
-CONTAINER="${1:-onlyoffice-documentserver}"
-BASE_URL="${COCO_RELEASE_BASE_URL:-}"
-API_BASE_URL="${COCO_API_BASE_URL:-}"
-OUT_DIR="${COCO_PLUGIN_OUT_DIR:-$HOME/Downloads/coco-onlyoffice-plugin}"
-GUID="{8D9B5A2C-1F3E-4C7A-9B0D-2E6F1A4C8B30}"
-ASC_GUID="asc.{8D9B5A2C-1F3E-4C7A-9B0D-2E6F1A4C8B30}"
-PLUGIN_DIR="$OUT_DIR/$ASC_GUID"
-PLUGIN_ROOT="/var/www/onlyoffice/documentserver/sdkjs-plugins"
-DEPLOY_PATH="$PLUGIN_ROOT/$ASC_GUID"
-
-if [ -z "$BASE_URL" ]; then
-  echo "Missing COCO_RELEASE_BASE_URL. Run this script from the command shown on install.html." >&2
-  exit 1
-fi
-if [ -z "$API_BASE_URL" ]; then
-  API_BASE_URL="${BASE_URL%/coco}/api/v1"
-fi
-
-# ONLYOFFICE Docker loads plugin files only from sdkjs-plugins inside the
-# Document Server container. Build a small local shim instead of trying to
-# register the remote /coco/onlyoffice URL directly.
-rm -rf "$PLUGIN_DIR"
-mkdir -p "$PLUGIN_DIR/resources/light"
-curl -fsSL "$BASE_URL/onlyoffice/resources/light/icon.png" -o "$PLUGIN_DIR/resources/light/icon.png"
-curl -fsSL "$BASE_URL/onlyoffice/resources/light/icon@2x.png" -o "$PLUGIN_DIR/resources/light/icon@2x.png"
-
-cat > "$PLUGIN_DIR/config.json" <<JSON
-{
-  "name": "Coco",
-  "nameLocale": { "zh": "Coco 助手", "en": "Coco" },
-  "guid": "$ASC_GUID",
-  "version": "0.0.1",
-  "minVersion": "7.0.0",
-  "variations": [
-    {
-      "description": "Coco 文档智能助手",
-      "descriptionLocale": { "zh": "Coco 文档智能助手" },
-      "url": "index.html?v=ms8wofto",
-      "icons": [
-        "resources/light/icon.png",
-        "resources/light/icon@2x.png"
-      ],
-      "isViewer": true,
-      "EditorsSupport": ["word", "cell", "slide"],
-      "isVisual": true,
-      "isModal": false,
-      "isInsideMode": true,
-      "initDataType": "none",
-      "initData": "",
-      "isUpdateOften": false,
-      "buttons": [],
-      "size": [320, 600],
-      "events": []
-    }
-  ]
+is_allowed_url() {
+  case "$1" in
+    https://*|http://localhost|http://localhost/*|http://localhost:*|http://127.0.0.1|http://127.0.0.1/*|http://127.0.0.1:*) return 0 ;;
+    *) return 1 ;;
+  esac
 }
-JSON
-
-cat > "$PLUGIN_DIR/coco-runtime-config.js" <<JSON
-window.__COCO_RUNTIME_CONFIG__ = {
-  "apiBaseUrl": "$API_BASE_URL"
-};
-JSON
-
-write_remote_loader() {
-  file_name="$1"
-  # Plugin APIs are served by Document Server next to this shim. Heavy hashed
-  # assets stay on the Coco release host, and apiBaseUrl must exist before
-  # Vite's module bundle evaluates in the iframe.
-  curl -fsSL "$BASE_URL/onlyoffice/$file_name?v=ms8wofto" \
-    | sed -e 's#\(["'\''"]\)\./v1/#\1../v1/#g' \
-          -e "s#\([\"']\)\./assets/#\1$BASE_URL/onlyoffice/assets/#g" \
-          -e 's#</head>#  <script src="./coco-runtime-config.js"></script></head>#' \
-    > "$PLUGIN_DIR/$file_name"
+is_allowed_url "$BASE_URL" || { echo 'ONLYOFFICE Docker requires HTTPS, except localhost development URLs.' >&2; exit 1; }
+is_allowed_url "$API_BASE_URL" || { echo 'API base URL must use HTTPS, except localhost.' >&2; exit 1; }
+OUT_DIR="${COCO_ONLYOFFICE_OUT_DIR:-$PWD/coco-onlyoffice-plugins}"
+ROOT='/var/www/onlyoffice/documentserver/sdkjs-plugins'
+rm -rf "$OUT_DIR" && mkdir -p "$OUT_DIR"
+build_plugin() {
+  local label="$1" raw="$2" asc="$3" config="$4" dir="$OUT_DIR/$asc"
+  mkdir -p "$dir/resources/light"
+  curl -fsSL "$BASE_URL/onlyoffice/$config" -o "$dir/config.json"
+  curl -fsSL "$BASE_URL/onlyoffice/resources/light/icon.png" -o "$dir/resources/light/icon.png"
+  curl -fsSL "$BASE_URL/onlyoffice/resources/light/icon@2x.png" -o "$dir/resources/light/icon@2x.png"
+  printf 'window.__COCO_RUNTIME_CONFIG__ = {"apiBaseUrl":"%s"};
+' "$API_BASE_URL" > "$dir/coco-runtime-config.js"
+  for page in index.html excel.html settings.html workflow-editor.html; do
+    curl -fsSL "$BASE_URL/onlyoffice/$page?v=mszojqzi" | sed -e 's#"[.]/v1/#"../v1/#g' -e "s#\"[.]/assets/#\"$BASE_URL/onlyoffice/assets/#g" -e 's#</head>#  <script src="./coco-runtime-config.js"></script></head>#' > "$dir/$page"
+  done
+  echo "  $label: $dir"
 }
-
-write_remote_loader "index.html"
-write_remote_loader "settings.html"
-write_remote_loader "workflow-editor.html"
-
-echo "Coco ONLYOFFICE Docker plugin package generated:"
-echo "  $PLUGIN_DIR"
-echo
-echo "Deploy this directory to ONLYOFFICE Document Server:"
-echo "  $DEPLOY_PATH"
-echo
-echo "Example:"
-echo "  docker cp '$PLUGIN_DIR/.' '$CONTAINER:$DEPLOY_PATH'"
-echo "  docker restart '$CONTAINER'"
-echo
-echo "Remote UI:"
-echo "  $BASE_URL/onlyoffice/?v=ms8wofto"
-echo "API:"
-echo "  $API_BASE_URL"
-
-if [ "$APPLY" = "1" ]; then
-  docker exec "$CONTAINER" sh -lc "rm -rf '$PLUGIN_ROOT/$ASC_GUID' '$PLUGIN_ROOT/$GUID'"
-  docker cp "$PLUGIN_DIR/." "$CONTAINER:$DEPLOY_PATH"
+build_plugin Word '{8D9B5A2C-1F3E-4C7A-9B0D-2E6F1A4C8B30}' 'asc.{8D9B5A2C-1F3E-4C7A-9B0D-2E6F1A4C8B30}' config.json
+build_plugin Excel '{A9551FA7-1158-4A6E-9DE0-9A36684B7934}' 'asc.{A9551FA7-1158-4A6E-9DE0-9A36684B7934}' config.excel.json
+if [ "$APPLY" = '1' ]; then
+  for spec in '{8D9B5A2C-1F3E-4C7A-9B0D-2E6F1A4C8B30}|asc.{8D9B5A2C-1F3E-4C7A-9B0D-2E6F1A4C8B30}' '{A9551FA7-1158-4A6E-9DE0-9A36684B7934}|asc.{A9551FA7-1158-4A6E-9DE0-9A36684B7934}'; do
+    raw="${spec%%|*}"
+    asc="${spec#*|}"
+    docker exec "$CONTAINER" sh -lc "rm -rf '$ROOT/$raw' '$ROOT/$asc'"
+    docker cp "$OUT_DIR/$asc/." "$CONTAINER:$ROOT/$asc"
+  done
   docker restart "$CONTAINER" >/dev/null
-  echo
-  echo "Applied to container:"
-  echo "  $CONTAINER"
+  echo "Coco ONLYOFFICE Word + Excel plugins applied to $CONTAINER."
+else
+  echo "Packages generated at $OUT_DIR. Set COCO_DOCKER_APPLY=1 to apply them."
 fi
