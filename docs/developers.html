@@ -1,8 +1,8 @@
 <!doctype html><html lang="zh-CN">
-<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Coco Office 开发者工具｜文档 SDK 与浏览器编辑器</title><meta property="og:type" content="website" /><link rel="icon" href="./assets/brand-logo.png" /><link rel="stylesheet" href="./overview.css?v=20260911-nav" /><link rel="stylesheet" href="./site-shell.css?v=20260911-nav" /><script src="./site.js?v=20260911-nav" defer></script>
-<link rel="stylesheet" href="./brand-theme.css?v=20260911-nav" />
-<link rel="stylesheet" href="./readability.css?v=20260911-nav" />
-<link rel="stylesheet" href="./structure.css?v=20260911-nav" />
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Coco Office 开发者工具｜文档 SDK 与浏览器编辑器</title><meta property="og:type" content="website" /><link rel="icon" href="./assets/brand-logo.png" /><script src="./site.js?v=20260911-nav" defer></script>
+
+
+
 
 <meta name="description" content="了解 Coco Office Core、Editor 和 OOJSON，为产品接入 Office 文件读取、查询、修改、导出、浏览器编辑与格式转换能力。" />
 <link rel="canonical" href="https://www.cooco.me/developers.html" />
@@ -10,86 +10,10 @@
 <meta property="og:description" content="了解 Coco Office Core、Editor 和 OOJSON，为产品接入 Office 文件读取、查询、修改、导出、浏览器编辑与格式转换能力。" />
 <meta property="og:url" content="https://www.cooco.me/developers.html" />
 <meta property="og:locale" content="zh_CN" />
-<link rel="stylesheet" href="./navigation.css?v=20260915" /></head>
+<link rel="stylesheet" href="./site-shell.css?v=20260915" /><link rel="stylesheet" href="./website.css?v=20260915" /><link rel="stylesheet" href="./navigation.css?v=20260915" /></head>
 <body>
 <header class="site-header"><nav class="site-nav" aria-label="主导航"><a class="site-brand" href="./"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a><div class="site-links"><details class="product-menu"><summary>产品</summary><div><a href="./web.html">网页版 Agent</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a><a href="./products.html">比较使用方式</a></div></details><a href="./scenarios.html">应用场景</a><a href="./download.html">下载与安装</a><a href="./developers.html" aria-current="page">开发者</a></div><a class="site-chat" href="https://chat.cooco.me" target="_blank" rel="noopener noreferrer">开始对话 ↗</a><details class="site-menu"><summary aria-label="打开导航菜单">☰</summary><div><a href="./web.html">网页版 Agent</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a><a href="./scenarios.html">应用场景</a><a href="./download.html">下载与安装</a><a href="./developers.html" aria-current="page">开发者</a><a href="./support.html">帮助与支持</a></div></details></nav></header>
-<main>
-<section class="intro ">
-
-<h1>Coco Office 开发者工具
-</h1>
-<p class="lead">用 JavaScript 读取、查询、修改和导出 Office 文件。根据产品需要，组合文档内核、浏览器编辑器与格式转换。</p>
-<div class="actions"><a class="primary" href="./developers.html#packages">比较 SDK<span aria-hidden="true"> ↗</span></a><a class="secondary" href="./core.html">查看 API 示例<span aria-hidden="true"> ↗</span></a>
-</div>
-</section>
-
-<section class="section" id="packages">
-<div class="section-heading">
-<div>
-
-<h2>按需要接入，保持边界清楚。</h2>
-</div>
-<p>Core 不依赖 Editor 或特定 Office 宿主。产品与 Agent 在外层组合这些能力。</p>
-</div>
-<div class="package-list"><a href="./core.html"><span>01</span>
-<div>
-<h3>Core · 文档 SDK</h3>
-<p>浏览器与 Node.js 中的 Word、Excel、PPT 文档 API。</p><code>@coco-vexel/coco-office</code>
-</div><b>↗</b></a><a href="./editor.html"><span>02</span>
-<div>
-<h3>Editor · 浏览器编辑器</h3>
-<p>以 Core 为文档基础，提供三类文件的编辑界面。</p><code>@coco-vexel/coco-office-editor</code>
-</div><b>↗</b></a><a href="./oojson.html"><span>03</span>
-<div>
-<h3>OOJSON · 格式转换</h3>
-<p>Word OOJSON ↔ OOXML / Flat OPC，以及 PPT 内容与模型适配。</p><code>@coco-vexel/coco-office-oojson</code>
-</div><b>↗</b></a>
-</div>
-</section><section class="hero-showcase code-showcase">
-<figure class="code-block">
-<figcaption>修改 PPT 标题 · Core API 示例<span>JavaScript</span>
-</figcaption><pre><code><span class="token-keyword">import</span> { Presentation } <span class="token-keyword">from</span> <span class="token-string">&#x27;@coco-vexel/coco-office/ppt&#x27;</span>;
-
-<span class="token-keyword">const</span> deck = <span class="token-keyword">await</span> Presentation.fromZip(inputBytes);
-<span class="token-keyword">try</span> {
-  <span class="token-keyword">const</span> title = deck.slides.getItem(0).shapes.getItem(<span class="token-string">&#x27;Title&#x27;</span>);
-  <span class="token-keyword">await</span> title.text.setText(<span class="token-string">&#x27;项目进展与下一步计划&#x27;</span>);
-  <span class="token-keyword">const</span> outputBytes = <span class="token-keyword">await</span> deck.toZip();
-  <span class="token-comment">// 由应用保存为新的 .pptx 文件</span>
-} <span class="token-keyword">finally</span> {
-  <span class="token-keyword">await</span> deck.dispose();
-}</code></pre>
-</figure>
-<p class="figure-caption">示例假定第一页存在名为 Title 的文本形状。inputBytes 由应用提供；文件保存由应用完成。</p>
-</section>
-<section class="section">
-<div class="section-heading">
-<div>
-
-<h2>文件处理与产品体验，各司其职。</h2>
-</div>
-<p>宿主接口、文件权限、模型服务和业务流程由产品侧决定。</p>
-</div>
-<div class="architecture">
-<div><small>你的产品</small><b>Web · Desktop · Office Host · Agent</b>
-</div><span>↓ 组合能力</span>
-<div class="architecture-pair">
-<div><b>Editor</b><small>浏览器界面</small>
-</div>
-<div><b>OOJSON</b><small>格式转换</small>
-</div>
-</div><span>↓ 依赖文档内核</span>
-<div class="core-layer"><b>Core</b><small>解析 · 查询 · 修改 · 导出</small>
-</div>
-</div>
-</section>
-<section class="closing">
-<div>
-<h2>接入前确认版本与能力范围</h2>
-<p>当前为发布候选，Editor 为实验性。原创代码采用 Apache-2.0，公开包与文档以正式发布公告为准。</p>
-</div><a class="primary" href="./support.html#status">查看发布与能力状态<span aria-hidden="true"> ↗</span></a>
-</section>
-</main>
+<main class="renewed"><section class="landing-hero resource-hero"><p class="eyebrow">Coco Office · 开发者</p><h1>为你的产品，<br><span>接入文档能力。</span></h1><p class="hero-description">从文件读取与修改，到浏览器编辑与格式转换。<br>根据集成目标，选择需要的能力。</p><div class="hero-actions"><a class="button primary" href="#packages">选择开发工具 ↓</a><a class="button secondary" href="./core.html">查看 API 示例 →</a></div></section><section class="site-section" id="packages"><div class="section-intro"><h2>你要构建什么？</h2><p>从集成需求出发，进入对应的技术说明。</p></div><div class="sdk-options"><article><div><p class="eyebrow">Core · 文档 SDK</p><h3>直接处理 Office 文件</h3><p>在浏览器或 Node.js 中读取、查询、修改和导出 Word、Excel、PPT 文档。</p></div><a class="button secondary" href="./core.html">查看 Core →</a></article><article><div><p class="eyebrow">Editor · 浏览器编辑器</p><h3>为产品加入文档编辑界面</h3><p>以 Core 为文档基础，在浏览器中呈现并编辑文档内容。</p></div><a class="button secondary" href="./editor.html">查看 Editor →</a></article><article><div><p class="eyebrow">OOJSON · 格式转换</p><h3>连接结构化内容与 Office 格式</h3><p>了解 Word OOJSON 与 OOXML / Flat OPC 转换，以及 PPT 内容与模型适配。</p></div><a class="button secondary" href="./oojson.html">查看 OOJSON →</a></article></div></section><section class="site-section"><div class="section-intro"><h2>文档能力，融入你的流程。</h2><p>Core 可独立使用；编辑界面和格式转换按需组合。</p></div><ol class="steps"><li><span>01</span><h3>提供输入文件</h3><p>由产品负责文件来源、访问权限与业务上下文。</p></li><li><span>02</span><h3>调用文档能力</h3><p>围绕具体对象进行查询、修改或转换，按需加入编辑界面。</p></li><li><span>03</span><h3>接回业务流程</h3><p>由产品保存输出、呈现结果，并管理模型服务与业务流程。</p></li></ol></section><section class="site-section essentials"><h2>接入前确认</h2><details open><summary>版本与能力范围</summary><p>请先查看发布状态、支持的文档对象和已知限制。Editor 为实验性能力，具体版本以正式发布公告为准。<a href="./support.html#status">查看能力状态 →</a></p></details><details><summary>许可证与分发</summary><p>原创代码采用 Apache-2.0。具体包的分发情况、许可证及第三方依赖说明，以对应仓库和发布文件为准。</p></details><details><summary>只想直接使用 Coco？</summary><p>无需自行集成 SDK，可以选择网页版、Office 插件或桌面应用。<a href="./products.html">查看产品使用方式 →</a></p></details></section><section class="end-banner"><div><h2>从一个文档操作开始接入。</h2><p>先了解 API 和支持范围，再选择集成方式。</p></div><a class="button primary" href="./core.html">查看文档 SDK →</a></section></main>
 <footer class="site-footer">
 <div class="footer-brand"><a class="site-brand" href="./"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a>
 <p>让文档工作走到结果。</p>
