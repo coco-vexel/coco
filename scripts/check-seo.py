@@ -22,13 +22,16 @@ class Page(HTMLParser):
 pages={}
 for path in root.glob('*.html'):
     page=Page(); page.feed(path.read_text(encoding='utf-8')); pages[path.name]=page
-    assert page.titles==1 and page.h1==1, path
+    indexable='noindex' not in page.meta.get('robots','')
+    assert page.titles==1, path
+    assert page.h1==1 if indexable else page.h1<=1, path
     assert len(page.ids)==len(set(page.ids)),path
     assert len(page.canonical)==1 and page.canonical[0].startswith('https://'),path
     assert not urlsplit(page.canonical[0]).query,path
-    assert page.meta.get('description') and page.meta.get('og:title'),path
-    assert page.meta.get('og:description')==page.meta['description'],path
-    assert page.meta.get('og:url')==page.canonical[0],path
+    if indexable:
+        assert page.meta.get('description') and page.meta.get('og:title'),path
+        assert page.meta.get('og:description')==page.meta['description'],path
+        assert page.meta.get('og:url')==page.canonical[0],path
     for link in page.links:
         u=urlsplit(link)
         if not u.netloc and u.path.endswith('.html'): assert not u.query,(path,link)

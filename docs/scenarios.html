@@ -1,28 +1,130 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Coco 应用场景｜报告完善、表格核对与格式整理</title><meta property="og:type" content="website" /><link rel="icon" href="./assets/brand-logo.png" /><script src="./site.js?v=20260911-nav" defer></script>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Coco 应用场景｜报告完善、表格核对与格式整理</title>
+  <meta name="description" content="通过周报精简、合同与收款差额汇总、段落字号统一三个示例，了解如何向 Coco 描述具体任务，以及如何核对处理结果。" />
+  <link rel="canonical" href="https://www.cooco.me/scenarios.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Coco 应用场景｜报告完善、表格核对与格式整理" />
+  <meta property="og:description" content="通过周报精简、合同与收款差额汇总、段落字号统一三个示例，了解如何向 Coco 描述具体任务，以及如何核对处理结果。" />
+  <meta property="og:url" content="https://www.cooco.me/scenarios.html" />
+  <meta property="og:locale" content="zh_CN" />
+  <link rel="icon" href="./assets/brand-logo.png" />
+  <script src="./site.js?v=20261026-menu-a11y" defer></script>
+  <link rel="stylesheet" href="./site-shell.css?v=20261026-a11y" />
+  <link rel="stylesheet" href="./website.css?v=20260915-type2" />
+  <link rel="stylesheet" href="./navigation.css?v=20261026-office-arrow" />
+  <link rel="stylesheet" href="./studio.css?v=20260915-expanded" />
+  <link rel="stylesheet" href="./surfaces.css?v=20260916" />
+  <link rel="stylesheet" href="./section-details.css?v=20260916" />
+  <link rel="stylesheet" href="./scenarios-refresh.css?v=20261026-5" />
+</head>
+<body class="soft-surfaces studio-page scenario-page">
+  <header class="site-header">
+    <nav class="site-nav" aria-label="主导航">
+      <a class="site-brand" href="./"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a>
+      <div class="site-links"><a href="./products.html">Coco Office</a><a href="https://travel.cooco.me" target="_blank" rel="noopener noreferrer">Coco Travel ↗</a><a href="./developers.html">开发者</a></div>
+      <a class="site-chat" href="https://chat.cooco.me" target="_blank" rel="noopener noreferrer">打开网页版 ↗</a>
+      <details class="site-menu"><summary aria-label="打开导航菜单">☰</summary><div><a href="./products.html">Coco Office</a><a href="./web.html">网页版</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a><a href="https://travel.cooco.me" target="_blank" rel="noopener noreferrer">Coco Travel ↗</a><a href="./download.html">下载与安装</a><a href="./developers.html">开发者</a><a href="./support.html">帮助与支持</a></div></details>
+    </nav>
+  </header>
 
+  <main class="studio">
+    <section class="studio-hero scenario-hero">
+      <div class="studio-intro">
+        <h1>要求说清楚，<br><span>结果看得见。</span></h1>
+        <p class="studio-description">从一段周报、一张表格或一页文档开始。看看 Coco 怎么理解要求，也看看结果该如何核对。</p>
+        <div class="studio-actions">
+          <a class="button primary" href="https://chat.cooco.me" target="_blank" rel="noopener noreferrer">打开网页版 <span aria-hidden="true">↗</span></a>
+          <a class="studio-text-link" href="#cases">直接看示例 ↓</a>
+        </div>
+      </div>
+      <div class="scenario-hero-visual" aria-label="Coco 精简周报段落的交互示意">
+        <div class="scenario-demo-window">
+          <div class="scenario-demo-bar"><span>周报.docx</span><small>本周进展</small></div>
+          <div class="scenario-demo-body">
+            <div class="scenario-demo-request"><span>这次要做</span><p>精简这段，保留已完成事项和当前阶段。</p></div>
+            <div class="scenario-demo-compare">
+              <article>
+                <span>原文</span>
+                <p>本周我们已经完成了需求确认方面的工作，也完成了方案评审方面的工作，目前核心功能的开发工作已经进入联调阶段。</p>
+              </article>
+              <article>
+                <span>修改后</span>
+                <p>本周已完成需求确认与方案评审，核心功能进入联调阶段。</p>
+              </article>
+            </div>
+          </div>
+          <div class="scenario-demo-status"><span>修改已回到文档</span><b>可以继续核对</b></div>
+        </div>
+        <p>交互示意 · 内容修改前后对照</p>
+      </div>
+    </section>
 
+    <section class="studio-section scenario-examples" id="cases">
+      <div class="studio-section-title"><h2>一句要求，<em>对应一个可核对的结果。</em></h2></div>
+      <div class="studio-cases" data-demo-group>
+        <div class="studio-tabs" role="tablist" aria-label="工作场景">
+          <button role="tab" type="button" id="tab-review" aria-controls="review" aria-selected="true" tabindex="0">精简报告</button>
+          <button role="tab" type="button" id="tab-analysis" aria-controls="analysis" aria-selected="false" tabindex="-1">核对表格</button>
+          <button role="tab" type="button" id="tab-presentation" aria-controls="presentation" aria-selected="false" tabindex="-1">统一格式</button>
+        </div>
 
+        <section class="studio-case" role="tabpanel" id="review" aria-labelledby="tab-review">
+          <div class="case-heading"><div><p class="case-kicker">文字处理</p><h3>把重复的周报，收成一句清楚的话。</h3><p>明确要精简的内容，也说清哪些事实必须留下。</p></div><a class="studio-text-link" href="./web.html">了解网页版 →</a></div>
+          <div class="case-prompt"><span>你可以这样说</span><p>精简本周进展，保留已完成事项和当前阶段，不补充新的事实。</p></div>
+          <div class="case-documents">
+            <article><span class="case-document-label">修改前</span><h4>本周进展</h4><p>本周我们已经完成了需求确认方面的工作，也完成了方案评审方面的工作，目前核心功能的开发工作已经进入联调阶段。</p></article>
+            <article><span class="case-document-label">修改后</span><h4>本周进展</h4><p>本周已完成需求确认与方案评审，核心功能进入联调阶段。</p></article>
+          </div>
+          <p class="case-footnote"><strong>核对：</strong>需求确认、方案评审和联调阶段是否都保留。</p>
+        </section>
 
-<meta name="description" content="了解 Coco 在报告表达完善、经营数据核对与文档格式整理中的使用方式。虚构材料与结果示意帮助你明确任务和检查重点。" />
-<link rel="canonical" href="https://www.cooco.me/scenarios.html" />
-<meta property="og:title" content="Coco 应用场景｜报告完善、表格核对与格式整理" />
-<meta property="og:description" content="了解 Coco 在报告表达完善、经营数据核对与文档格式整理中的使用方式。虚构材料与结果示意帮助你明确任务和检查重点。" />
-<meta property="og:url" content="https://www.cooco.me/scenarios.html" />
-<meta property="og:locale" content="zh_CN" />
-<link rel="stylesheet" href="./site-shell.css?v=20260915" /><link rel="stylesheet" href="./website.css?v=20260915-type2" /><link rel="stylesheet" href="./navigation.css?v=20260915" /></head><body><header class="site-header"><nav class="site-nav" aria-label="主导航"><a class="site-brand" href="./"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a><div class="site-links"><details class="product-menu"><summary>产品</summary><div><a href="./web.html">网页版 Agent</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a><a href="./products.html">比较使用方式</a></div></details><a href="./scenarios.html" aria-current="page">应用场景</a><a href="./download.html">下载与安装</a><a href="./developers.html">开发者</a></div><a class="site-chat" href="https://chat.cooco.me" target="_blank" rel="noopener noreferrer">开始对话 ↗</a><details class="site-menu"><summary aria-label="打开导航菜单">☰</summary><div><a href="./web.html">网页版 Agent</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a><a href="./scenarios.html" aria-current="page">应用场景</a><a href="./download.html">下载与安装</a><a href="./developers.html">开发者</a><a href="./support.html">帮助与支持</a></div></details></nav></header><main class="renewed"><section class="landing-hero resource-hero"><p class="eyebrow">应用场景</p><h1>文档里的工作，<br><span>从这里继续。</span></h1><p class="hero-description">让报告表达更清楚，让数据更便于核对，<br>让交付前的格式调整更有方向。</p></section><p class="case-disclosure">以下为虚构工作材料与人工编排的结果示意，用于说明任务方式，非实际执行记录。</p>
-<section class="site-section scenario-row" id="review"><div><p class="eyebrow">汇报前 · 完善报告</p><h2>保留工作进展，去掉重复表达。</h2><p>周报已经有了内容，但表述冗长。围绕已有事实提出修改要求，让读者更快抓住重点。</p><p class="scenario-request">“精简这段进展描述，保留已完成事项和当前阶段，不补充新的事实。”</p><a class="inline-link" href="./web.html">在浏览器里处理文档 →</a></div><div class="comparison-stack"><article><h3>原文</h3><p>本周我们已经完成了需求确认方面的工作，也完成了方案评审方面的工作，目前核心功能的开发工作已经进入联调阶段。</p></article><article class="comparison-result"><h3>修改示意</h3><p>本周已完成需求确认与方案评审，核心功能进入联调阶段。</p></article><p class="comparison-note">检查事实、时间和进度是否保留，再将修改用于报告。</p></div></section>
-<section class="site-section scenario-row" id="analysis"><div><p class="eyebrow">业务跟进 · 核对表格</p><h2>先看清数字，再决定跟进什么。</h2><p>经营明细里同时列着合同额和收款额。明确计算口径，整理每个区域还需要核对的差额。</p><p class="scenario-request">“按区域计算合同额减收款额的差额，汇总总额。只描述数字，不推测未收款原因。”</p><a class="inline-link" href="./excel.html">了解 Excel 数据处理 →</a></div><div class="comparison-stack"><article><h3>经营明细 · 万元</h3><table class="scenario-table"><thead><tr><th>区域</th><th>合同额</th><th>收款额</th></tr></thead><tbody><tr><td>华东</td><td>120</td><td>96</td></tr><tr><td>华南</td><td>80</td><td>64</td></tr><tr><td>华北</td><td>100</td><td>90</td></tr></tbody></table></article><article class="comparison-result"><h3>汇总示意</h3><p>合同额合计 300 万元，收款额合计 250 万元，差额 50 万元。</p><p>华东 24 万元 · 华南 16 万元 · 华北 10 万元</p></article><p class="comparison-note">差额不等于逾期金额。是否到期，需结合合同与账期另行判断。</p></div></section>
-<section class="site-section scenario-row" id="presentation"><div><p class="eyebrow">交付前 · 统一格式</p><h2>内容已经确定，把最后的细节整理好。</h2><p>多人编辑留下了字号差异。指定要调整的段落及格式要求，保留已经确认的文字。</p><p class="scenario-request">“把这段说明的字号统一为 12 磅，不修改文字和其他格式。”</p><a class="inline-link" href="./word.html">了解 Word 文档处理 →</a></div><div class="comparison-stack"><article><h3>明确范围</h3><p>当前报告中的说明段落</p></article><article class="comparison-result"><h3>期望结果</h3><p>文字保持原样，字号统一为 12 磅。</p></article><p class="comparison-note">调整后结合整页检查换行与段落位置，再完成交付。</p></div></section><section class="end-banner"><div><h2>带上一份正在处理的文档。</h2><p>说清这次的目标，和 Coco 一起完善。</p></div><a class="button primary" href="https://chat.cooco.me" target="_blank" rel="noopener noreferrer">开始对话 ↗</a></section></main><footer class="site-footer">
-<div class="footer-brand"><a class="site-brand" href="./"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a>
-<p>让文档工作走到结果。</p>
-</div>
-<div>
-<h2>产品</h2><a href="./web.html">网页版 Agent</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a>
-</div>
-<div>
-<h2>开发者</h2><a href="./developers.html">开发者总览</a><a href="./core.html">文档 SDK</a><a href="./editor.html">浏览器编辑器</a><a href="./oojson.html">格式转换</a>
-</div>
-<div>
-<h2>支持与资源</h2><a href="./install.html">安装指南</a><a href="./support.html">帮助与兼容性</a><a href="https://github.com/coco-vexel/coco/releases">版本公告</a><a href="https://github.com/coco-vexel/coco/issues">反馈问题</a><a href="https://github.com/coco-vexel/coco">GitHub</a>
-</div>
-</footer></body></html>
+        <section class="studio-case" role="tabpanel" id="analysis" aria-labelledby="tab-analysis" hidden>
+          <div class="case-heading"><div><p class="case-kicker">表格处理</p><h3>算清合同与收款之间的差额。</h3><p>先说明计算方式和单位，再核对每个区域与总额。</p></div><a class="studio-text-link" href="./excel.html">了解表格处理 →</a></div>
+          <div class="case-prompt"><span>你可以这样说</span><p>按区域计算合同额减收款额的差额，汇总总额，不推测未收款原因。</p></div>
+          <div class="case-documents">
+            <article><span class="case-document-label">原始表格</span><h4>经营明细 · 万元</h4><table><tr><th>区域</th><th>合同额</th><th>收款额</th></tr><tr><td>华东</td><td>120</td><td>96</td></tr><tr><td>华南</td><td>80</td><td>64</td></tr><tr><td>华北</td><td>100</td><td>90</td></tr></table></article>
+            <article><span class="case-document-label">汇总结果</span><h4>差额 · 万元</h4><p>华东 24 · 华南 16 · 华北 10</p><p class="total-number">50 <span>总差额</span></p></article>
+          </div>
+          <p class="case-footnote"><strong>核对：</strong>差额不等于逾期，还需结合合同与账期判断。</p>
+        </section>
+
+        <section class="studio-case" role="tabpanel" id="presentation" aria-labelledby="tab-presentation" hidden>
+          <div class="case-heading"><div><p class="case-kicker">格式处理</p><h3>只统一字号，不动其他内容。</h3><p>圈定要调整的段落，并把不该改变的内容一起说清楚。</p></div><a class="studio-text-link" href="./word.html">了解文档处理 →</a></div>
+          <div class="case-prompt"><span>你可以这样说</span><p>将说明段落的字号统一为 12 磅，不修改文字和其他格式。</p></div>
+          <div class="case-documents">
+            <article><span class="case-document-label">修改前</span><h4>待调整的说明段落</h4><p>验收说明：所有事项以最终复核记录为准。</p></article>
+            <article><span class="case-document-label">修改后</span><h4>说明段落</h4><p>验收说明：所有事项以最终复核记录为准。</p><p class="format-chip">字号 12 磅 · 文字保持不变</p></article>
+          </div>
+          <p class="case-footnote"><strong>核对：</strong>字号是否统一、文字是否保留，以及整页换行是否合适。</p>
+        </section>
+      </div>
+      <p class="studio-disclosure">虚构材料与人工编排的结果示意，非产品截图或实际执行记录。</p>
+    </section>
+
+    <section class="studio-section scenario-routes">
+      <div class="studio-section-title"><h2>同一类任务，<em>在合适的地方继续。</em></h2></div>
+      <div class="studio-products">
+        <a class="featured-product" href="./web.html"><span class="product-glyph">↗</span><h3>网页版</h3><p>打开一份文档，完成眼前的修改，再对照预览核对。</p><b>了解网页版 →</b></a>
+        <a href="./plugins.html"><span class="product-glyph">▤</span><h3>Office 插件</h3><p>留在熟悉的 Office 里，围绕当前文档和选区继续工作。</p><b>选择插件平台 →</b></a>
+        <a href="./desktop.html"><span class="product-glyph">▱</span><h3>桌面应用</h3><p>以项目文件夹为工作区，查找材料并处理持续任务。</p><b>了解桌面应用 →</b></a>
+      </div>
+    </section>
+
+    <section class="studio-closing">
+      <div><h2>从你手头的一份文档开始。</h2><p>把要求说具体，修改后再逐项核对。</p></div>
+      <a class="button primary" href="https://chat.cooco.me" target="_blank" rel="noopener noreferrer">打开网页版 <span aria-hidden="true">↗</span></a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-brand"><a class="site-brand" href="./"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a><p>让想法走到结果。</p></div>
+    <div><h2>产品</h2><a href="./products.html">Coco Office</a><a href="https://travel.cooco.me" target="_blank" rel="noopener noreferrer">Coco Travel ↗</a><a href="./web.html">网页版 Agent</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a></div>
+    <div><h2>开发者</h2><a href="./developers.html">开发者总览</a><a href="./core.html">Core SDK</a><a href="https://www.npmjs.com/package/@coco-vexel/coco-office">npm 包</a><a href="https://github.com/coco-vexel/coco-office">GitHub 源码</a><a href="./editor.html">浏览器编辑器</a></div>
+    <div><h2>支持与资源</h2><a href="./scenarios.html">任务示例</a><a href="./install.html">安装指南</a><a href="./support.html">帮助与兼容性</a><a href="https://github.com/coco-vexel/coco/releases">版本公告</a><a href="https://github.com/coco-vexel/coco/issues">反馈问题</a><a href="https://github.com/coco-vexel/coco">GitHub</a></div>
+  </footer>
+</body>
+</html>

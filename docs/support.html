@@ -1,5 +1,5 @@
 <!doctype html><html lang="zh-CN">
-<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Coco 帮助中心｜兼容性、安装与能力说明</title><meta property="og:type" content="website" /><link rel="icon" href="./assets/brand-logo.png" /><link rel="stylesheet" href="./overview.css?v=20260911-nav" /><link rel="stylesheet" href="./site-shell.css?v=20260911-nav" /><script src="./site.js?v=20260911-nav" defer></script>
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Coco 帮助中心｜兼容性、安装与能力说明</title><meta property="og:type" content="website" /><link rel="icon" href="./assets/brand-logo.png" /><link rel="stylesheet" href="./overview.css?v=20260911-nav" /><link rel="stylesheet" href="./site-shell.css?v=20260911-nav" /><script src="./site.js?v=20261026-menu-a11y" defer></script>
 <link rel="stylesheet" href="./brand-theme.css?v=20260911-nav" />
 <link rel="stylesheet" href="./readability.css?v=20260911-nav" />
 <link rel="stylesheet" href="./structure.css?v=20260911-nav" />
@@ -10,9 +10,9 @@
 <meta property="og:description" content="查看 Coco 网页版、桌面应用与 Office 插件的兼容性、安装问题、模型服务和当前能力状态，找到适合产品的支持入口。" />
 <meta property="og:url" content="https://www.cooco.me/support.html" />
 <meta property="og:locale" content="zh_CN" />
-<link rel="stylesheet" href="./navigation.css?v=20260915" /></head>
+<link rel="stylesheet" href="./navigation.css?v=20261026-office-arrow" /></head>
 <body>
-<header class="site-header"><nav class="site-nav" aria-label="主导航"><a class="site-brand" href="./"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a><div class="site-links"><details class="product-menu"><summary>产品</summary><div><a href="./web.html">网页版 Agent</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a><a href="./products.html">比较使用方式</a></div></details><a href="./scenarios.html">应用场景</a><a href="./download.html">下载与安装</a><a href="./developers.html">开发者</a></div><a class="site-chat" href="https://chat.cooco.me" target="_blank" rel="noopener noreferrer">开始对话 ↗</a><details class="site-menu"><summary aria-label="打开导航菜单">☰</summary><div><a href="./web.html">网页版 Agent</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a><a href="./scenarios.html">应用场景</a><a href="./download.html">下载与安装</a><a href="./developers.html">开发者</a><a href="./support.html" aria-current="page">帮助与支持</a></div></details></nav></header>
+<header class="site-header"><nav class="site-nav" aria-label="主导航"><a class="site-brand" href="./"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a><div class="site-links"><a href="./products.html">Coco Office</a><a href="https://travel.cooco.me" target="_blank" rel="noopener noreferrer">Coco Travel ↗</a><a href="./developers.html">开发者</a></div><a class="site-chat" href="https://chat.cooco.me" target="_blank" rel="noopener noreferrer">开始对话 ↗</a><details class="site-menu"><summary aria-label="打开导航菜单">☰</summary><div><a href="./products.html">Coco Office</a><a href="./web.html">网页版</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a><a href="https://travel.cooco.me" target="_blank" rel="noopener noreferrer">Coco Travel ↗</a><a href="./download.html">下载与安装</a><a href="./developers.html">开发者</a><a href="./support.html">帮助与支持</a></div></details></nav></header>
 <main>
 <section class="intro ">
 
@@ -32,7 +32,7 @@
 </div>
 <p class="note">窄屏下可左右滑动表格，查看完整使用边界。</p>
 <div class="table-wrap" tabindex="0" role="region" aria-label="产品能力状态表，可横向滚动">
-<table><caption>官网信息更新：2026-09-08。此表描述产品范围，不代表全平台兼容性认证。</caption>
+<table><caption>官网信息更新：2026-10-25。此表描述产品范围，不代表全平台兼容性认证。</caption>
 <thead>
 <tr><th scope="col">产品 / 入口</th><th scope="col">文档范围</th><th scope="col">阶段</th><th scope="col">使用边界</th>
 </tr>
@@ -50,7 +50,7 @@
 </tr>
 <tr><th scope="row">浏览器 Editor（实验性）</th><td>DOCX / XLSX / PPTX</td><td>实验性</td><td>支持部分内容与格式编辑；高级对象、动画及精确分页存在限制。</td>
 </tr>
-<tr><th scope="row">Core / OOJSON SDK</th><td>文档 API / 格式转换</td><td>发布候选</td><td>格式和公式支持有明确子集；正式版本、API 文档与包地址待发布。</td>
+<tr><th scope="row">Core 文档 SDK</th><td>Word / Excel / PPT 文档 API</td><td>已开源并发布</td><td>通过 <a href="https://www.npmjs.com/package/@coco-vexel/coco-office">npm</a> 安装，源码与公共文档见 <a href="https://github.com/coco-vexel/coco-office">GitHub</a>；格式和公式支持有明确子集。</td>
 </tr>
 </tbody>
 </table>
@@ -78,16 +78,16 @@
 </main>
 <footer class="site-footer">
 <div class="footer-brand"><a class="site-brand" href="./"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a>
-<p>让文档工作走到结果。</p>
+<p>让想法走到结果。</p>
 </div>
 <div>
-<h2>产品</h2><a href="./web.html">网页版 Agent</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a>
+<h2>产品</h2><a href="./products.html">Coco Office</a><a href="https://travel.cooco.me" target="_blank" rel="noopener noreferrer">Coco Travel ↗</a><a href="./web.html">网页版 Agent</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a>
 </div>
 <div>
-<h2>开发者</h2><a href="./developers.html">开发者总览</a><a href="./core.html">文档 SDK</a><a href="./editor.html">浏览器编辑器</a><a href="./oojson.html">格式转换</a>
+<h2>开发者</h2><a href="./developers.html">开发者总览</a><a href="./core.html">Core SDK</a><a href="https://www.npmjs.com/package/@coco-vexel/coco-office">npm 包</a><a href="https://github.com/coco-vexel/coco-office">GitHub 源码</a><a href="./editor.html">浏览器编辑器</a>
 </div>
 <div>
-<h2>支持与资源</h2><a href="./install.html">安装指南</a><a href="./support.html">帮助与兼容性</a><a href="https://github.com/coco-vexel/coco/releases">版本公告</a><a href="https://github.com/coco-vexel/coco/issues">反馈问题</a><a href="https://github.com/coco-vexel/coco">GitHub</a>
+<h2>支持与资源</h2><a href="./scenarios.html">任务示例</a><a href="./install.html">安装指南</a><a href="./support.html">帮助与兼容性</a><a href="https://github.com/coco-vexel/coco/releases">版本公告</a><a href="https://github.com/coco-vexel/coco/issues">反馈问题</a><a href="https://github.com/coco-vexel/coco">GitHub</a>
 </div>
 </footer>
 </body></html>

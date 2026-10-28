@@ -1,106 +1,65 @@
 <!doctype html><html lang="zh-CN">
-<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Coco Office Core SDK｜Word、Excel、PPT 文档 API</title><meta property="og:type" content="website" /><link rel="icon" href="./assets/brand-logo.png" /><link rel="stylesheet" href="./overview.css?v=20260911-nav" /><link rel="stylesheet" href="./site-shell.css?v=20260911-nav" /><script src="./site.js?v=20260911-nav" defer></script>
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Coco Office Core SDK｜Word、Excel、PPT 文档 API</title><meta property="og:type" content="website" /><link rel="icon" href="./assets/brand-logo.png" /><link rel="stylesheet" href="./overview.css?v=20260911-nav" /><link rel="stylesheet" href="./site-shell.css?v=20260911-nav" /><script src="./site.js?v=20261026-menu-a11y" defer></script>
 <link rel="stylesheet" href="./brand-theme.css?v=20260911-nav" />
 <link rel="stylesheet" href="./readability.css?v=20260911-nav" />
 <link rel="stylesheet" href="./structure.css?v=20260911-nav" />
+<link rel="stylesheet" href="./core-sdk.css?v=20261025" />
 
-<meta name="description" content="了解 Coco Office Core 的 JavaScript 文档 API，在浏览器与 Node.js 中读取、查询、修改和导出 Office 文件，查看代码示例与能力边界。" />
+<meta name="description" content="Coco Office Core 是已开源并发布到 npm 的 JavaScript 文档 SDK，可在浏览器与 Node.js 中读取、查询、修改和导出 Word、Excel、PPT 文件。" />
 <link rel="canonical" href="https://www.cooco.me/core.html" />
 <meta property="og:title" content="Coco Office Core SDK｜Word、Excel、PPT 文档 API" />
-<meta property="og:description" content="了解 Coco Office Core 的 JavaScript 文档 API，在浏览器与 Node.js 中读取、查询、修改和导出 Office 文件，查看代码示例与能力边界。" />
+<meta property="og:description" content="Coco Office Core 是已开源并发布到 npm 的 JavaScript 文档 SDK，可在浏览器与 Node.js 中读取、查询、修改和导出 Word、Excel、PPT 文件。" />
 <meta property="og:url" content="https://www.cooco.me/core.html" />
 <meta property="og:locale" content="zh_CN" />
-<link rel="stylesheet" href="./navigation.css?v=20260915" /></head>
-<body>
-<header class="site-header"><nav class="site-nav" aria-label="主导航"><a class="site-brand" href="./"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a><div class="site-links"><details class="product-menu"><summary>产品</summary><div><a href="./web.html">网页版 Agent</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a><a href="./products.html">比较使用方式</a></div></details><a href="./scenarios.html">应用场景</a><a href="./download.html">下载与安装</a><a href="./developers.html" aria-current="page">开发者</a></div><a class="site-chat" href="https://chat.cooco.me" target="_blank" rel="noopener noreferrer">开始对话 ↗</a><details class="site-menu"><summary aria-label="打开导航菜单">☰</summary><div><a href="./web.html">网页版 Agent</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a><a href="./scenarios.html">应用场景</a><a href="./download.html">下载与安装</a><a href="./developers.html" aria-current="page">开发者</a><a href="./support.html">帮助与支持</a></div></details></nav></header>
-<main><div class="page-context"><nav aria-label="面包屑"><a href="./developers.html">开发者</a><span>/</span><span>Core</span></nav><nav aria-label="相关产品"><a href="./core.html" aria-current="page">Core</a><a href="./editor.html">Editor</a><a href="./oojson.html">OOJSON</a></nav></div>
-<section class="intro ">
+<link rel="stylesheet" href="./navigation.css?v=20261026-office-arrow" /></head>
+<body class="core-page">
+<header class="site-header"><nav class="site-nav" aria-label="主导航"><a class="site-brand" href="./"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a><div class="site-links"><a href="./products.html">Coco Office</a><a href="https://travel.cooco.me" target="_blank" rel="noopener noreferrer">Coco Travel ↗</a><a href="./developers.html" aria-current="page">开发者</a></div><a class="site-chat" href="https://chat.cooco.me" target="_blank" rel="noopener noreferrer">开始对话 ↗</a><details class="site-menu"><summary aria-label="打开导航菜单">☰</summary><div><a href="./products.html">Coco Office</a><a href="./web.html">网页版</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a><a href="https://travel.cooco.me" target="_blank" rel="noopener noreferrer">Coco Travel ↗</a><a href="./download.html">下载与安装</a><a href="./developers.html">开发者</a><a href="./support.html">帮助与支持</a></div></details></nav></header>
+<main class="core-home"><div class="page-context"><nav aria-label="面包屑"><a href="./developers.html">开发者</a><span>/</span><span>Core</span></nav><nav aria-label="相关产品"><a href="./core.html" aria-current="page">Core</a><a href="./editor.html">Editor</a></nav></div>
 
-<h1>Core 文档 SDK
-</h1>
-<p class="lead">面向浏览器和 Node.js 的文档 SDK。输入 Office 文件，使用各文档领域的 API 读取和修改，再导出结果。</p>
-<div class="actions"><a class="primary" href="./core.html#api">阅读 API 示例<span aria-hidden="true"> ↗</span></a><a class="secondary" href="./developers.html">开发者总览<span aria-hidden="true"> ↗</span></a>
-</div>
-</section>
-<section class="section">
-<div class="section-heading">
-<div>
+<section class="core-hero" aria-labelledby="core-title"><div class="core-hero-copy"><div class="core-status"><span aria-hidden="true"></span>稳定版 · Apache-2.0 开源</div><h1 id="core-title">用 JavaScript，<br><em>直接处理 Office 文档。</em></h1><p>在浏览器或 Node.js 中读取、查询、修改并导出真实的 Word、Excel 和 PowerPoint 文件。</p><div class="core-actions"><a class="core-primary" href="https://www.npmjs.com/package/@coco-vexel/coco-office">在 npm 查看</a><a class="core-secondary" href="https://github.com/coco-vexel/coco-office">查看 GitHub <span aria-hidden="true">↗</span></a></div><div class="core-support"><span>DOCX</span><span>XLSX</span><span>PPTX</span><b>Browser + Node.js</b></div></div><figure class="core-console"><figcaption><span><i></i><i></i><i></i></span><b>quick-start.js</b><em>JavaScript</em></figcaption><div class="core-install"><span>$</span><code>npm install @coco-vexel/coco-office</code><button class="core-copy" type="button" data-copy-text="npm install @coco-vexel/coco-office">复制</button></div><pre><code><span class="token-keyword">import</span> { Presentation } <span class="token-keyword">from</span>
+  <span class="token-string">'@coco-vexel/coco-office/ppt'</span>;
 
-<h2>同一套文档基础，三类领域 API。</h2>
-</div>
-<p>根据文件类型选择入口，使用对应的段落、单元格或幻灯片对象。</p>
-</div>
-<div class="table-wrap" tabindex="0" role="region" aria-label="能力说明表，可横向滚动">
-<table><thead>
-<tr><th scope="col">文档</th><th scope="col">API 关注的对象</th><th scope="col">典型处理</th>
-</tr></thead><tbody>
-<tr><th scope="row">Word</th><td>段落、范围、表格、样式</td><td>查找与替换、结构与部分格式修改、DOCX 导出</td>
-</tr>
-<tr><th scope="row">Excel</th><td>工作表、单元格、区域、公式</td><td>数值与公式操作、格式处理、工作簿导出</td>
-</tr>
-<tr><th scope="row">PPT</th><td>幻灯片、文本、形状、图片、表格</td><td>对象查询、文本与形状编辑、PPTX 导出</td>
-</tr></tbody>
-</table>
-</div>
-</section>
-<section class="section" id="api">
-<div class="section-heading">
-<div>
+<span class="token-keyword">const</span> deck = <span class="token-keyword">await</span> Presentation.fromZip(file);
+<span class="token-keyword">const</span> title = deck.slides
+  .getItem(0).shapes.getItem(<span class="token-string">'Title'</span>);
 
-<h2>几步操作，完成一次内容修改。</h2>
-</div>
-<p>异步对象 API 负责文档操作；应用负责提供输入字节与保存输出文件。</p>
-</div>
-<figure class="code-block">
-<figcaption>PPT / 修改现有标题并导出<span>JavaScript</span>
-</figcaption><pre><code><span class="token-keyword">import</span> { Presentation } <span class="token-keyword">from</span> <span class="token-string">&#x27;@coco-vexel/coco-office/ppt&#x27;</span>;
+<span class="token-keyword">await</span> title.text.setText(<span class="token-string">'季度业务复盘'</span>);
+<span class="token-keyword">const</span> output = <span class="token-keyword">await</span> deck.toZip();</code></pre></figure></section>
+
+<section class="core-section core-entry" aria-labelledby="entry-title"><div class="core-section-copy"><h2 id="entry-title">按文件类型，进入对应 API。</h2><p>文档模型共享同一套设计，具体对象保持各自领域的表达方式。</p></div><div class="core-entry-list"><a href="https://github.com/coco-vexel/coco-office/blob/main/docs/core/README.md" target="_blank" rel="noopener noreferrer"><span class="core-ext">DOCX</span><div><h3>Word</h3><p>段落、范围、表格与样式</p><code>@coco-vexel/coco-office/word</code></div><strong>查看 API <span aria-hidden="true">↗</span></strong></a><a href="https://github.com/coco-vexel/coco-office/blob/main/docs/core/excel/README.md" target="_blank" rel="noopener noreferrer"><span class="core-ext">XLSX</span><div><h3>Excel</h3><p>工作表、单元格、区域与公式</p><code>@coco-vexel/coco-office/excel</code></div><strong>查看 API <span aria-hidden="true">↗</span></strong></a><a href="https://github.com/coco-vexel/coco-office/blob/main/docs/core/ppt/README.md" target="_blank" rel="noopener noreferrer"><span class="core-ext">PPTX</span><div><h3>PowerPoint</h3><p>幻灯片、文本、形状、图片与表格</p><code>@coco-vexel/coco-office/ppt</code></div><strong>查看 API <span aria-hidden="true">↗</span></strong></a></div></section>
+
+<section class="core-section core-workflow" aria-labelledby="workflow-title"><div class="core-section-copy"><h2 id="workflow-title">输入字节，<br>输出一份新文件。</h2><p>读取、定位、修改、导出。Core 只处理文档本身，文件来源与结果去向由应用决定。</p></div><ol><li><span>01</span><div><h3>读取</h3><p>传入 ArrayBuffer 或 Uint8Array。</p></div></li><li><span>02</span><div><h3>定位</h3><p>找到段落、单元格、幻灯片或形状。</p></div></li><li><span>03</span><div><h3>修改</h3><p>调用类型化的异步对象 API。</p></div></li><li><span>04</span><div><h3>导出</h3><p>序列化为新的 DOCX、XLSX 或 PPTX。</p></div></li></ol></section>
+
+<section class="core-section core-example" id="api" aria-labelledby="example-title"><div class="core-example-head"><h2 id="example-title">一个完整的修改示例。</h2><p>打开 PPTX，修改已有标题，导出新文件，并在结束时释放文档对象。</p></div><div class="core-example-grid"><figure class="core-code"><figcaption><span>PPT / 修改标题并导出</span><button class="core-copy" type="button" data-copy-target="core-full-example">复制代码</button></figcaption><pre><code id="core-full-example"><span class="token-keyword">import</span> { Presentation } <span class="token-keyword">from</span> <span class="token-string">'@coco-vexel/coco-office/ppt'</span>;
 
 <span class="token-keyword">const</span> deck = <span class="token-keyword">await</span> Presentation.fromZip(inputBytes);
 <span class="token-keyword">try</span> {
-  <span class="token-keyword">const</span> title = deck.slides.getItem(0).shapes.getItem(<span class="token-string">&#x27;Title&#x27;</span>);
-  <span class="token-keyword">await</span> title.text.setText(<span class="token-string">&#x27;项目进展与下一步计划&#x27;</span>);
+  <span class="token-keyword">const</span> title = deck.slides
+    .getItem(0).shapes.getItem(<span class="token-string">'Title'</span>);
+
+  <span class="token-keyword">await</span> title.text.setText(<span class="token-string">'项目进展与下一步计划'</span>);
   <span class="token-keyword">const</span> outputBytes = <span class="token-keyword">await</span> deck.toZip();
   <span class="token-comment">// 由应用保存为新的 .pptx 文件</span>
 } <span class="token-keyword">finally</span> {
   <span class="token-keyword">await</span> deck.dispose();
-}</code></pre>
-</figure>
-<p class="muted">第一页需有名为 Title 的文本形状。示例使用发布候选 API；不依赖 Office.js 或 WPS 宿主。</p>
-</section>
-<section class="section">
-<div class="section-heading">
-<div>
+}</code></pre></figure><aside><h3>这段代码的边界</h3><dl><div><dt>输入</dt><dd>由应用读取文件字节。</dd></div><div><dt>修改</dt><dd>由 Core 操作文档对象。</dd></div><div><dt>输出</dt><dd>由应用保存或继续传递结果。</dd></div></dl><p>示例要求第一页存在名为 <code>Title</code> 的文本形状。</p></aside></div></section>
 
-<h2>内核负责什么，应用负责什么。</h2>
-</div>
-<p>保持数据处理、界面与宿主操作之间的边界。</p>
-</div><dl class="feature-list">
-<div><dt>Core</dt><dd>文档包解析、对象查询、受支持的内容修改与序列化导出。</dd>
-</div>
-<div><dt>应用与适配器</dt><dd>文件选择、路径权限、保存方式、用户确认、宿主写回和模型配置。</dd>
-</div>
-<div><dt>兼容性</dt><dd>公式与高级对象有支持子集。文件往返检查不代表与原生 Office 完全一致的视觉渲染。</dd>
-</div></dl>
-</section>
-<section class="closing">
-<div>
-<h2>需要让用户直接编辑文档？</h2>
-<p>在 Core 之上接入浏览器编辑界面。</p>
-</div><a class="primary" href="./editor.html">了解 Editor<span aria-hidden="true"> ↗</span></a>
-</section>
+<section class="core-section core-boundary" aria-labelledby="boundary-title"><div class="core-section-copy"><h2 id="boundary-title">能力有边界，集成才可控。</h2><p>Core 不接管界面、文件权限或宿主行为，也不宣称完整复刻原生 Office 的视觉渲染。</p></div><div class="core-boundary-grid"><div><h3>Core 负责</h3><ul><li>解析 Office 文档包</li><li>查询受支持的文档对象</li><li>修改内容与部分格式</li><li>序列化并导出新文件</li></ul></div><div><h3>你的应用负责</h3><ul><li>文件选择、路径与权限</li><li>保存、下载或宿主写回</li><li>用户确认与产品界面</li><li>对结果执行往返检查</li></ul></div></div><p class="core-compatibility"><strong>兼容性说明</strong> 公式与高级对象采用明确的支持子集；文件能够往返处理，不代表与原生 Office 完全一致的视觉渲染。</p></section>
+
+<section class="core-closing"><div><h2>需要把编辑界面交给用户？</h2><p>在 Core 之上继续接入 Coco Office Editor。</p></div><a href="./editor.html">了解 Editor <span aria-hidden="true">→</span></a></section>
 </main>
 <footer class="site-footer">
 <div class="footer-brand"><a class="site-brand" href="./"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a>
-<p>让文档工作走到结果。</p>
+<p>让想法走到结果。</p>
 </div>
 <div>
-<h2>产品</h2><a href="./web.html">网页版 Agent</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a>
+<h2>产品</h2><a href="./products.html">Coco Office</a><a href="https://travel.cooco.me" target="_blank" rel="noopener noreferrer">Coco Travel ↗</a><a href="./web.html">网页版 Agent</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a>
 </div>
 <div>
-<h2>开发者</h2><a href="./developers.html">开发者总览</a><a href="./core.html">文档 SDK</a><a href="./editor.html">浏览器编辑器</a><a href="./oojson.html">格式转换</a>
+<h2>开发者</h2><a href="./developers.html">开发者总览</a><a href="./core.html">Core SDK</a><a href="https://www.npmjs.com/package/@coco-vexel/coco-office">npm 包</a><a href="https://github.com/coco-vexel/coco-office">GitHub 源码</a><a href="./editor.html">浏览器编辑器</a>
 </div>
 <div>
-<h2>支持与资源</h2><a href="./install.html">安装指南</a><a href="./support.html">帮助与兼容性</a><a href="https://github.com/coco-vexel/coco/releases">版本公告</a><a href="https://github.com/coco-vexel/coco/issues">反馈问题</a><a href="https://github.com/coco-vexel/coco">GitHub</a>
+<h2>支持与资源</h2><a href="./scenarios.html">任务示例</a><a href="./install.html">安装指南</a><a href="./support.html">帮助与兼容性</a><a href="https://github.com/coco-vexel/coco/releases">版本公告</a><a href="https://github.com/coco-vexel/coco/issues">反馈问题</a><a href="https://github.com/coco-vexel/coco">GitHub</a>
 </div>
 </footer>
 </body></html>

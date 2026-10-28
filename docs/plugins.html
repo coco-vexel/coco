@@ -1,35 +1,90 @@
-<!doctype html><html lang="zh-CN">
-<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Coco Office 插件｜WPS、Word 与 Excel AI 助手</title><meta property="og:type" content="website" /><link rel="icon" href="./assets/brand-logo.png" /><script src="./site.js?v=20260911-nav" defer></script>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Coco Office 插件｜在 WPS、Word 与 Excel 中直接修改</title>
+  <meta name="description" content="在 WPS、Microsoft Office 和 ONLYOFFICE 中使用 Coco。选中内容、说清要求，让修改直接回到文档或表格。" />
+  <link rel="canonical" href="https://www.cooco.me/plugins.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Coco Office 插件｜在 WPS、Word 与 Excel 中直接修改" />
+  <meta property="og:description" content="在 WPS、Microsoft Office 和 ONLYOFFICE 中使用 Coco。选中内容、说清要求，让修改直接回到文档或表格。" />
+  <meta property="og:url" content="https://www.cooco.me/plugins.html" />
+  <meta property="og:locale" content="zh_CN" />
+  <link rel="icon" href="./assets/brand-logo.png" />
+  <script src="./site.js?v=20261026-menu-a11y" defer></script>
+  <link rel="stylesheet" href="./site-shell.css?v=20261026-a11y" />
+  <link rel="stylesheet" href="./website.css?v=20260915-type2" />
+  <link rel="stylesheet" href="./navigation.css?v=20261026-office-arrow" />
+  <link rel="stylesheet" href="./product-layouts.css?v=20260916-office3" />
+  <link rel="stylesheet" href="./surfaces.css?v=20260916" />
+  <link rel="stylesheet" href="./section-details.css?v=20260916" />
+  <link rel="stylesheet" href="./abilities.css?v=20260916" />
+  <link rel="stylesheet" href="./office-product.css?v=20261026" />
+</head>
+<body class="soft-surfaces office-page office-product-page">
+<header class="site-header"><nav class="site-nav" aria-label="主导航">
+  <a class="site-brand" href="./"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a>
+  <div class="site-links"><a href="./products.html" aria-current="page">Coco Office</a><a href="https://travel.cooco.me" target="_blank" rel="noopener noreferrer">Coco Travel ↗</a><a href="./developers.html">开发者</a></div>
+  <a class="site-chat" href="https://chat.cooco.me" target="_blank" rel="noopener noreferrer">打开网页版 ↗</a>
+  <details class="site-menu"><summary aria-label="打开导航菜单">☰</summary><div><a href="./products.html">Coco Office</a><a href="./web.html">网页版</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a><a href="https://travel.cooco.me" target="_blank" rel="noopener noreferrer">Coco Travel ↗</a><a href="./download.html">下载与安装</a><a href="./developers.html">开发者</a><a href="./support.html">帮助与支持</a></div></details>
+</nav></header>
 
+<main class="renewed">
+  <section class="office-hero" aria-labelledby="office-title">
+    <div class="office-hero-copy">
+      <h1 id="office-title">打开文档，<br><span>告诉 Coco 怎么改。</span></h1>
+      <p class="office-lead">在 WPS、Microsoft Office 或 ONLYOFFICE 中选中内容，说清要求。Coco 会把修改写回原文，方便你直接核对。</p>
+      <div class="office-hero-actions"><a class="button primary" href="#platforms">选择 Office 平台 ↓</a><a class="office-text-link" href="#workflow">看看怎么改 <span aria-hidden="true">→</span></a></div>
+      <div class="office-hosts" aria-label="支持的 Office 平台"><span><img src="./assets/hosts/wps.png" alt="" width="22" height="22" />WPS</span><span><img src="./assets/hosts/word.png" alt="" width="22" height="22" />Microsoft Office</span><span><img src="./assets/hosts/onlyoffice.png" alt="" width="22" height="22" />ONLYOFFICE</span></div>
+    </div>
+    <div class="office-hero-proof" aria-label="Office 插件工作方式">
+      <div class="proof-head"><span>项目周报.docx</span><span>当前选区</span></div>
+      <div class="proof-document"><small>项目周报 / 本周进展</small><h2>把工作进展，表达清楚。</h2><p>本周已完成需求确认与方案评审。</p><p class="proof-selected">目前核心功能的开发工作已经进入联调阶段，接下来将继续开展接口联调方面的工作。</p><i></i><i></i><i class="short"></i></div>
+      <div class="proof-prompt"><span>你的要求</span><p>精简选中内容，保留当前进度和下一步安排。</p></div>
+      <div class="proof-result"><span>修改结果</span><p>核心功能已进入联调阶段，下一步继续开展接口联调。</p></div>
+    </div>
+  </section>
 
+  <section class="office-workflow" id="workflow" aria-labelledby="workflow-title">
+    <div class="office-section-heading"><h2 id="workflow-title">选中一处，<br>说一句就能改。</h2><p>Coco 会围绕当前选区工作。原文、要求和结果都留在同一个文件里。</p></div>
+    <ol class="workflow-rail" aria-label="一次文档修改的三个步骤">
+      <li><span>01</span><div><h3>选中要改的内容</h3><p>先告诉 Coco 这次要处理哪里。</p><div class="workflow-example workflow-selection">目前核心功能的开发工作已经进入联调阶段。</div></div></li>
+      <li><span>02</span><div><h3>说清楚你的要求</h3><p>一句话交代目标和需要保留的信息。</p><div class="workflow-example workflow-request">精简这段，保留当前进度和下一步安排。</div></div></li>
+      <li><span>03</span><div><h3>看看改得对不对</h3><p>修改会回到文件里，确认后再保存。</p><div class="workflow-example workflow-result"><span class="workflow-status">已写回文档</span>核心功能已进入联调阶段，下一步继续开展接口联调。</div></div></li>
+    </ol>
+  </section>
 
+  <section class="office-capabilities" aria-labelledby="capabilities-title">
+    <div class="office-section-heading compact"><h2 id="capabilities-title">文档和表格，<br>都能直接改。</h2><p>处理文字，也处理数据。一次说清一个任务，结果更容易核对。</p></div>
+    <div class="office-capability-grid">
+      <article class="office-word-card"><div class="capability-title"><span>W</span><div><small>WORD / WPS 文字</small><h3>从读懂，到改好。</h3></div></div><ul><li>总结长文，回答文档里的问题</li><li>润色、精简或重写指定内容</li><li>检查术语、编号和表述是否一致</li></ul><blockquote>“把第二段写得更简洁，日期和数字不要改。”</blockquote><a href="./word.html">看看文档怎么处理 →</a></article>
+      <article class="office-excel-card"><div class="capability-title"><span>X</span><div><small>EXCEL / WPS 表格</small><h3>从明细，到结果。</h3></div></div><ul><li>找到工作表、单元格和数据区域</li><li>整理内容，处理公式与格式</li><li>按部门、时间或其他维度汇总</li></ul><blockquote>“按部门汇总本月费用，原始明细保留不动。”</blockquote><a href="./excel.html">看看表格怎么处理 →</a></article>
+    </div>
+    <p class="office-disclosure">不同 Office 平台、版本和文件内容，可用能力可能有所不同。重要结果请在保存前核对。</p>
+  </section>
 
-<meta name="description" content="在 WPS、Microsoft Office 和 ONLYOFFICE 中使用 Coco。了解 Word 文档审校、Excel 数据处理及各平台的插件安装方式。" />
-<link rel="canonical" href="https://www.cooco.me/plugins.html" />
-<meta property="og:title" content="Coco Office 插件｜WPS、Word 与 Excel AI 助手" />
-<meta property="og:description" content="在 WPS、Microsoft Office 和 ONLYOFFICE 中使用 Coco。了解 Word 文档审校、Excel 数据处理及各平台的插件安装方式。" />
-<meta property="og:url" content="https://www.cooco.me/plugins.html" />
-<meta property="og:locale" content="zh_CN" />
-<link rel="stylesheet" href="./site-shell.css?v=20260915" /><link rel="stylesheet" href="./website.css?v=20260915-type2" /><link rel="stylesheet" href="./navigation.css?v=20260915" /></head>
-<body>
-<header class="site-header"><nav class="site-nav" aria-label="主导航"><a class="site-brand" href="./"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a><div class="site-links"><details class="product-menu"><summary>产品</summary><div><a href="./web.html">网页版 Agent</a><a href="./plugins.html" aria-current="page">Office 插件</a><a href="./desktop.html">桌面应用</a><a href="./products.html">比较使用方式</a></div></details><a href="./scenarios.html">应用场景</a><a href="./download.html">下载与安装</a><a href="./developers.html">开发者</a></div><a class="site-chat" href="https://chat.cooco.me" target="_blank" rel="noopener noreferrer">开始对话 ↗</a><details class="site-menu"><summary aria-label="打开导航菜单">☰</summary><div><a href="./web.html">网页版 Agent</a><a href="./plugins.html" aria-current="page">Office 插件</a><a href="./desktop.html">桌面应用</a><a href="./scenarios.html">应用场景</a><a href="./download.html">下载与安装</a><a href="./developers.html">开发者</a><a href="./support.html">帮助与支持</a></div></details></nav></header>
-<main class="renewed"><section class="landing-hero"><p class="eyebrow">Coco Office 插件</p><h1>留在熟悉的 Office，<br><span>换一种处理方式。</span></h1><p class="hero-description">文档不用搬来搬去。<br>在正在编辑的文件旁，向 Coco 提出你的要求。</p><div class="hero-actions"><a class="button primary" href="#platforms">选择安装平台 ↓</a><a class="button secondary" href="#capabilities">了解文档与表格 →</a></div></section>
-<section class="feature-story"><div class="story-copy"><p class="eyebrow">接着手里的工作做</p><h2>文件已经打开，<br>助手就在旁边。</h2><p>从一段文字、一张表或当前文档开始，明确要处理的范围，再查看写回后的内容。</p><p>保留熟悉的编辑习惯，让对话成为完成工作的另一种方式。</p></div><div class="product-illustration"><div class="illustration-bar"><span>当前文档</span><span>Coco 插件</span></div><div class="office-flow"><div class="document-symbol"><span></span><span></span><span class="blue-line"></span><span></span><b>选定要处理的内容</b></div><div class="flow-message"><p>“把这段表达改得更简洁，保留原意。”</p><div>提出要求<br>↓<br>查看文档中的结果</div></div></div><p class="demo-caption">使用方式示意，非实际产品截图。</p></div></section>
-<section class="site-section" id="capabilities"><div class="section-intro"><h2>文字和表格，<br>各有合适的处理方式。</h2><p>选择文件类型，了解具体能力与使用范围。</p></div><div class="capability-pair"><article><span class="product-letter">W</span><h3>文档处理</h3><p>围绕选区、段落或全文，开展内容润色、审校与格式调整。</p><ul><li>修改指定内容，保留需要保留的信息</li><li>结合段落和文档结构提出要求</li><li>在原文中查看处理结果</li></ul><a class="inline-link" href="./word.html">查看 Word 插件说明 →</a></article><article><span class="product-letter">X</span><h3>表格处理</h3><p>围绕工作表、数据区域和公式，开展数据整理、汇总与分析。</p><ul><li>明确工作表及需要处理的区域</li><li>整理数据与规范格式</li><li>核对计算和汇总结果</li></ul><a class="inline-link" href="./excel.html">查看 Excel 插件说明 →</a></article></div></section>
-<section class="site-section" id="platforms"><div class="section-intro"><h2>你用哪个 Office？</h2><p>安装方式随平台不同，按对应指南接入。</p></div><div class="platform-list"><article><img src="./assets/hosts/wps.png" width="44" height="44" alt="" /><div><h3>WPS Office</h3><p>Writer 与 Spreadsheets · 桌面插件</p></div><a href="./install.html#wps">安装指南 →</a></article><article><img src="./assets/hosts/word.png" width="44" height="44" alt="" /><div><h3>Microsoft Office</h3><p>Word 与 Excel · Office 加载项</p></div><a href="./install.html#microsoft">安装指南 →</a></article><article><img src="./assets/hosts/onlyoffice.png" width="44" height="44" alt="" /><div><h3>ONLYOFFICE</h3><p>Document 与 Spreadsheet</p></div><div class="platform-actions"><a href="./install.html#onlyoffice-desktop">桌面编辑器 →</a><a href="./install.html#onlyoffice-docker">Document Server →</a></div></article></div><p class="platform-note">功能可用范围取决于宿主版本与文档特性。<a href="./support.html">查看兼容性与帮助 →</a></p></section>
-<section class="site-section"><div class="section-intro"><h2>第一次使用，准备好这三件事。</h2></div><ol class="steps"><li><span>01</span><h3>可用的模型服务</h3><p>按产品设置配置模型连接，确认访问凭据与计费方式。模型费用以所选服务商为准。</p></li><li><span>02</span><h3>一份工作材料</h3><p>打开需要处理的文件，明确这次要修改的内容，以及必须保留的信息。</p></li><li><span>03</span><h3>检查实际结果</h3><p>查看文档中的变化，确认后再保存或导出。<a href="./support.html#faq">了解文件与数据处理 →</a></p></li></ol></section><section class="end-banner"><div><h2>给熟悉的 Office，加一个助手。</h2><p>选择你的平台，按指南完成安装。</p></div><a class="button primary" href="#platforms">选择安装平台 ↑</a></section></main>
+  <section class="office-platforms" id="platforms" aria-labelledby="platforms-title">
+    <div class="office-section-heading compact"><h2 id="platforms-title">选好 Office，<br>就能开始安装。</h2><p>选择你正在使用的软件，我们会带你进入对应的安装步骤。</p></div>
+    <div class="office-platform-list">
+      <article><div class="platform-icon"><img src="./assets/hosts/wps.png" width="40" height="40" alt="" /></div><div><small>桌面插件</small><h3>WPS Office</h3><p>适用于 WPS 文字与表格。</p></div><a href="./install.html#wps" aria-label="查看 WPS Office 安装指南">安装指南 <span>→</span></a></article>
+      <article><div class="platform-icon"><img src="./assets/hosts/word.png" width="40" height="40" alt="" /></div><div><small>加载项</small><h3>Microsoft Office</h3><p>适用于 Word 与 Excel。</p></div><a href="./install.html#microsoft" aria-label="查看 Microsoft Office 安装指南">安装指南 <span>→</span></a></article>
+      <article><div class="platform-icon"><img src="./assets/hosts/onlyoffice.png" width="40" height="40" alt="" /></div><div><small>插件</small><h3>ONLYOFFICE</h3><p>桌面编辑器或 Document Server。</p></div><div class="platform-link-group"><a href="./install.html#onlyoffice-desktop">桌面版 →</a><a href="./install.html#onlyoffice-docker">服务端 →</a></div></article>
+    </div>
+    <p class="platform-help">不确定兼容范围？<a href="./support.html">查看帮助与兼容性 →</a></p>
+  </section>
+
+  <section class="office-onboarding" aria-labelledby="onboarding-title">
+    <div class="office-onboarding-copy"><h2 id="onboarding-title">装好插件，<br>登录就能用。</h2><p>登录后可以直接使用内置模型额度，也可以在设置里切换到自己的模型服务。</p><a class="button primary" href="./install.html">查看完整安装指南 →</a></div>
+    <ol class="office-start-list"><li><span>01</span><div><h3>安装插件</h3><p>按所用 Office 平台完成安装。</p></div></li><li><span>02</span><div><h3>登录 Coco</h3><p>使用内置模型额度，或切换到自有模型。</p></div></li><li><span>03</span><div><h3>打开文件</h3><p>选中内容，说清这次想完成的修改。</p></div></li></ol>
+  </section>
+</main>
+
 <footer class="site-footer">
-<div class="footer-brand"><a class="site-brand" href="./"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a>
-<p>让文档工作走到结果。</p>
-</div>
-<div>
-<h2>产品</h2><a href="./web.html">网页版 Agent</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a>
-</div>
-<div>
-<h2>开发者</h2><a href="./developers.html">开发者总览</a><a href="./core.html">文档 SDK</a><a href="./editor.html">浏览器编辑器</a><a href="./oojson.html">格式转换</a>
-</div>
-<div>
-<h2>支持与资源</h2><a href="./install.html">安装指南</a><a href="./support.html">帮助与兼容性</a><a href="https://github.com/coco-vexel/coco/releases">版本公告</a><a href="https://github.com/coco-vexel/coco/issues">反馈问题</a><a href="https://github.com/coco-vexel/coco">GitHub</a>
-</div>
+  <div class="footer-brand"><a class="site-brand" href="./"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a><p>让想法走到结果。</p></div>
+  <div><h2>产品</h2><a href="./products.html">Coco Office</a><a href="https://travel.cooco.me" target="_blank" rel="noopener noreferrer">Coco Travel ↗</a><a href="./web.html">网页版 Agent</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a></div>
+  <div><h2>开发者</h2><a href="./developers.html">开发者总览</a><a href="./core.html">Core SDK</a><a href="https://www.npmjs.com/package/@coco-vexel/coco-office">npm 包</a><a href="https://github.com/coco-vexel/coco-office">GitHub 源码</a><a href="./editor.html">浏览器编辑器</a></div>
+  <div><h2>支持与资源</h2><a href="./scenarios.html">任务示例</a><a href="./install.html">安装指南</a><a href="./support.html">帮助与兼容性</a><a href="https://github.com/coco-vexel/coco/releases">版本公告</a><a href="https://github.com/coco-vexel/coco/issues">反馈问题</a><a href="https://github.com/coco-vexel/coco">GitHub</a></div>
 </footer>
-</body></html>
+</body>
+</html>
