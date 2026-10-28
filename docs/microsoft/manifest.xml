@@ -13,12 +13,12 @@
   <DefaultLocale>zh-CN</DefaultLocale>
   <DisplayName DefaultValue="Coco Microsoft" />
   <Description DefaultValue="Coco document assistant for Microsoft Word." />
-  <IconUrl DefaultValue="https://coco-vexel.github.io/coco/microsoft/assets/icon-32.png" />
-  <HighResolutionIconUrl DefaultValue="https://coco-vexel.github.io/coco/microsoft/assets/icon-80.png" />
-  <SupportUrl DefaultValue="https://coco-vexel.github.io/coco/microsoft/" />
+  <IconUrl DefaultValue="https://www.cooco.me/microsoft/assets/icon-32.png" />
+  <HighResolutionIconUrl DefaultValue="https://www.cooco.me/microsoft/assets/icon-80.png" />
+  <SupportUrl DefaultValue="https://www.cooco.me/microsoft/" />
 
   <AppDomains>
-    <AppDomain>https://coco-vexel.github.io</AppDomain>
+    <AppDomain>https://www.cooco.me</AppDomain>
   </AppDomains>
 
   <Hosts>
@@ -32,7 +32,7 @@
   </Requirements>
 
   <DefaultSettings>
-    <SourceLocation DefaultValue="https://coco-vexel.github.io/coco/microsoft/src/taskpane/taskpane.html?v=mszojqzi" />
+    <SourceLocation DefaultValue="https://www.cooco.me/microsoft/src/taskpane/taskpane.html?v=mszojqzi" />
   </DefaultSettings>
 
   <Permissions>ReadWriteDocument</Permissions>
@@ -83,14 +83,14 @@
 
     <Resources>
       <bt:Images>
-        <bt:Image id="Icon.16" DefaultValue="https://coco-vexel.github.io/coco/microsoft/assets/icon-16.png" />
-        <bt:Image id="Icon.32" DefaultValue="https://coco-vexel.github.io/coco/microsoft/assets/icon-32.png" />
-        <bt:Image id="Icon.80" DefaultValue="https://coco-vexel.github.io/coco/microsoft/assets/icon-80.png" />
+        <bt:Image id="Icon.16" DefaultValue="https://www.cooco.me/microsoft/assets/icon-16.png" />
+        <bt:Image id="Icon.32" DefaultValue="https://www.cooco.me/microsoft/assets/icon-32.png" />
+        <bt:Image id="Icon.80" DefaultValue="https://www.cooco.me/microsoft/assets/icon-80.png" />
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="Commands.Url" DefaultValue="https://coco-vexel.github.io/coco/microsoft/src/commands/commands.html?v=mszojqzi" />
-        <bt:Url id="Taskpane.Url" DefaultValue="https://coco-vexel.github.io/coco/microsoft/src/taskpane/taskpane.html?v=mszojqzi" />
-        <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://coco-vexel.github.io/coco/microsoft/" />
+        <bt:Url id="Commands.Url" DefaultValue="https://www.cooco.me/microsoft/src/commands/commands.html?v=mszojqzi" />
+        <bt:Url id="Taskpane.Url" DefaultValue="https://www.cooco.me/microsoft/src/taskpane/taskpane.html?v=mszojqzi" />
+        <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://www.cooco.me/microsoft/" />
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="GetStarted.Title" DefaultValue="Coco is ready" />

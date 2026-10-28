@@ -12,10 +12,24 @@ PUBLISH_XML=""
 for item in "${CANDIDATES[@]}"; do [ -f "$item" ] && PUBLISH_XML="$item" && break; done
 [ -n "$PUBLISH_XML" ] || PUBLISH_XML="${CANDIDATES[0]}"
 mkdir -p "$(dirname "$PUBLISH_XML")"
-[ -f "$PUBLISH_XML" ] || printf '%s
-' '<?xml version="1.0" encoding="utf-8"?>' '<jsplugins>' '</jsplugins>' > "$PUBLISH_XML"
-TMP_FILE="$(mktemp)"
+[ -f "$PUBLISH_XML" ] || printf '%s\n' '<?xml version="1.0" encoding="utf-8"?>' '<jsplugins>' '</jsplugins>' > "$PUBLISH_XML"
+TMP_FILE="$(mktemp "${PUBLISH_XML}.tmp.XXXXXX")"
+NEXT_FILE="${TMP_FILE}.next"
+trap 'rm -f "$TMP_FILE" "$NEXT_FILE"' EXIT
 grep -vE '<jspluginonline .*name="(coco-wps|coco-wps-et)"' "$PUBLISH_XML" > "$TMP_FILE" || true
-sed "s#</jsplugins>#  </jsplugins>#  <jspluginonline name="coco-wps" type="wps" url="$BASE_URL/coco-wps/worker/word/" debug="" enable="enable_dev" install="null"/>\n  <jspluginonline name="coco-wps-et" type="et" url="$BASE_URL/coco-wps/worker/excel/" debug="" enable="enable_dev" install="null"/>\n</jsplugins>#" "$TMP_FILE" > "$PUBLISH_XML"
+if ! grep -q '<jsplugins' "$TMP_FILE"; then
+  printf '%s\n' '<?xml version="1.0" encoding="utf-8"?>' '<jsplugins>' '</jsplugins>' > "$TMP_FILE"
+elif ! grep -q '</jsplugins>' "$TMP_FILE"; then
+  printf '%s\n' '</jsplugins>' >> "$TMP_FILE"
+fi
+awk -v base_url="$BASE_URL" '
+  /<\/jsplugins>/ {
+    printf "  <jspluginonline name=\"coco-wps\" type=\"wps\" url=\"%s/coco-wps/worker/word/\" debug=\"\" enable=\"enable_dev\" install=\"null\"/>\n", base_url
+    printf "  <jspluginonline name=\"coco-wps-et\" type=\"et\" url=\"%s/coco-wps/worker/excel/\" debug=\"\" enable=\"enable_dev\" install=\"null\"/>\n", base_url
+  }
+  { print }
+' "$TMP_FILE" > "$NEXT_FILE"
+mv "$NEXT_FILE" "$PUBLISH_XML"
 rm -f "$TMP_FILE"
+trap - EXIT
 echo 'Coco WPS Word + Excel plugins registered.'

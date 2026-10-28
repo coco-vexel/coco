@@ -12,12 +12,12 @@
   <DefaultLocale>zh-CN</DefaultLocale>
   <DisplayName DefaultValue="Coco Excel" />
   <Description DefaultValue="Coco Excel agent for Microsoft Excel." />
-  <IconUrl DefaultValue="https://coco-vexel.github.io/coco/microsoft/coco/microsoft/assets/icon-32.png" />
-  <HighResolutionIconUrl DefaultValue="https://coco-vexel.github.io/coco/microsoft/coco/microsoft/assets/icon-80.png" />
-  <SupportUrl DefaultValue="https://coco-vexel.github.io/coco/microsoft/" />
+  <IconUrl DefaultValue="https://www.cooco.me/microsoft/assets/icon-32.png" />
+  <HighResolutionIconUrl DefaultValue="https://www.cooco.me/microsoft/assets/icon-80.png" />
+  <SupportUrl DefaultValue="https://www.cooco.me/microsoft/" />
 
   <AppDomains>
-    <AppDomain>https://coco-vexel.github.io</AppDomain>
+    <AppDomain>https://www.cooco.me</AppDomain>
   </AppDomains>
 
   <Hosts>
@@ -32,7 +32,7 @@
   </Requirements>
 
   <DefaultSettings>
-    <SourceLocation DefaultValue="https://coco-vexel.github.io/coco/microsoft/coco/microsoft/src/taskpane-excel/taskpane-excel.html" />
+    <SourceLocation DefaultValue="https://www.cooco.me/microsoft/src/taskpane-excel/taskpane-excel.html" />
   </DefaultSettings>
 
   <Permissions>ReadWriteDocument</Permissions>
@@ -78,13 +78,13 @@
 
     <Resources>
       <bt:Images>
-        <bt:Image id="Icon.16" DefaultValue="https://coco-vexel.github.io/coco/microsoft/coco/microsoft/assets/icon-16.png" />
-        <bt:Image id="Icon.32" DefaultValue="https://coco-vexel.github.io/coco/microsoft/coco/microsoft/assets/icon-32.png" />
-        <bt:Image id="Icon.80" DefaultValue="https://coco-vexel.github.io/coco/microsoft/coco/microsoft/assets/icon-80.png" />
+        <bt:Image id="Icon.16" DefaultValue="https://www.cooco.me/microsoft/assets/icon-16.png" />
+        <bt:Image id="Icon.32" DefaultValue="https://www.cooco.me/microsoft/assets/icon-32.png" />
+        <bt:Image id="Icon.80" DefaultValue="https://www.cooco.me/microsoft/assets/icon-80.png" />
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="Commands.Url" DefaultValue="https://coco-vexel.github.io/coco/microsoft/coco/microsoft/src/commands/commands.html?v=mszojqzi" />
-        <bt:Url id="Taskpane.Url" DefaultValue="https://coco-vexel.github.io/coco/microsoft/coco/microsoft/src/taskpane-excel/taskpane-excel.html" />
+        <bt:Url id="Commands.Url" DefaultValue="https://www.cooco.me/microsoft/src/commands/commands.html?v=mszojqzi" />
+        <bt:Url id="Taskpane.Url" DefaultValue="https://www.cooco.me/microsoft/src/taskpane-excel/taskpane-excel.html" />
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="CocoGroup.Label" DefaultValue="Coco" />

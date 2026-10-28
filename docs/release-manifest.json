@@ -3,50 +3,50 @@
   "version": "mszojqzi",
   "channel": "stable",
   "packageDir": "coco",
-  "baseUrl": "https://coco-vexel.github.io/coco",
+  "baseUrl": "https://www.cooco.me",
   "generatedAt": "2026-08-19T05:57:48.217Z",
   "pages": {
-    "home": "https://coco-vexel.github.io/coco/index.html",
-    "install": "https://coco-vexel.github.io/coco/install.html"
+    "home": "https://www.cooco.me/index.html",
+    "install": "https://www.cooco.me/install.html"
   },
   "plugins": {
     "wps": {
-      "entry": "https://coco-vexel.github.io/coco/coco-wps/worker/word/",
+      "entry": "https://www.cooco.me/coco-wps/worker/word/",
       "entries": {
-        "word": "https://coco-vexel.github.io/coco/coco-wps/worker/word/",
-        "excel": "https://coco-vexel.github.io/coco/coco-wps/worker/excel/"
+        "word": "https://www.cooco.me/coco-wps/worker/word/",
+        "excel": "https://www.cooco.me/coco-wps/worker/excel/"
       },
       "installers": {
-        "windows": "https://coco-vexel.github.io/coco/install/wps-install.ps1",
-        "windowsCmd": "https://coco-vexel.github.io/coco/install/wps-install.cmd",
-        "macosLinux": "https://coco-vexel.github.io/coco/install/wps-install.sh"
+        "windows": "https://www.cooco.me/install/wps-install.ps1",
+        "windowsCmd": "https://www.cooco.me/install/wps-install.cmd",
+        "macosLinux": "https://www.cooco.me/install/wps-install.sh"
       }
     },
     "onlyoffice": {
-      "config": "https://coco-vexel.github.io/coco/onlyoffice/config.json",
+      "config": "https://www.cooco.me/onlyoffice/config.json",
       "configs": {
-        "word": "https://coco-vexel.github.io/coco/onlyoffice/config.json",
-        "excel": "https://coco-vexel.github.io/coco/onlyoffice/config.excel.json"
+        "word": "https://www.cooco.me/onlyoffice/config.json",
+        "excel": "https://www.cooco.me/onlyoffice/config.excel.json"
       },
       "desktopInstallers": {
-        "windows": "https://coco-vexel.github.io/coco/install/onlyoffice-desktop-install.ps1",
-        "windowsCmd": "https://coco-vexel.github.io/coco/install/onlyoffice-desktop-install.cmd",
-        "macosLinux": "https://coco-vexel.github.io/coco/install/onlyoffice-desktop-install.sh"
+        "windows": "https://www.cooco.me/install/onlyoffice-desktop-install.ps1",
+        "windowsCmd": "https://www.cooco.me/install/onlyoffice-desktop-install.cmd",
+        "macosLinux": "https://www.cooco.me/install/onlyoffice-desktop-install.sh"
       },
       "dockerInstallers": {
-        "powershell": "https://coco-vexel.github.io/coco/install/onlyoffice-docker-install.ps1",
-        "cmd": "https://coco-vexel.github.io/coco/install/onlyoffice-docker-install.cmd",
-        "bash": "https://coco-vexel.github.io/coco/install/onlyoffice-docker-install.sh"
+        "powershell": "https://www.cooco.me/install/onlyoffice-docker-install.ps1",
+        "cmd": "https://www.cooco.me/install/onlyoffice-docker-install.cmd",
+        "bash": "https://www.cooco.me/install/onlyoffice-docker-install.sh"
       }
     },
     "microsoft": {
-      "manifest": "https://coco-vexel.github.io/coco/microsoft/manifest.xml",
+      "manifest": "https://www.cooco.me/microsoft/manifest.xml",
       "manifests": {
-        "word": "https://coco-vexel.github.io/coco/microsoft/manifest.xml",
-        "excel": "https://coco-vexel.github.io/coco/microsoft/manifest-excel.xml"
+        "word": "https://www.cooco.me/microsoft/manifest.xml",
+        "excel": "https://www.cooco.me/microsoft/manifest-excel.xml"
       },
-      "installer": "https://coco-vexel.github.io/coco/install/microsoft-install.ps1",
-      "installerCmd": "https://coco-vexel.github.io/coco/install/microsoft-install.cmd"
+      "installer": "https://www.cooco.me/install/microsoft-install.ps1",
+      "installerCmd": "https://www.cooco.me/install/microsoft-install.cmd"
     }
   }
 }

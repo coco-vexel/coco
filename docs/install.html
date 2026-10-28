@@ -201,6 +201,68 @@
     }
     .steps { display: grid; gap: 10px; margin-top: 14px; }
     .step { padding: 12px; border-radius: 8px; background: var(--soft); border: 1px solid var(--line); }
+    .desktop-manager {
+      padding: 28px;
+      background: var(--brand-soft);
+      border-color: transparent;
+    }
+    .desktop-manager-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 28px;
+    }
+    .desktop-manager-header p { max-width: 620px; margin-top: 9px; }
+    .desktop-manager-action {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      padding: 0 16px;
+      border-radius: 8px;
+      background: var(--brand);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .desktop-manager-action:hover { background: #2849ca; }
+    .desktop-manager-steps {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 24px 0 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: manager-step;
+    }
+    .desktop-manager-steps li {
+      min-width: 0;
+      padding: 18px;
+      border-radius: 10px;
+      background: #fff;
+      counter-increment: manager-step;
+    }
+    .desktop-manager-steps li::before {
+      display: block;
+      margin-bottom: 13px;
+      color: var(--brand);
+      content: counter(manager-step, decimal-leading-zero);
+      font-size: 11px;
+      font-weight: 800;
+    }
+    .desktop-manager-steps strong { display: block; margin-bottom: 6px; font-size: 14px; }
+    .desktop-manager-steps span { color: var(--muted); font-size: 13px; line-height: 1.6; }
+    .desktop-host-support {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 21px;
+    }
+    .desktop-host-support div { min-width: 0; }
+    .desktop-host-support strong { display: block; margin-bottom: 4px; font-size: 13px; }
+    .desktop-host-support span { color: var(--muted); font-size: 12px; line-height: 1.55; }
+    .desktop-manager-note { margin-top: 20px; color: #42516a; font-size: 12px; line-height: 1.65; }
     @media (max-width: 900px) {
       .topbar { padding: 0 18px; }
       .layout { display: block; padding: 18px 14px 44px; }
@@ -215,6 +277,9 @@
       .sidenav small { display: none; }
       .hero { display: block; }
       .meta { text-align: left; margin-top: 14px; }
+      .desktop-manager-header { display: block; }
+      .desktop-manager-action { margin-top: 18px; }
+      .desktop-manager-steps,.desktop-host-support { grid-template-columns: 1fr; }
     }
   </style>
   <link rel="stylesheet" href="./site-shell.css?v=20260911-nav" />
@@ -222,32 +287,33 @@
 <link rel="stylesheet" href="./readability.css?v=20260911-nav" />
 <link rel="stylesheet" href="./structure.css?v=20260911-nav" />
 
-<meta name="description" content="按步骤安装 Coco Word 与 Excel 插件。提供 WPS、Microsoft Office、ONLYOFFICE Desktop 和 Document Server 的安装命令与验证说明。" />
+<meta name="description" content="通过 Coco Desktop 管理 WPS、Microsoft Office 与 ONLYOFFICE 插件，或按步骤完成手动与企业部署。" />
 <link rel="canonical" href="https://www.cooco.me/install.html" />
 <meta property="og:title" content="Coco 插件安装指南｜WPS、Microsoft Office、ONLYOFFICE" />
-<meta property="og:description" content="按步骤安装 Coco Word 与 Excel 插件。提供 WPS、Microsoft Office、ONLYOFFICE Desktop 和 Document Server 的安装命令与验证说明。" />
+<meta property="og:description" content="通过 Coco Desktop 管理 WPS、Microsoft Office 与 ONLYOFFICE 插件，或按步骤完成手动与企业部署。" />
 <meta property="og:url" content="https://www.cooco.me/install.html" />
 <meta property="og:locale" content="zh_CN" />
 <meta property="og:type" content="website" />
-<link rel="stylesheet" href="./navigation.css?v=20260915" /></head>
+<link rel="stylesheet" href="./navigation.css?v=20261026-office-arrow" /><script src="./site.js?v=20261026-menu-a11y" defer></script></head>
 <body>
-  <header class="site-header"><nav class="site-nav" aria-label="主导航"><a class="site-brand" href="./"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a><div class="site-links"><details class="product-menu"><summary>产品</summary><div><a href="./web.html">网页版 Agent</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a><a href="./products.html">比较使用方式</a></div></details><a href="./scenarios.html">应用场景</a><a href="./download.html" aria-current="page">下载与安装</a><a href="./developers.html">开发者</a></div><a class="site-chat" href="https://chat.cooco.me" target="_blank" rel="noopener noreferrer">开始对话 ↗</a><details class="site-menu"><summary aria-label="打开导航菜单">☰</summary><div><a href="./web.html">网页版 Agent</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a><a href="./scenarios.html">应用场景</a><a href="./download.html" aria-current="page">下载与安装</a><a href="./developers.html">开发者</a><a href="./support.html">帮助与支持</a></div></details></nav></header>
+  <header class="site-header"><nav class="site-nav" aria-label="主导航"><a class="site-brand" href="./"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a><div class="site-links"><a href="./products.html" aria-current="page">Coco Office</a><a href="https://travel.cooco.me" target="_blank" rel="noopener noreferrer">Coco Travel ↗</a><a href="./developers.html">开发者</a></div><a class="site-chat" href="https://chat.cooco.me" target="_blank" rel="noopener noreferrer">开始对话 ↗</a><details class="site-menu"><summary aria-label="打开导航菜单">☰</summary><div><a href="./products.html">Coco Office</a><a href="./web.html">网页版</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a><a href="https://travel.cooco.me" target="_blank" rel="noopener noreferrer">Coco Travel ↗</a><a href="./download.html">下载与安装</a><a href="./developers.html">开发者</a><a href="./support.html">帮助与支持</a></div></details></nav></header>
 
   <main class="layout">
     <aside class="sidenav">
       <a href="#overview"><span>概览</span> <small>01</small></a>
-      <a href="#wps"><span>WPS</span> <small>02</small></a>
-      <a href="#onlyoffice-desktop"><span>OO Desktop</span> <small>03</small></a>
-      <a href="#onlyoffice-docker"><span>OO Docker</span> <small>04</small></a>
-      <a href="#microsoft"><span>Microsoft</span> <small>05</small></a>
-      <a href="#verify"><span>验证</span> <small>06</small></a>
+      <a href="#desktop-manager"><span>桌面应用管理</span> <small>02</small></a>
+      <a href="#wps"><span>WPS</span> <small>03</small></a>
+      <a href="#onlyoffice-desktop"><span>OO Desktop</span> <small>04</small></a>
+      <a href="#onlyoffice-docker"><span>OO Docker</span> <small>05</small></a>
+      <a href="#microsoft"><span>Microsoft</span> <small>06</small></a>
+      <a href="#verify"><span>验证</span> <small>07</small></a>
     </aside>
 
     <div class="content">
       <section id="overview" class="hero">
       <div>
-          <h1>Coco 插件安装部署</h1>
-          <p>每种宿主只需执行一次对应安装命令，即可同时安装 Coco Word 与 Coco Excel。WPS 和 Microsoft Office 走远端入口；ONLYOFFICE Docker 支持远端 pluginsData 或容器本地 sdkjs-plugins；ONLYOFFICE Desktop 写入两套独立插件入口，再从当前发布地址加载 UI 资源。</p>
+          <h1>安装 Coco Office 插件</h1>
+          <p>已安装 Coco Desktop，可以直接管理本机插件。需要企业部署、容器接入或手动安装时，再选择下方对应方式。</p>
           <div class="tag-row">
             <span class="tag">远端资源</span>
             <span class="tag">轻量入口</span>
@@ -257,6 +323,27 @@
       <div class="meta">
           <div>通道：stable</div>
       </div>
+      </section>
+
+      <section id="desktop-manager" class="section desktop-manager">
+        <div class="desktop-manager-header">
+          <div>
+            <h2>用 Coco Desktop 安装与卸载</h2>
+            <p>桌面应用会检测本机插件状态，不需要复制命令，也不用手动寻找安装目录。</p>
+          </div>
+          <a class="desktop-manager-action" href="./download.html#download">获取桌面应用</a>
+        </div>
+        <ol class="desktop-manager-steps">
+          <li><strong>打开插件管理</strong><span>进入 Coco Desktop 的“设置 → 插件管理”。</span></li>
+          <li><strong>选择 Office 平台</strong><span>查看当前状态，然后点击安装、更新或卸载。</span></li>
+          <li><strong>重新打开 Office</strong><span>完全退出对应应用，再重新打开使变更生效。</span></li>
+        </ol>
+        <div class="desktop-host-support" aria-label="桌面应用插件管理支持范围">
+          <div><strong>WPS Office</strong><span>Windows、macOS 与 Linux</span></div>
+          <div><strong>Microsoft Office</strong><span>Windows 与 macOS · Word、Excel</span></div>
+          <div><strong>ONLYOFFICE</strong><span>Windows、macOS 与 Linux · Desktop Editors</span></div>
+        </div>
+        <p class="desktop-manager-note">ONLYOFFICE Document Server、企业集中部署及无法使用桌面应用的环境，请继续使用下方手动方式。</p>
       </section>
 
       <section id="wps" class="section">
@@ -458,16 +545,16 @@ Admin Center: Integrated apps -> Upload custom apps</pre>
   </script>
 <footer class="site-footer">
 <div class="footer-brand"><a class="site-brand" href="./"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a>
-<p>让文档工作走到结果。</p>
+<p>让想法走到结果。</p>
 </div>
 <div>
-<h2>产品</h2><a href="./web.html">网页版 Agent</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a>
+<h2>产品</h2><a href="./products.html">Coco Office</a><a href="https://travel.cooco.me" target="_blank" rel="noopener noreferrer">Coco Travel ↗</a><a href="./web.html">网页版 Agent</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a>
 </div>
 <div>
-<h2>开发者</h2><a href="./developers.html">开发者总览</a><a href="./core.html">文档 SDK</a><a href="./editor.html">浏览器编辑器</a><a href="./oojson.html">格式转换</a>
+<h2>开发者</h2><a href="./developers.html">开发者总览</a><a href="./core.html">Core SDK</a><a href="https://www.npmjs.com/package/@coco-vexel/coco-office">npm 包</a><a href="https://github.com/coco-vexel/coco-office">GitHub 源码</a><a href="./editor.html">浏览器编辑器</a>
 </div>
 <div>
-<h2>支持与资源</h2><a href="./install.html">安装指南</a><a href="./support.html">帮助与兼容性</a><a href="https://github.com/coco-vexel/coco/releases">版本公告</a><a href="https://github.com/coco-vexel/coco/issues">反馈问题</a><a href="https://github.com/coco-vexel/coco">GitHub</a>
+<h2>支持与资源</h2><a href="./scenarios.html">任务示例</a><a href="./install.html">安装指南</a><a href="./support.html">帮助与兼容性</a><a href="https://github.com/coco-vexel/coco/releases">版本公告</a><a href="https://github.com/coco-vexel/coco/issues">反馈问题</a><a href="https://github.com/coco-vexel/coco">GitHub</a>
 </div>
 </footer>
 </body>
