@@ -1,4 +1,6 @@
 /* Shared navigation and footer for every public site page. */
+.skip-link { position:fixed; z-index:100; top:12px; left:12px; padding:10px 14px; border-radius:8px; background:#152034; color:#fff; font:600 14px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif; text-decoration:none; transform:translateY(-150%); transition:transform .16s ease; }
+.skip-link:focus { transform:translateY(0); }
 .site-header { position:sticky; top:0; z-index:50; background:rgba(255,255,255,.97); border-bottom:1px solid #e5e9f0; backdrop-filter:blur(14px); }
 .site-nav { max-width:1220px; height:72px; margin:auto; padding:0 36px; display:flex; gap:30px; align-items:center; color:#152034; font:14px -apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif; }
 .site-brand { display:inline-flex; align-items:center; gap:10px; font-size:22px; font-weight:750; text-decoration:none; color:#152034; flex-shrink:0; }
@@ -19,6 +21,7 @@
 .site-footer a:hover { color:#3458e6; }
 .site-footer p { margin-top:16px; }
 .site-nav a:focus-visible, .site-nav summary:focus-visible, .site-footer a:focus-visible { outline:3px solid #3458e655; outline-offset:4px; }
+.site-nav a:active, .site-nav summary:active, .site-footer a:active { opacity:.72; }
 .product-tabs-wrap { top:72px; }
 @media(max-width:960px) { .site-links { display:none; } .site-chat { margin-left:auto; } .site-menu { display:block; } .site-nav { gap:16px; } }
 @media(max-width:600px) { .site-nav { height:64px; padding:0 20px; gap:8px; } .site-chat { min-height:38px; padding:0 12px; } .site-brand { font-size:20px; } .site-footer { grid-template-columns:1fr 1fr; gap:28px; padding:40px 20px; } .footer-brand { grid-column:1 / -1; } .product-tabs-wrap { top:64px; } }
@@ -26,3 +29,4 @@
 .site-header { background:#fff; backdrop-filter:none; }
 .site-footer { padding-top:58px; padding-bottom:68px; }
 .site-links a[aria-current="page"] { font-weight:650; }
+@media(prefers-reduced-motion:reduce) { .skip-link { transition:none; } }

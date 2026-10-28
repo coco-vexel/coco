@@ -1,0 +1,38 @@
+/* Capability explanations complement the visual examples with concrete scope. */
+.file-type{display:flex;align-items:center;gap:10px;margin-bottom:18px;color:#526583;font-size:13px;font-weight:500;line-height:1.5}
+.file-type-icon{display:flex;align-items:center;justify-content:center;width:27px;height:32px;color:#617daf;flex-shrink:0}
+.file-type-icon svg{width:26px;height:30px;stroke-width:1.5}
+.illustrated-abilities .ability-grid article{background:linear-gradient(155deg,#f0f4fc,#f8faff);padding:24px;overflow:hidden}
+.illustrated-abilities .file-type{margin-bottom:16px;color:#344d73;font-size:14px}
+.capability-scene{position:relative;height:145px;flex-shrink:0;margin:0 -8px 18px;padding:8px 15px;border-radius:12px;background:radial-gradient(ellipse at 50% 70%,#dce7ff,transparent 75%);display:flex;align-items:center;justify-content:center}
+.scene-paper,.scene-sheet,.scene-slide{width:100%;max-width:260px;background:#fff;box-shadow:0 10px 22px #38599812;border-radius:7px;position:relative}
+.scene-paper{padding:18px 18px 15px;transform:rotate(-3deg)}
+.scene-kicker{font-size:10px;color:#596c89;letter-spacing:.04em}
+.scene-paper p{font-size:12px;line-height:1.8;margin:10px 0}
+.scene-old{color:#7a889e;text-decoration:line-through;text-decoration-color:#a6b5d0}
+.scene-new{color:#3457f0;background:#edf2ff;padding:3px 6px;margin-left:-6px!important;margin-right:-6px!important}
+.scene-lines{display:block;width:55%;height:3px;background:#e6ecf5;margin-top:13px}
+.scene-caption{display:none}
+.capability-scene>div{scale:.85}
+.illustrated-abilities .ability-grid article>p.ability-summary{font-size:13px;line-height:1.8;margin-top:10px}
+.illustrated-abilities .ability-grid article>p.ability-prompt{margin-top:auto;padding-top:12px;border-top:1px solid #e0e7f2;font-size:12px;line-height:1.7;color:#34517f}
+.illustrated-abilities .ability-summary{padding-bottom:18px}
+.scene-sheet{padding:7px 12px;transform:rotate(2deg)}
+.scene-sheet-row{display:flex;justify-content:space-between;gap:15px;padding:8px 9px;font-size:11px;color:#435572;border-bottom:1px solid #edf1f7;font-variant-numeric:tabular-nums}
+.scene-sheet-head{color:#526a91;font-size:10px}
+.scene-sheet-total{background:#edf2ff;color:#3457f0;font-weight:600;border:0;border-radius:4px;margin-top:3px}
+.scene-slide{padding:17px 18px;background:linear-gradient(130deg,#fff 50%,#edf2ff);transform:rotate(-2deg);overflow:hidden}
+.scene-slide p{font-size:22px;font-weight:600;line-height:1.35;letter-spacing:-.02em;color:#2b487b;margin:10px 0 12px}
+.scene-slide-points{display:flex;gap:10px;font-size:9px;color:#536989}
+.scene-slide-number{position:absolute;right:14px;top:37px;font-size:52px;line-height:1;color:#dce6fc;font-weight:600}
+.illustrated-abilities .ability-grid h3{font-size:18px}
+.illustrated-abilities .ability-grid ul{margin:14px 0 20px}
+.illustrated-abilities .ability-grid li{margin:7px 0}
+.illustrated-abilities .ability-example{border:0;padding:14px 15px;background:#eaf0fc;border-radius:9px}
+.ability-illustration-note{font-size:11px;color:#61718a;margin:16px 0 0}
+.illustrated-abilities .ability-scope{margin-top:8px}
+@media(max-width:850px) and (min-width:651px){.illustrated-abilities .ability-grid article{padding:18px}.capability-scene{padding-left:8px;padding-right:8px}.scene-paper{padding:13px}.scene-slide{padding:15px 12px}.scene-slide p{font-size:19px}.scene-slide-points{gap:6px}.scene-slide-number{font-size:40px}}
+@media(max-width:650px){.capability-scene{height:145px;margin-bottom:18px}.illustrated-abilities .ability-grid article{padding:24px}.scene-paper,.scene-sheet,.scene-slide{max-width:280px}}
+.ability-guide{padding:35px 0 48px}.ability-intro{max-width:760px;margin-bottom:28px}.ability-intro .eyebrow{font-size:11px;letter-spacing:.08em;margin-bottom:12px}.ability-intro h2{font-size:27px;line-height:1.45}.ability-intro>p:last-child{font-size:15px;line-height:1.8;color:#526078;margin-top:14px}.ability-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.ability-grid article{padding:26px;background:#fff;border-radius:18px;display:flex;flex-direction:column;min-width:0}.web-product-page .ability-grid article{background:#f3f6fb}.ability-badge{font-size:11px;color:#3457f0;letter-spacing:.06em;margin-bottom:18px}.ability-grid h3{font-size:19px;line-height:1.5}.ability-grid article>p{font-size:13px;line-height:1.85;color:#526078;margin-top:12px}.ability-grid ul{padding-left:17px;margin:18px 0 24px;font-size:13px;line-height:1.85;color:#34445c}.ability-grid li{margin:9px 0}.ability-grid li::marker{color:#8ca5d8}.ability-example{margin-top:auto;padding-top:15px;border-top:1px solid #e4ebf6}.ability-example>span{font-size:11px;color:#4263a6}.ability-example p{font-size:13px;line-height:1.85;margin-top:8px;color:#273f6a}.ability-scope{font-size:12px;line-height:1.9;color:#61718a;margin-top:20px;max-width:970px}.ability-links{display:flex;gap:28px;flex-wrap:wrap;margin-top:22px}.ability-links a,.ability-settings>a{font-size:13px;color:#3457f0;text-decoration:none;font-weight:600}.ability-settings{display:flex;gap:35px;align-items:center;justify-content:space-between;padding:25px 28px;margin-top:20px;background:#eaf0fc;border-radius:14px}.ability-settings h3{font-size:17px}.ability-settings p{font-size:13px;color:#465873;line-height:1.85;margin-top:8px;max-width:680px}.ability-settings>a{flex-shrink:0}
+@media(max-width:850px){.ability-grid{gap:12px}.ability-grid article{padding:20px}.ability-grid h3{font-size:17px}.ability-settings{display:block}.ability-settings>a{display:inline-block;margin-top:14px}}
+@media(max-width:650px){.ability-guide{padding:25px 0 35px}.ability-grid{grid-template-columns:1fr;gap:16px}.ability-grid article{padding:24px}.ability-intro h2{font-size:23px}.ability-intro>p:last-child{font-size:14px}.ability-grid ul{margin:14px 0 18px}.ability-badge{margin-bottom:12px}.ability-settings{padding:22px}.ability-grid h3{font-size:19px}}

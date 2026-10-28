@@ -1,0 +1,92 @@
+.home-page{
+  --brand-ink:#142033;
+  --brand-muted:#58677d;
+  --brand-blue:#3159ee;
+  --brand-line:#dfe6f1
+}
+.home-page .home-hero{grid-template-columns:minmax(350px,.82fr) minmax(520px,1.18fr);gap:54px;min-height:580px;padding:54px 0 62px}
+.home-page .home-hero .studio-intro h1{max-width:540px;font-size:clamp(46px,4.2vw,62px);letter-spacing:-.04em}
+.home-page .home-hero .studio-description{max-width:470px;font-size:17px}
+.home-page .home-hero .studio-actions{gap:20px}
+.home-page .home-hero .studio-text-link{font-weight:400}
+.home-page #office{scroll-margin-top:88px}
+.home-page .home-proof,.home-page .home-travel,.home-page .home-routes,.home-page .home-closing,.home-page .site-footer{content-visibility:auto}
+.home-page .home-proof{contain-intrinsic-size:auto 610px}
+.home-page .home-travel{contain-intrinsic-size:auto 560px}
+.home-page .home-routes{contain-intrinsic-size:auto 760px}
+.home-page .home-closing{contain-intrinsic-size:auto 150px}
+.home-page .site-footer{contain-intrinsic-size:auto 340px}
+
+.home-product-visual{position:relative;min-width:0;min-height:460px;isolation:isolate}
+.home-product-window{position:absolute;overflow:hidden;margin:0;border-radius:14px;background:#fff;box-shadow:0 22px 58px #2b47771b}
+.home-product-window figcaption{display:flex;height:42px;align-items:center;justify-content:space-between;padding:0 15px;background:#fff;color:#708097;font-size:10px}
+.home-product-window figcaption strong{color:#293850;font-size:11px;font-weight:650}
+.home-product-window img{display:block;width:100%;height:100%;object-fit:cover;object-position:left top}
+.home-product-office{z-index:1;left:0;top:18px;width:76%;height:328px;transform:rotate(-1.2deg)}
+.home-product-office img{height:286px}
+.home-product-travel{z-index:2;right:0;bottom:18px;width:78%;height:286px;transform:rotate(.8deg)}
+.home-product-travel img{height:244px;object-position:34% top}
+
+.home-travel{display:grid;grid-template-columns:minmax(310px,.72fr) minmax(0,1.28fr);gap:52px;align-items:center;padding:68px 0;border-top:1px solid var(--brand-line)}
+.home-travel-copy h2{font-size:clamp(30px,2.72vw,38px);line-height:1.3;letter-spacing:-.035em;color:var(--brand-ink)}
+.home-travel-copy>p{max-width:41ch;margin-top:18px;color:var(--brand-muted);font-size:15px;line-height:1.8}
+.home-travel-actions{display:flex;align-items:center;gap:18px;margin-top:26px;flex-wrap:wrap}
+.home-travel-actions a{display:inline-flex;min-height:42px;align-items:center;padding:0 18px;border-radius:9px;background:var(--brand-blue);color:#fff;font-size:14px;font-weight:650;text-decoration:none;box-shadow:0 10px 24px #3159ee1e}
+.home-travel-actions a:hover{background:#2449d7;transform:translateY(-1px)}
+.home-travel-actions a:active{transform:translateY(0);background:#1f40c5}
+.home-travel-actions span{color:#738198;font-size:12px}
+.home-travel-media{min-width:0;margin:0}
+.home-travel-media img{display:block;width:100%;height:auto;border-radius:14px;box-shadow:0 18px 48px #35508116}
+.home-travel-media figcaption{padding:11px 4px 0;color:#75839a;font-size:11px;text-align:right}
+
+.home-closing{display:flex;align-items:center;justify-content:space-between;gap:44px;margin:0 0 76px;padding:42px 46px;border:1px solid #dce5f4;border-radius:18px;background:#f6f8fc;color:var(--brand-ink);box-shadow:0 20px 50px #3550810f,inset 0 1px 0 #fff}
+.home-closing h2{font-size:clamp(27px,2.5vw,36px);line-height:1.3;letter-spacing:-.03em}
+.home-closing p{max-width:48ch;margin-top:10px;color:var(--brand-muted);font-size:14px;line-height:1.75}
+.home-closing-actions{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.home-closing-actions a{display:inline-flex;min-height:46px;align-items:center;justify-content:center;padding:0 19px;border-radius:10px;font-size:13px;font-weight:650;text-decoration:none;transition:transform .2s cubic-bezier(.22,1,.36,1),background-color .2s ease,color .2s ease}
+.home-closing-actions a:hover{transform:translateY(-1px)}
+.home-closing-actions a:active{transform:translateY(0)}
+.home-closing-primary{background:var(--brand-blue);color:#fff;box-shadow:0 10px 24px #3159ee20}
+.home-closing-primary:hover{background:#2449d7}
+.home-closing-secondary{border:1px solid #ccd8ec;background:#fff;color:#263a5c}
+.home-closing-secondary:hover{border-color:#aebfdd;background:#f8faff}
+
+@media(max-width:900px){
+  .home-page .home-hero{grid-template-columns:1fr;gap:20px;min-height:0;padding:48px 0 42px}
+  .home-page .home-hero .studio-intro{max-width:640px}
+  .home-product-visual{width:min(680px,100%);min-height:430px;margin:auto}
+  .home-travel{grid-template-columns:1fr;gap:30px;padding:56px 0}
+  .home-travel-copy>p{max-width:58ch}
+  .home-closing{align-items:flex-start;flex-direction:column;gap:26px;padding:38px;margin-bottom:62px}
+}
+@media(max-width:600px){
+  .home-page .home-hero{padding:38px 0 34px}
+  .home-page .home-hero .studio-intro h1{font-size:38px;line-height:1.22}
+  .home-page .home-hero .studio-description{font-size:16px}
+  .home-product-visual{min-height:325px;margin-top:10px}
+  .home-product-window{border-radius:10px;box-shadow:0 16px 36px #2b477719}
+  .home-product-window figcaption{height:34px;padding:0 11px}
+  .home-product-office{top:8px;width:83%;height:226px;transform:rotate(-1deg)}
+  .home-product-office img{height:192px}
+  .home-product-travel{bottom:8px;width:86%;height:196px;transform:rotate(.6deg)}
+  .home-product-travel img{height:162px}
+  .home-travel{padding:48px 0}
+  .home-travel-copy h2{font-size:30px}
+  .home-travel-actions{align-items:flex-start;flex-direction:column;gap:12px}
+  .home-travel-media{margin-left:-12px;margin-right:-12px}
+  .home-travel-media img{border-radius:11px}
+  .home-travel-media figcaption{padding-right:12px}
+  .home-closing{gap:24px;margin:0 0 48px;padding:30px 24px;border-radius:15px}
+  .home-closing h2{font-size:27px}
+  .home-closing-actions{width:100%;align-items:stretch;flex-direction:column}
+  .home-closing-actions a{width:100%;min-height:48px}
+  .home-page .home-proof{contain-intrinsic-size:auto 940px}
+  .home-page .home-travel{contain-intrinsic-size:auto 720px}
+  .home-page .home-routes{contain-intrinsic-size:auto 1390px}
+  .home-page .home-closing{contain-intrinsic-size:auto 330px}
+  .home-page .site-footer{contain-intrinsic-size:auto 790px}
+}
+@media(prefers-reduced-motion:reduce){
+  .home-travel-actions a,.home-closing-actions a{transition:none}
+  .home-closing-actions a:hover{transform:none}
+}

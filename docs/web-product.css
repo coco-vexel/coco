@@ -1,0 +1,23 @@
+/* A focused document task gives the browser product its own opening. */
+.web-product-page .renewed{max-width:1160px}
+.web-opening{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:center;padding:64px 0 58px}
+.web-opening .eyebrow{font-size:11px;letter-spacing:.12em;margin-bottom:20px}
+.web-opening h1{font-size:39px;line-height:1.4;font-weight:600;letter-spacing:-.035em}
+.web-opening h1 span{color:#3457f0}
+.web-lead{font-size:15px;line-height:1.9;color:#526078;margin:23px 0 26px}
+.web-opening .button{border-radius:10px;font-size:14px;padding:11px 20px}
+.web-entry-note{font-size:12px;color:#5d6a7e;margin-top:16px}
+.web-example{position:relative;border:1px solid #dde5f1;border-radius:16px;background:#fff;padding:24px;box-shadow:0 18px 55px #365ec012}
+.web-example-header{display:flex;gap:11px;align-items:center;padding-bottom:20px;border-bottom:1px solid #e9edf4}
+.web-file-icon{display:flex;width:34px;height:40px;align-items:center;justify-content:center;background:#edf2ff;color:#3457f0;font-size:18px;border-radius:6px;font-weight:650}
+.web-example-header b{display:block;font-size:13px;font-weight:600}.web-example-header div>span{display:block;font-size:11px;color:#63728b;margin-top:3px}
+.web-example-tag{font-size:11px;color:#526078;margin-left:auto}
+.web-task-request{margin:20px 0;background:#f0f4ff;border-radius:10px;padding:14px 16px}
+.web-task-request>span,.web-document-before>span,.web-document-after>span{font-size:11px;color:#536887;font-weight:600}
+.web-task-request p,.web-document-before p,.web-document-after p{font-size:14px;line-height:1.85;margin-top:7px}
+.web-document-before{padding:0 4px 18px;color:#536078}
+.web-document-after{padding:16px;border:1px solid #dce6ff;border-radius:10px;background:linear-gradient(120deg,#f7faff,#fff)}
+.web-document-after>span{color:#3457f0}.web-document-after p{color:#182b4d}
+.web-example-note{font-size:11px;color:#637188;margin-top:17px}
+@media(max-width:1000px){.web-opening{gap:34px}.web-opening h1{font-size:34px}.web-example{padding:20px}}
+@media(max-width:760px){.web-opening{grid-template-columns:1fr;padding:38px 0 36px;gap:30px}.web-opening-copy{max-width:500px}.web-opening h1{font-size:32px}.web-lead{margin:18px 0 21px}.web-example{max-width:560px;width:100%}.web-example-header{gap:8px}.web-example-tag{font-size:10px}}

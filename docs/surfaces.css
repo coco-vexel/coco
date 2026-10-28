@@ -1,0 +1,58 @@
+/* Marketing surfaces: whitespace groups sections; tint groups demonstrations.
+   Document selection, table rules and keyboard focus retain their boundaries. */
+body.soft-surfaces{background-color:#f8faff;background-image:radial-gradient(ellipse 760px 540px at 88% 160px,#e8eaff99,transparent),radial-gradient(ellipse 620px 420px at 8% 30px,#e5f9fc99,transparent);background-repeat:no-repeat}
+.soft-surfaces .site-header{border-bottom:0;background:#ffffffdb;backdrop-filter:blur(16px)}
+.soft-surfaces .site-footer{border-top:0;background:transparent}
+.soft-surfaces .site-section{border-top:0}
+.soft-surfaces .end-banner{border:0;box-shadow:none}
+.soft-surfaces .secondary{border-color:transparent;background:#edf1f9}
+.soft-surfaces .secondary:hover{background:#e4ebfc;border-color:transparent}
+/* Browser: a quiet paper surface, with one colored request and an open result. */
+.soft-surfaces .web-example{border:0;background:#ffffffed;border-radius:20px;padding:28px;box-shadow:0 20px 65px #3a5c9d0c}
+.soft-surfaces .web-example-header{border-bottom:0;padding-bottom:8px}
+.soft-surfaces .web-task-request{background:linear-gradient(110deg,#eef3ff,#f2f0ff);border-radius:12px;margin:18px 0 24px}
+.soft-surfaces .web-document-after{border:0;border-radius:0;background:none;padding:4px 4px 0}
+.soft-surfaces .web-document-after p{font-weight:500}
+.soft-surfaces .web-example-note{margin-top:24px}
+.soft-surfaces .web-document-before{padding-bottom:22px}
+.soft-surfaces .prompt-rows>div{border-top:0}
+.soft-surfaces .essentials details{border-bottom:0;padding:17px 20px;background:#ffffffb8;border-radius:12px;margin-bottom:8px}
+.soft-surfaces .essentials summary{font-size:15px}
+.web-product-page.soft-surfaces .steps{gap:28px}
+.web-product-page.soft-surfaces .steps li{padding:24px;background:#ffffffa8;border-radius:16px}
+.web-product-page.soft-surfaces .steps span{margin-bottom:14px;font-size:14px}
+.web-product-page.soft-surfaces .steps h3{font-size:17px}
+.web-product-page.soft-surfaces .steps p{font-size:14px;margin-top:12px}
+.web-product-page.soft-surfaces .task-options .prompt-rows>div{padding:20px 0}
+/* Office: retain the document/assistant split without drawing every surface. */
+.soft-surfaces .office-stage{background:none}
+.soft-surfaces .office-window{border:0;box-shadow:0 20px 65px #3a5c9d0d}
+.soft-surfaces .office-toolbar{border-bottom:0;background:#ffffffde}
+.soft-surfaces .office-editor{background:#edf2f8}
+.soft-surfaces .office-paper{border:0;box-shadow:0 6px 25px #34507806}
+.soft-surfaces .office-assistant{border:0;background:#fcfdff}
+.soft-surfaces .assistant-compose{border:0;background:#f0f4fa}
+.office-page.soft-surfaces .capability-pair article{border-top:0}
+.office-page.soft-surfaces .platform-list article{border:0;background:#ffffffc9;box-shadow:0 10px 35px #3a5c9d05}
+.office-page.soft-surfaces .steps li{border-left:0;padding-left:0}
+/* Desktop uses its darker workspace as the primary visual boundary. */
+.desktop-page.soft-surfaces .prompt-rows>div{border-top:0}
+.desktop-page.soft-surfaces .steps li{border-bottom:0}
+/* Home and scenarios: replace nested outlines and the decorative grid. */
+.soft-surfaces .glass-card{border:0;box-shadow:none;background:linear-gradient(135deg,#ffffffde,#edf2ffb8)}
+.soft-surfaces .mini-window{border:0;box-shadow:0 8px 30px #59749607}
+.soft-surfaces .mini-toolbar{border-bottom:0}
+.soft-surfaces .mini-composer{border:0;background:#f5f7fb}
+.soft-surfaces .result-card{background:#edf3fb}
+.soft-surfaces .edit-preview{border:0;box-shadow:none}
+.soft-surfaces .studio-products>a{border:0;background:#ffffffbf;box-shadow:none}
+.soft-surfaces .studio-products>a.featured-product{background:linear-gradient(130deg,#2879f8,#787cf6)}
+.soft-surfaces .product-glyph{border:0;background:#edf2fc}
+.soft-surfaces .featured-product .product-glyph{background:#ffffff24}
+.soft-surfaces .studio-closing{border-top:0}
+.soft-surfaces .studio-cases{border:0;background:#ffffffb8;box-shadow:0 16px 50px #3a5c9d06}
+.soft-surfaces .case-documents article{border:0;background:#f3f6fa}
+.soft-surfaces .case-documents article:last-child{background:#edf3ff}
+.soft-surfaces .studio-tabs{background:#edf1f8}
+@media(max-width:600px){.soft-surfaces .web-example{padding:22px}.soft-surfaces .office-assistant{border-top:0}.web-product-page.soft-surfaces .steps{gap:12px}}
+@media(prefers-reduced-transparency:reduce){.soft-surfaces .site-header{background:#fff;backdrop-filter:none}}
