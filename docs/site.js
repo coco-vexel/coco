@@ -58,7 +58,9 @@ for (const link of document.querySelectorAll('a[href]')) {
 // Progressive enhancement for document demonstrations; no model calls or file access.
 for (const group of document.querySelectorAll('[data-demo-group]')) {
   const tabs = [...group.querySelectorAll('[role="tab"]')];
+  const tablist = group.querySelector('[role="tablist"]');
   const activate = (tab, focus = false) => {
+    tablist?.style.setProperty('--active-index', String(tabs.indexOf(tab)));
     for (const item of tabs) {
       const selected = item === tab;
       item.setAttribute('aria-selected', String(selected));
@@ -73,6 +75,8 @@ for (const group of document.querySelectorAll('[data-demo-group]')) {
     if (tab) activate(tab);
   };
   activateHash();
+  const initialTab = tabs.find(item => item.getAttribute('aria-selected') === 'true') || tabs[0];
+  if (initialTab) tablist?.style.setProperty('--active-index', String(tabs.indexOf(initialTab)));
   window.addEventListener('hashchange', activateHash);
   for (const tab of tabs) {
     tab.addEventListener('click', () => activate(tab));
@@ -86,6 +90,33 @@ for (const group of document.querySelectorAll('[data-demo-group]')) {
       activate(tabs[next], true);
     });
   }
+}
+
+// Reveal finished content only after it enters the reading area. The page stays
+// fully visible without JavaScript and when reduced motion is requested.
+if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const revealObserver = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      entry.target.classList.add('is-in');
+      revealObserver.unobserve(entry.target);
+    }
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
+  for (const element of document.querySelectorAll('[data-reveal]')) revealObserver.observe(element);
+} else {
+  for (const element of document.querySelectorAll('[data-reveal]')) element.classList.add('is-in');
+}
+
+const ambientVideos = [...document.querySelectorAll('video[autoplay][muted]')];
+if (ambientVideos.length && 'IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const videoObserver = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      const video = entry.target;
+      if (entry.isIntersecting) video.play().catch(() => {});
+      else video.pause();
+    }
+  }, { rootMargin: '12% 0px', threshold: 0.12 });
+  for (const video of ambientVideos) videoObserver.observe(video);
 }
 for (const menu of document.querySelectorAll('.site-menu, .product-menu')) {
   const summary = menu.querySelector('summary');
