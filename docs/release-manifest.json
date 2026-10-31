@@ -1,7 +1,7 @@
 {
   "name": "Coco Office Plugins",
   "version": "online-2026.10.31.1",
-  "channel": "candidate",
+  "channel": "stable",
   "packageDir": "coco",
   "baseUrl": "https://www.cooco.me",
   "generatedAt": "2026-10-31T13:54:00.917Z",
