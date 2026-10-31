@@ -1,0 +1,56 @@
+{
+  "name": "Coco PPT",
+  "nameLocale": {
+    "zh": "Coco PPT",
+    "en": "Coco PPT"
+  },
+  "guid": "asc.{C3F6B2A4-5D7E-4D8A-9C10-6F9B2E5A4D21}",
+  "version": "0.0.1",
+  "minVersion": "7.0.0",
+  "variations": [
+    {
+      "description": "Coco PPT assistant",
+      "descriptionLocale": {
+        "zh": "Coco PPT 助手"
+      },
+      "url": "ppt.html",
+      "icons": [
+        "resources/light/icon.png",
+        "resources/light/icon@2x.png"
+      ],
+      "isViewer": true,
+      "EditorsSupport": ["slide"],
+      "isVisual": true,
+      "isModal": false,
+      "isInsideMode": true,
+      "initDataType": "none",
+      "initData": "",
+      "isUpdateOften": true,
+      "buttons": [],
+      "size": [360, 600],
+      "events": []
+    },
+    {
+      "description": "Coco PPT Probe",
+      "descriptionLocale": {
+        "zh": "Coco PPT 探针"
+      },
+      "url": "ppt.html?probe=1",
+      "icons": [
+        "resources/light/icon.png",
+        "resources/light/icon@2x.png"
+      ],
+      "isViewer": true,
+      "EditorsSupport": ["slide"],
+      "isVisual": true,
+      "isModal": false,
+      "isInsideMode": true,
+      "initDataType": "none",
+      "initData": "",
+      "isUpdateOften": true,
+      "buttons": [],
+      "size": [480, 720],
+      "events": []
+    }
+  ]
+}

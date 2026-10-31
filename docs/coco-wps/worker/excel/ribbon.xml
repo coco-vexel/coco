@@ -1,9 +1,10 @@
 <customUI xmlns="http://schemas.microsoft.com/office/2006/01/customui" onLoad="ribbon.OnAddinLoad">
     <ribbon startFromScratch="false">
         <tabs>
-            <tab id="cocoExcelProbeTab" label="Coco">
-                <group id="cocoExcelProbeGroup" label="Excel 探针">
-                    <button id="btnExcelXmlProbe" label="XML探针" onAction="ribbon.OnAction" getImage="ribbon.GetImage" size="large"/>
+            <tab id="cocoExcelTab" label="Coco">
+                <group id="cocoExcelGroup" label="Excel">
+                    <button id="btnExcelAssistantPanel" label="Coco 助手" onAction="ribbon.OnAction" getImage="ribbon.GetImage" size="large"/>
+                    <button id="btnExcelSettings" label="设置" onAction="ribbon.OnAction" getImage="ribbon.GetImage" size="large"/>
                 </group>
             </tab>
         </tabs>

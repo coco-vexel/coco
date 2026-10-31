@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coco WPS Excel Probe</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 14px;
+        font: 13px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+        color: #17202a;
+        background: #f7f8fa;
+      }
+      h3 {
+        margin: 0 0 12px;
+        font-size: 16px;
+      }
+      button {
+        display: block;
+        width: 100%;
+        min-height: 36px;
+        margin: 8px 0;
+        border: 1px solid #ccd3dd;
+        background: #fff;
+        color: #17202a;
+        cursor: pointer;
+      }
+      button.primary {
+        border-color: #16a34a;
+        background: #16a34a;
+        color: #fff;
+      }
+      pre {
+        min-height: 360px;
+        margin: 12px 0 0;
+        padding: 10px;
+        border: 1px solid #d8dee8;
+        background: #fff;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+      }
+    </style>
+    <script type="module" crossorigin src="../assets/excel-probe-DaLVDkaO.js"></script>
+    <link rel="modulepreload" crossorigin href="../assets/abort-signal-Dc8epiAJ.js">
+    <link rel="modulepreload" crossorigin href="../assets/vendor-polyfills-BxvvoKNw.js">
+    <link rel="modulepreload" crossorigin href="../assets/probe-DjwKgQum.js">
+  </head>
+  <body>
+    <h3>WPS Excel Package Probe</h3>
+    <button id="fast" class="primary">快路径：SaveAsBinaryString</button>
+    <button id="direct-writeback">直写能力探针</button>
+    <button id="sheet-overwrite">Sheet 级覆盖探针</button>
+    <button id="range-copy-deep">Range.Copy 性能/保真探针</button>
+    <button id="object-fidelity">对象保真探针</button>
+    <button id="cross-workbook-copy">跨 Workbook Copy 探针</button>
+    <button id="file-workbook-copy">文件源 Workbook Copy 探针</button>
+    <button id="existing-sheet-overwrite">已有 Sheet 覆盖残留探针</button>
+    <button id="cross-sheet-formula">跨 Sheet 公式探针</button>
+    <button id="rewrite-fast">快路径改写并打开</button>
+    <button id="run">深扫：枚举来源能力</button>
+    <button id="rewrite">改写副本并打开</button>
+    <button id="clear">清空日志</button>
+    <pre id="log"></pre>
+  </body>
+</html>

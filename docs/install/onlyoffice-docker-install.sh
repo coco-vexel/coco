@@ -33,7 +33,7 @@ build_plugin() {
   printf 'window.__COCO_RUNTIME_CONFIG__ = {"apiBaseUrl":"%s"};
 ' "$API_BASE_URL" > "$dir/coco-runtime-config.js"
   for page in index.html excel.html settings.html workflow-editor.html; do
-    curl -fsSL "$BASE_URL/onlyoffice/$page?v=mszojqzi" | sed -e 's#"[.]/v1/#"../v1/#g' -e "s#\"[.]/assets/#\"$BASE_URL/onlyoffice/assets/#g" -e 's#</head>#  <script src="./coco-runtime-config.js"></script></head>#' > "$dir/$page"
+    curl -fsSL "$BASE_URL/onlyoffice/$page?v=online-2026.10.31.1" | sed -e 's#"[.]/v1/#"../v1/#g' -e "s#\"[.]/assets/#\"$BASE_URL/onlyoffice/assets/#g" -e 's#</head>#  <script src="./coco-runtime-config.js"></script></head>#' > "$dir/$page"
   done
   echo "  $label: $dir"
 }

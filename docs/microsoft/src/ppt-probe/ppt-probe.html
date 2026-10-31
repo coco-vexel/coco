@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coco PPT Writeback Probe</title>
+    <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 16px;
+        font: 13px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: #17202a;
+        background: #f7f8fa;
+      }
+      button {
+        display: block;
+        width: 100%;
+        margin: 8px 0;
+        padding: 8px 10px;
+        border: 1px solid #ccd3dd;
+        background: #fff;
+        color: #17202a;
+        cursor: pointer;
+      }
+      button.primary {
+        background: #1769e0;
+        border-color: #1769e0;
+        color: #fff;
+      }
+      pre {
+        min-height: 320px;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        padding: 10px;
+        background: #fff;
+        border: 1px solid #d8dee8;
+      }
+    </style>
+    <script type="module" crossorigin src="../../assets/ppt-probe-BcZH4KoX.js"></script>
+    <link rel="modulepreload" crossorigin href="../../assets/modulepreload-polyfill-DruJWbKq.js">
+    <link rel="modulepreload" crossorigin href="../../assets/vendor-react-CoXlvaKV.js">
+    <link rel="modulepreload" crossorigin href="../../assets/vendor-polyfills-DOdtZpJj.js">
+    <link rel="modulepreload" crossorigin href="../../assets/index-CAK5_oZ0.js">
+    <link rel="modulepreload" crossorigin href="../../assets/coco-sdk-FoQTmu_n.js">
+    <link rel="modulepreload" crossorigin href="../../assets/vendor-BeXBAwpm.js">
+    <link rel="modulepreload" crossorigin href="../../assets/ppt-presentation-LBnQXgCB.js">
+    <link rel="stylesheet" crossorigin href="../../assets/index-BMWEUEq8.css">
+    <link rel="stylesheet" crossorigin href="../../assets/vendor-C5ap-Sga.css">
+  </head>
+  <body>
+    <h3>PPT Writeback Probe</h3>
+    <button id="read-package" class="primary">读取 active PPT package</button>
+    <button id="acceptance-probe" class="primary">一键验收：PPT Agent 写回</button>
+    <button id="sdk-red-writeback">Core SDK 文本改红写回闭环</button>
+    <button id="sdk-safe-font-writeback">Core SDK 局部字体样式闭环</button>
+    <button id="sdk-font-writeback">Core SDK 全文样式压力探针</button>
+    <button id="agent-text-writeback">Agent 写回回归：局部文本</button>
+    <button id="agent-codeplan-style-writeback">Agent 写回回归：标题样式</button>
+    <button id="requirement-probe">Office.js API 能力探针</button>
+    <button id="inspect-active">反读 active package 样式</button>
+    <pre id="log"></pre>
+  </body>
+</html>

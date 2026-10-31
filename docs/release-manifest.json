@@ -1,10 +1,28 @@
 {
   "name": "Coco Office Plugins",
-  "version": "mszojqzi",
-  "channel": "stable",
+  "version": "online-2026.10.31.1",
+  "channel": "candidate",
   "packageDir": "coco",
   "baseUrl": "https://www.cooco.me",
-  "generatedAt": "2026-08-19T05:57:48.217Z",
+  "generatedAt": "2026-10-31T13:54:00.917Z",
+  "sources": {
+    "coco": {
+      "commit": "311457792cd64a45f47c422c89fd5e25155962ba",
+      "dirty": false
+    },
+    "coco-office": {
+      "commit": "8f263586834e80e5f9faefb18add564d6b2c32af",
+      "dirty": false
+    },
+    "coco-engine": {
+      "commit": "5e4e9e0dbcf4833f7afa26a762162b6f1603531a",
+      "dirty": false
+    },
+    "coco-suite": {
+      "commit": "ea8ce7c1006706b22abf381e73269b463ed81947",
+      "dirty": false
+    }
+  },
   "pages": {
     "home": "https://www.cooco.me/index.html",
     "install": "https://www.cooco.me/install.html"

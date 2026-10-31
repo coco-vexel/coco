@@ -1,0 +1,12 @@
+<customUI xmlns="http://schemas.microsoft.com/office/2006/01/customui" onLoad="ribbon.OnAddinLoad">
+    <ribbon startFromScratch="false">
+        <tabs>
+            <tab id="cocoPptTab" label="Coco">
+                <group id="cocoPptGroup" label="PPT">
+                    <button id="btnPptAssistantPanel" label="Coco 助手" onAction="ribbon.OnAction" getImage="ribbon.GetImage" size="large"/>
+                    <button id="btnPptSettings" label="设置" onAction="ribbon.OnAction" getImage="ribbon.GetImage" size="large"/>
+                </group>
+            </tab>
+        </tabs>
+    </ribbon>
+</customUI>

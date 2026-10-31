@@ -7,7 +7,7 @@
   xsi:type="TaskPaneApp">
 
   <Id>c0c0ff00-0000-4000-8000-0000000000e2</Id>
-  <Version>1.26.231.357</Version>
+  <Version>1.26.304.834</Version>
   <ProviderName>Coco</ProviderName>
   <DefaultLocale>zh-CN</DefaultLocale>
   <DisplayName DefaultValue="Coco Excel" />
@@ -83,7 +83,7 @@
         <bt:Image id="Icon.80" DefaultValue="https://www.cooco.me/microsoft/assets/icon-80.png" />
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="Commands.Url" DefaultValue="https://www.cooco.me/microsoft/src/commands/commands.html?v=mszojqzi" />
+        <bt:Url id="Commands.Url" DefaultValue="https://www.cooco.me/microsoft/src/commands/commands.html?v=online-2026.10.31.1" />
         <bt:Url id="Taskpane.Url" DefaultValue="https://www.cooco.me/microsoft/src/taskpane-excel/taskpane-excel.html" />
       </bt:Urls>
       <bt:ShortStrings>

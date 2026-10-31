@@ -6,6 +6,7 @@
                     <button id="btnSession" label="Coco" onAction="ribbon.OnAction" getImage="ribbon.GetImage" size="large"/>
                     <button id="btnTypeset" label="排版" onAction="ribbon.OnAction" getImage="ribbon.GetImage" size="large"/>
                     <button id="btnWorkflow" label="工作流" onAction="ribbon.OnAction" getImage="ribbon.GetImage" size="large"/>
+                    <button id="btnSettings" label="设置" onAction="ribbon.OnAction" getImage="ribbon.GetImage" size="large"/>
                 </group>
             </tab>
         </tabs>

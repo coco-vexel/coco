@@ -41,11 +41,11 @@ foreach ($plugin in $plugins) {
   $runtime = 'window.__COCO_RUNTIME_CONFIG__ = ' + (@{ apiBaseUrl=$ApiBaseUrl } | ConvertTo-Json -Compress) + ';'
   Set-Content -Encoding UTF8 -LiteralPath (Join-Path $dir 'coco-runtime-config.js') -Value $runtime
   foreach ($page in $pages) {
-    $html = (Invoke-WebRequest -UseBasicParsing "$BaseUrl/onlyoffice/$page?v=mszojqzi").Content
+    $html = (Invoke-WebRequest -UseBasicParsing "$BaseUrl/onlyoffice/$page?v=online-2026.10.31.1").Content
     $html = $html -replace '(["''])\./v1/', '$1../v1/'
     $html = $html -replace '(["''])\./assets/', "`$1$BaseUrl/onlyoffice/assets/"
-    $html = $html -replace '(src=["''].*?/onlyoffice/assets/.*?\.js)(["''])', '$1?v=mszojqzi$2'
-    $html = $html -replace '(href=["''].*?/onlyoffice/assets/.*?\.css)(["''])', '$1?v=mszojqzi$2'
+    $html = $html -replace '(src=["''].*?/onlyoffice/assets/.*?\.js)(["''])', '$1?v=online-2026.10.31.1$2'
+    $html = $html -replace '(href=["''].*?/onlyoffice/assets/.*?\.css)(["''])', '$1?v=online-2026.10.31.1$2'
     $html = $html -replace '</head>', '  <script src="./coco-runtime-config.js"></script></head>'
     Set-Content -Encoding UTF8 -LiteralPath (Join-Path $dir $page) -Value $html
   }

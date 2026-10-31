@@ -6,21 +6,34 @@
     <title>Coco Excel Probe Worker</title>
     <script>
       window.ribbon = {
-        OnAddinLoad: function () {
+        OnAddinLoad: function (ribbonUI) {
+          window.__cocoExcelRibbonUI = ribbonUI;
+          if (window.__cocoExcelRibbon) {
+            return window.__cocoExcelRibbon.OnAddinLoad(ribbonUI);
+          }
           return true;
         },
-        OnAction: function () {
+        OnAction: function (control) {
+          if (window.__cocoExcelRibbon) {
+            return window.__cocoExcelRibbon.OnAction(control);
+          }
+          alert("[coco-wps] Excel probe worker is still loading");
           return true;
         },
-        GetImage: function () {
+        GetImage: function (control) {
+          if (window.__cocoExcelRibbon) {
+            return window.__cocoExcelRibbon.GetImage(control);
+          }
           return "../../icons/coco-ribbon.png";
         },
       };
     </script>
-    <script type="module" crossorigin src="../../assets/worker-excel-sxTl4F30.js"></script>
-    <link rel="modulepreload" crossorigin href="../../assets/abort-signal-CpvnURa-.js">
-    <link rel="modulepreload" crossorigin href="../../assets/vendor-react-CWA3To2w.js">
-    <link rel="modulepreload" crossorigin href="../../assets/vendor-polyfills-NR_qrEEo.js">
+    <script type="module" crossorigin src="../../assets/worker-excel-BNSTXqSU.js"></script>
+    <link rel="modulepreload" crossorigin href="../../assets/abort-signal-Dc8epiAJ.js">
+    <link rel="modulepreload" crossorigin href="../../assets/vendor-polyfills-BxvvoKNw.js">
+    <link rel="modulepreload" crossorigin href="../../assets/coco-sdk-Bn14DGe6.js">
+    <link rel="modulepreload" crossorigin href="../../assets/wpsDialog-30C9HIsP.js">
+    <link rel="modulepreload" crossorigin href="../../assets/probe-DjwKgQum.js">
   </head>
   <body>
   </body>

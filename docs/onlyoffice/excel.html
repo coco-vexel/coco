@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coco Excel</title>
+    <script src="./v1/plugins.js"></script>
+    <script src="./v1/plugins-ui.js"></script>
+    <script>
+      (function () {
+        var plugin = window.Asc && window.Asc.plugin;
+        if (plugin) {
+          // plugins.js can dispatch init before the deferred module bundle has
+          // finished loading. Preserve that signal instead of swallowing it.
+          plugin.init = function () {
+            window.__cocoOnlyOfficeExcelInitReceived = true;
+          };
+        }
+      })();
+    </script>
+    <script type="module" crossorigin src="./assets/excel.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/vendor.css">
+    <link rel="stylesheet" crossorigin href="./assets/index.css">
+  </head>
+  <body id="coco-excel">
+    <div id="root">
+      <div style="padding:24px;font-family:Arial,'Microsoft YaHei',sans-serif;color:#222;">
+        Coco Excel 正在加载...
+      </div>
+    </div>
+    <script>
+      (function () {
+        function showBootError(message) {
+          var root = document.getElementById("root");
+          if (!root) return;
+          root.innerHTML =
+            '<div style="padding:24px;font-family:Arial,Microsoft YaHei,sans-serif;color:#b42318;">' +
+            '<div style="font-weight:700;margin-bottom:8px;">Coco Excel 加载失败</div>' +
+            '<pre style="white-space:pre-wrap;font-size:12px;line-height:1.5;">' +
+            String(message || "unknown error")
+              .replace(/&/g, "&amp;")
+              .replace(/</g, "&lt;")
+              .replace(/>/g, "&gt;") +
+            "</pre></div>";
+        }
+        window.addEventListener("error", function (event) {
+          showBootError(event.message || event.error);
+        });
+        window.addEventListener("unhandledrejection", function (event) {
+          showBootError(event.reason && (event.reason.stack || event.reason.message || event.reason));
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coco Excel</title>
+    <script>
+      (function () {
+        function showStartupError(title, error) {
+          var root = document.getElementById("root");
+          if (!root) return;
+          var message =
+            error && (error.stack || error.message || String(error));
+          root.innerHTML =
+            '<div style="padding:24px;font-family:Segoe UI,Arial,sans-serif;color:#172033">' +
+            '<h2 style="margin:0 0 12px;font-size:18px;color:#b91c1c">Coco Excel 启动失败</h2>' +
+            '<div style="margin-bottom:10px;font-weight:600">' +
+            title +
+            "</div>" +
+            '<pre style="white-space:pre-wrap;overflow:auto;max-height:420px;padding:12px;border:1px solid #fecaca;background:#fef2f2;border-radius:8px;color:#7f1d1d">' +
+            (message || "Unknown error") +
+            "</pre>" +
+            "</div>";
+        }
+        window.__cocoShowExcelStartupError = showStartupError;
+        window.addEventListener("error", function (event) {
+          showStartupError("window.error", event.error || event.message);
+        });
+        window.addEventListener("unhandledrejection", function (event) {
+          showStartupError("unhandledrejection", event.reason);
+        });
+      })();
+    </script>
+    <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+    <script type="module" crossorigin src="../../assets/taskpane-excel-CeKpOj3z.js"></script>
+    <link rel="modulepreload" crossorigin href="../../assets/modulepreload-polyfill-DruJWbKq.js">
+    <link rel="modulepreload" crossorigin href="../../assets/vendor-react-CoXlvaKV.js">
+    <link rel="modulepreload" crossorigin href="../../assets/vendor-polyfills-DOdtZpJj.js">
+    <link rel="modulepreload" crossorigin href="../../assets/index-CAK5_oZ0.js">
+    <link rel="modulepreload" crossorigin href="../../assets/coco-sdk-FoQTmu_n.js">
+    <link rel="modulepreload" crossorigin href="../../assets/vendor-BeXBAwpm.js">
+    <link rel="modulepreload" crossorigin href="../../assets/app-engine-Cv1r5cxH.js">
+    <link rel="modulepreload" crossorigin href="../../assets/app-ui-BxWM-Eq8.js">
+    <link rel="modulepreload" crossorigin href="../../assets/microsoft-VvLCykhR.js">
+    <link rel="stylesheet" crossorigin href="../../assets/index-BMWEUEq8.css">
+    <link rel="stylesheet" crossorigin href="../../assets/vendor-C5ap-Sga.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

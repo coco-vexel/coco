@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coco PPT Probe Worker</title>
+    <script>
+      window.ribbon = {
+        OnAddinLoad: function (ribbonUI) {
+          window.__cocoPptRibbonUI = ribbonUI;
+          if (window.__cocoPptRibbon) {
+            return window.__cocoPptRibbon.OnAddinLoad(ribbonUI);
+          }
+          return true;
+        },
+        OnAction: function (control) {
+          if (window.__cocoPptRibbon) {
+            return window.__cocoPptRibbon.OnAction(control);
+          }
+          alert("[coco-wps] PPT probe worker is still loading");
+          return true;
+        },
+        GetImage: function (control) {
+          if (window.__cocoPptRibbon) {
+            return window.__cocoPptRibbon.GetImage(control);
+          }
+          return "../../icons/coco-ribbon.png";
+        },
+      };
+    </script>
+    <script type="module" crossorigin src="../../assets/worker-ppt-BHi2adxG.js"></script>
+    <link rel="modulepreload" crossorigin href="../../assets/abort-signal-Dc8epiAJ.js">
+    <link rel="modulepreload" crossorigin href="../../assets/vendor-polyfills-BxvvoKNw.js">
+    <link rel="modulepreload" crossorigin href="../../assets/coco-sdk-Bn14DGe6.js">
+    <link rel="modulepreload" crossorigin href="../../assets/vendor-react-CKQe7i2W.js">
+    <link rel="modulepreload" crossorigin href="../../assets/vendor-BXY7PEUc.js">
+    <link rel="modulepreload" crossorigin href="../../assets/app-engine-ByfWzCEv.js">
+    <link rel="modulepreload" crossorigin href="../../assets/wps-bridge-Buzs7oWu.js">
+    <link rel="modulepreload" crossorigin href="../../assets/file-system-C8tVqFx8.js">
+    <link rel="modulepreload" crossorigin href="../../assets/wpsDialog-30C9HIsP.js">
+    <link rel="modulepreload" crossorigin href="../../assets/plugin-storage-MxQA-6bj.js">
+    <link rel="modulepreload" crossorigin href="../../assets/wps-DpY8_ktf.js">
+    <link rel="modulepreload" crossorigin href="../../assets/probe-BOYbSf43.js">
+    <link rel="stylesheet" crossorigin href="../../assets/vendor-C5ap-Sga.css">
+  </head>
+  <body>
+  </body>
+</html>

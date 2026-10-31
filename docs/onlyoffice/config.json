@@ -13,15 +13,14 @@
       "descriptionLocale": {
         "zh": "Coco 文档助手"
       },
-      "url": "./?v=mszojqzi",
+      "url": "./?v=online-2026.10.31.1",
       "icons": [
         "resources/light/icon.png",
         "resources/light/icon@2x.png"
       ],
       "isViewer": true,
       "EditorsSupport": [
-        "word",
-        "slide"
+        "word"
       ],
       "isVisual": true,
       "isModal": false,
