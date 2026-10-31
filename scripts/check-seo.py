@@ -57,5 +57,5 @@ for name,page in pages.items():
 import re
 blocks=re.findall(r'<script type="application/ld\+json">(.*?)</script>',(root/'index.html').read_text(encoding='utf-8'),re.S)
 assert len(blocks)==1
-schema=json.loads(blocks[0]);assert {x['@type'] for x in schema['@graph']}=={'Organization','WebSite'}
+schema=json.loads(blocks[0]);assert {x['@type'] for x in schema['@graph']}=={'Organization','WebSite','SoftwareApplication'}
 print(f'PASS: {len(pages)} page metadata/canonicals/internal links; {len(urls)} sitemap URLs; robots and JSON-LD')
