@@ -21,6 +21,8 @@ class Page(HTMLParser):
 
 pages={}
 for path in root.glob('*.html'):
+    if path.name.startswith('baidu_verify_'):
+        continue
     page=Page(); page.feed(path.read_text(encoding='utf-8')); pages[path.name]=page
     indexable='noindex' not in page.meta.get('robots','')
     assert page.titles==1, path
