@@ -1,5 +1,5 @@
 /* Distinct product narratives, shared Coco typography and navigation. */
-.office-page,.desktop-page{background:#fcfdff;font-size:15px}
+.office-page,.desktop-page{background:var(--product-page-canvas,#fbfcff);font-size:15px}
 .office-page .renewed,.desktop-page .renewed{max-width:1160px}
 .office-page h2,.desktop-page h2{font-size:26px}
 .office-page h3,.desktop-page h3{font-size:18px}

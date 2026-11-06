@@ -1,10 +1,10 @@
 :root{--web-ink:#162238;--web-muted:#56657b;--web-blue:#3457f0;--web-line:#dfe5ef;--web-soft:#f3f6fb}
 html:has(.web-product-page){overflow-x:clip}
-.web-product-page{background:#fff;color:var(--web-ink);overflow-x:clip}
+.web-product-page{background:var(--product-page-canvas,#fbfcff);color:var(--web-ink);overflow-x:clip}
 .web-product-page ::selection{background:#dbe6ff;color:#17233a}
 .web-product-page .renewed{max-width:1180px}
 .web-product-page .web-opening{display:grid;grid-template-columns:minmax(310px,.72fr) minmax(0,1.28fr);gap:38px 64px;align-items:center;padding:72px 0 54px;text-align:left}
-.web-product-page .web-opening::before{inset:0 auto;left:50%;width:100vw;height:auto;transform:translateX(-50%);background:#f5f7fc}
+.web-product-page .web-opening::before{inset:0 auto;left:50%;width:100vw;height:auto;transform:translateX(-50%);background:var(--product-page-canvas,#fbfcff)}
 .web-opening-copy{max-width:420px;margin:0}
 .web-product-page .web-opening h1{font-size:clamp(46px,4.25vw,60px);line-height:1.12;letter-spacing:-.04em;font-weight:650;margin:0;text-wrap:balance}
 .web-product-page .web-opening h1 span{color:var(--web-blue)}

@@ -1,5 +1,5 @@
 :root{--office-blue:#3159ee;--office-ink:#172238;--office-muted:#536178;--office-line:#dce4f1}
-.office-product-page{background:#fbfcff;color:var(--office-ink)}
+.office-product-page{background:var(--product-page-canvas,#fbfcff);color:var(--office-ink)}
 .office-product-page .renewed{max-width:1180px;padding:0 38px}
 .office-product-page .eyebrow{margin:0 0 16px;font-size:11px;font-weight:750;letter-spacing:.13em;color:var(--office-blue)}
 .office-product-page h2{font-size:clamp(28px,2.6vw,36px);font-weight:680;line-height:1.3;letter-spacing:-.025em}

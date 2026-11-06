@@ -1,7 +1,11 @@
 /* Marketing surfaces: whitespace groups sections; tint groups demonstrations.
    Document selection, table rules and keyboard focus retain their boundaries. */
+:root{--product-page-canvas:#fbfcff}
+body.product-overview-page{background-color:var(--product-page-canvas)}
 body.soft-surfaces{background-color:#f8faff;background-image:radial-gradient(ellipse 760px 540px at 88% 160px,#e8eaff99,transparent),radial-gradient(ellipse 620px 420px at 8% 30px,#e5f9fc99,transparent);background-repeat:no-repeat}
+body.soft-surfaces:is(.web-product-page,.office-product-page,.desktop-page){background-color:var(--product-page-canvas);background-image:none}
 .soft-surfaces .site-header{border-bottom:0;background:#ffffffdb;backdrop-filter:blur(16px)}
+body.product-overview-page .site-header,body.soft-surfaces:is(.web-product-page,.office-product-page,.desktop-page) .site-header{border-bottom:0;background:rgb(255 255 255 / 74%);backdrop-filter:blur(16px)}
 .soft-surfaces .site-footer{border-top:0;background:transparent}
 .soft-surfaces .site-section{border-top:0}
 .soft-surfaces .end-banner{border:0;box-shadow:none}
@@ -55,4 +59,4 @@ body.soft-surfaces{background-color:#f8faff;background-image:radial-gradient(ell
 .soft-surfaces .case-documents article:last-child{background:#edf3ff}
 .soft-surfaces .studio-tabs{background:#edf1f8}
 @media(max-width:600px){.soft-surfaces .web-example{padding:22px}.soft-surfaces .office-assistant{border-top:0}.web-product-page.soft-surfaces .steps{gap:12px}}
-@media(prefers-reduced-transparency:reduce){.soft-surfaces .site-header{background:#fff;backdrop-filter:none}}
+@media(prefers-reduced-transparency:reduce){.soft-surfaces .site-header,body.product-overview-page .site-header{background:#fff;backdrop-filter:none}}
