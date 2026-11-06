@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Coco 应用市场｜发现文档工具包</title>
+  <meta name="description" content="浏览 Coco Office 应用市场中的文档工具包，按场景筛选并快速找到适合 Word、Excel 和 PPT 的能力。" />
+  <link rel="canonical" href="https://www.cooco.me/marketplace.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Coco 应用市场｜发现文档工具包" />
+  <meta property="og:description" content="搜索、筛选并发现适合 Word、Excel 和 PPT 的 Coco Office 工具包。" />
+  <meta property="og:url" content="https://www.cooco.me/marketplace.html" />
+  <meta property="og:locale" content="zh_CN" />
+  <link rel="icon" href="./assets/brand-logo.png" />
+  <script>document.documentElement.classList.add('js')</script>
+  <script src="./site.js?v=online-2026.11.05.1" defer></script>
+  <script src="./marketplace.js?v=online-2026.11.05.24" defer></script>
+  <link rel="stylesheet" href="./site-shell.css?v=online-2026.10.31.1" />
+  <link rel="stylesheet" href="./website.css?v=online-2026.10.31.1" />
+  <link rel="stylesheet" href="./navigation.css?v=online-2026.11.05.1" />
+  <link rel="stylesheet" href="./marketplace.css?v=online-2026.11.05.24" />
+</head>
+<body class="marketplace-page">
+  <a class="skip-link" href="#main-content">跳到主要内容</a>
+  <header class="site-header">
+    <nav class="site-nav" aria-label="主导航">
+      <a class="site-brand" href="./"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a>
+      <div class="site-links"><a href="./products.html">Coco Office</a><a href="./marketplace.html" aria-current="page">应用市场</a><a href="https://travel.cooco.me" target="_blank" rel="noopener noreferrer">Coco Travel ↗</a><a href="./developers.html">开发者</a></div>
+      <a class="site-chat" href="https://chat.cooco.me" target="_blank" rel="noopener noreferrer">打开网页版 ↗</a>
+      <details class="site-menu"><summary aria-label="打开导航菜单"><span aria-hidden="true">菜单</span></summary><div><a href="./products.html">Coco Office</a><a href="./marketplace.html" aria-current="page">应用市场</a><a href="./web.html">网页版</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a><a href="https://travel.cooco.me" target="_blank" rel="noopener noreferrer">Coco Travel ↗</a><a href="./download.html">下载与安装</a><a href="./developers.html">开发者</a><a href="./support.html">帮助与支持</a></div></details>
+    </nav>
+  </header>
+
+  <main class="marketplace-main" id="main-content">
+    <section class="marketplace-catalog" aria-labelledby="catalog-title">
+      <div class="marketplace-catalog-heading">
+        <div><h1 id="catalog-title">探索工具包</h1><p id="marketplace-summary" aria-live="polite">正在读取应用列表</p></div>
+      </div>
+      <span class="marketplace-controls-sentinel" aria-hidden="true"></span>
+      <div class="marketplace-controls">
+        <div class="marketplace-filters" id="marketplace-filters" aria-label="按分类筛选" role="group"></div>
+        <form class="marketplace-search" role="search" id="marketplace-search-form">
+          <label class="sr-only" for="marketplace-search">搜索应用</label>
+          <span class="marketplace-search-control">
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <input id="marketplace-search" type="search" name="q" autocomplete="off" placeholder="搜索工具包" />
+            <button type="button" class="marketplace-search-clear" aria-label="清除搜索" hidden>清除</button>
+          </span>
+        </form>
+      </div>
+      <div class="marketplace-grid" id="marketplace-grid" aria-busy="true">
+        <div class="marketplace-skeleton" aria-hidden="true"></div>
+        <div class="marketplace-skeleton" aria-hidden="true"></div>
+        <div class="marketplace-skeleton" aria-hidden="true"></div>
+        <div class="marketplace-skeleton" aria-hidden="true"></div>
+        <div class="marketplace-skeleton" aria-hidden="true"></div>
+        <div class="marketplace-skeleton" aria-hidden="true"></div>
+      </div>
+      <div class="marketplace-load-more" id="marketplace-load-more" aria-live="polite" hidden>
+        <span>正在加载更多</span>
+        <button type="button" hidden>继续加载</button>
+      </div>
+      <div class="marketplace-state" id="marketplace-empty" hidden>
+        <h3>没有找到匹配的应用</h3>
+        <p>试试更短的关键词，或切换到其他分类。</p>
+        <button type="button" class="marketplace-reset">查看全部应用</button>
+      </div>
+      <div class="marketplace-state marketplace-error" id="marketplace-error" hidden>
+        <h3>应用列表暂时不可用</h3>
+        <p>请稍后重试，或先前往网页版继续处理文档。</p>
+        <div><button type="button" class="marketplace-retry">重新加载</button><a href="https://chat.cooco.me" target="_blank" rel="noopener noreferrer">打开网页版 ↗</a></div>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="marketplace-lightbox" id="marketplace-lightbox" aria-labelledby="marketplace-lightbox-title">
+    <div class="marketplace-lightbox-toolbar">
+      <div><strong id="marketplace-lightbox-title">图片预览</strong><span id="marketplace-lightbox-count"></span></div>
+      <button type="button" class="marketplace-lightbox-close" aria-label="关闭图片预览">关闭</button>
+    </div>
+    <div class="marketplace-lightbox-stage">
+      <button type="button" class="marketplace-lightbox-previous" aria-label="上一张图片">←</button>
+      <img id="marketplace-lightbox-image" alt="" />
+      <button type="button" class="marketplace-lightbox-next" aria-label="下一张图片">→</button>
+    </div>
+  </dialog>
+
+  <footer class="site-footer">
+    <div class="footer-brand"><a class="site-brand" href="./"><img src="./assets/brand-logo.png" alt="" width="32" height="32" />Coco</a><p>让想法走到结果。</p></div>
+    <div><h2>产品</h2><a href="./products.html">Coco Office</a><a href="./marketplace.html" aria-current="page">应用市场</a><a href="https://travel.cooco.me" target="_blank" rel="noopener noreferrer">Coco Travel ↗</a><a href="./web.html">网页版 Agent</a><a href="./plugins.html">Office 插件</a><a href="./desktop.html">桌面应用</a></div>
+    <div><h2>开发者</h2><a href="./developers.html">开发者总览</a><a href="./core.html">Core SDK</a><a href="https://www.npmjs.com/package/@coco-vexel/coco-office">npm 包</a><a href="https://github.com/coco-vexel/coco-office">GitHub 源码</a><a href="./editor.html">浏览器编辑器</a></div>
+    <div><h2>支持与资源</h2><a href="./scenarios.html">任务示例</a><a href="./install.html">安装指南</a><a href="./support.html">帮助与兼容性</a><a href="https://github.com/coco-vexel/coco/releases">版本公告</a><a href="https://github.com/coco-vexel/coco/issues">反馈问题</a><a href="https://github.com/coco-vexel/coco">GitHub</a></div>
+    <p class="footer-legal"><span>Copyright © 2026 Coco Vexel. All Rights Reserved.</span><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">蜀ICP备2026044849号-1</a></p>
+  </footer>
+</body>
+</html>

@@ -2,7 +2,7 @@
 
 ## 浏览路径
 
-首页 → 产品详情 → 对应获取入口。主导航以 Coco Office、Coco Travel 和开发者为一级入口；桌面端的 Coco Office 二级菜单直接提供产品概览、网页版、Office 插件和桌面应用，移动端在统一菜单中保持这些入口平铺可见。产品比较为辅助页面，不要求用户逐层选择。
+首页 → 产品详情 → 对应获取入口。主导航以 Coco Office、应用市场、Coco Travel 和开发者为一级入口；桌面端的 Coco Office 二级菜单直接提供产品概览、网页版、Office 插件和桌面应用，移动端在统一菜单中保持这些入口平铺可见。应用市场通过 `/api/public/products/coco-office/toolkits` 读取工具包，提供搜索与分类筛选。产品比较为辅助页面，不要求用户逐层选择。
 开发者有独立路径：SDK 比较 → 各 SDK 的 API 与集成边界。
 
 ## 页面职责
@@ -10,6 +10,7 @@
 - index.html：说明核心用途并带向具体任务，不承担全部产品文档。
 - scenarios.html：展示虚构材料的单项复测结果重排（文字替换、单元格修改、字号调整），明确标注非产品截图或实时执行。
 - products.html：比较浏览器、Office 宿主和本地工作区三种使用方式。
+- marketplace.html：浏览、搜索和筛选 Coco Office 工具包；数据由公开产品接口提供。
 - web.html / plugins.html / desktop.html：各产品的工作流程与使用条件。
 - word.html / excel.html：插件领域能力。
 - download.html：统一获取路径与可用状态；install.html 保留安装步骤。

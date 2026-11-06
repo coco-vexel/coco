@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DESIGN Preview</title>
+    <meta name="color-scheme" content="light" />
+    <style>
+      :root {
+        --page-bg: #F7F8FB;
+        --page-bg-muted: rgb(251, 252, 253);
+        --surface-bg: #FFFFFF;
+        --surface-bg-muted: rgb(251, 252, 253);
+        --surface-border: #ebebeb;
+        --surface-border-strong: rgb(216, 218, 223);
+        --surface-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 2px 2px rgba(0, 0, 0, 0.04), 0 8px 8px -8px rgba(0, 0, 0, 0.04);
+        --surface-shadow-soft: 0 0 0 1px #ebebeb;
+        --ink: #182236;
+        --muted: #4d4d4d;
+        --subtle: rgb(144, 150, 160);
+        --accent: #0072f5;
+        --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+        --font-display: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+        --font-mono: ui-monospace, "SFMono-Regular", "SF Mono", Menlo, monospace;
+        --body-size: 17px;
+        --body-line: 20px;
+        --body-weight: 400;
+        --label-size: 14px;
+        --label-line: 16px;
+        --label-track: 0.04em;
+        --title-size: 32px;
+        --title-line: 28px;
+        --title-track: -0.045em;
+        --section-size: 32px;
+        --section-line: 24px;
+        --section-track: -0.045em;
+        --source-size: 13px;
+        --source-line: 20px;
+        --space-1: 4px;
+        --space-2: 6px;
+        --space-3: 8px;
+        --space-4: 12px;
+        --space-5: 16px;
+        --space-6: 20px;
+        --radius-panel: 4px;
+        --radius-card: 4px;
+        --radius-micro: 2px;
+        --radius-pill: 999px;
+        --button-height: 40px;
+        --button-font-size: 14px;
+        --button-weight: 500;
+        --button-radius: 999px;
+        --secondary-button-radius: 999px;
+        --layout-gap: 12px;
+        --page-padding: 12px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        color: var(--ink);
+        font-family: var(--font-body);
+        font-size: var(--body-size);
+        font-weight: var(--body-weight);
+        line-height: var(--body-line);
+        background:
+          radial-gradient(circle at top, color-mix(in srgb, var(--accent) 8%, transparent), transparent 30%),
+          linear-gradient(180deg, var(--page-bg) 0%, var(--page-bg-muted) 100%);
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        background-image:
+          linear-gradient(color-mix(in srgb, var(--surface-border) 56%, transparent) 1px, transparent 1px),
+          linear-gradient(90deg, color-mix(in srgb, var(--surface-border) 56%, transparent) 1px, transparent 1px);
+        background-size: 100% calc(24px), calc(24px) 100%;
+        mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.3), transparent 88%);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button {
+        font: inherit;
+      }
+
+      .shell {
+        width: min(1440px, calc(100vw - (var(--page-padding) * 2)));
+        margin: 0 auto;
+        padding: var(--page-padding) 0 calc(var(--page-padding) * 1.2);
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: minmax(340px, 0.92fr) minmax(420px, 1fr);
+        gap: var(--layout-gap);
+        align-items: start;
+      }
+
+      .stack {
+        display: grid;
+        gap: var(--space-4);
+      }
+
+      .panel {
+        overflow: hidden;
+        border: 1px solid var(--surface-border);
+        border-radius: var(--radius-panel);
+        background: linear-gradient(180deg, color-mix(in srgb, var(--surface-bg) 88%, white) 0%, var(--surface-bg) 100%);
+        box-shadow: var(--surface-shadow);
+      }
+
+      .panel-inner {
+        padding: var(--space-4);
+      }
+
+      .hero-card {
+        position: relative;
+      }
+
+      .hero-card::before {
+        content: "";
+        position: absolute;
+        left: var(--space-4);
+        right: var(--space-4);
+        top: 0;
+        height: 3px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, #F7F8FB 0%, #FFFFFF 33%, #EDF1F7 67%, #E9EDFF 100%);
+      }
+
+      .eyebrow {
+        margin-bottom: var(--space-2);
+        color: var(--muted);
+        font-size: var(--label-size);
+        line-height: var(--label-line);
+        letter-spacing: var(--label-track);
+        text-transform: uppercase;
+      }
+
+      .site-title,
+      .section-title {
+        margin: 0;
+        color: var(--ink);
+        font-family: var(--font-display);
+        font-weight: 600;
+      }
+
+      .site-title {
+        font-size: var(--title-size);
+        line-height: var(--title-line);
+        letter-spacing: var(--title-track);
+      }
+
+      .descriptor {
+        margin: var(--space-2) 0 0;
+        max-width: 42ch;
+        color: var(--muted);
+        font-size: var(--body-size);
+        line-height: var(--body-line);
+      }
+
+      .summary {
+        margin: var(--space-3) 0 0;
+        max-width: 56ch;
+        color: var(--muted);
+        font-size: var(--body-size);
+        line-height: var(--body-line);
+      }
+
+      .chip-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-2);
+        margin: var(--space-3) 0 0;
+      }
+
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        min-height: calc(4px * 3);
+        padding: 0 var(--space-2);
+        border: 1px solid var(--surface-border);
+        border-radius: var(--radius-pill);
+        background: var(--surface-bg);
+        color: var(--ink);
+        font-size: var(--label-size);
+        line-height: var(--label-line);
+        box-shadow: var(--surface-shadow-soft);
+      }
+
+      .observed-link {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-2);
+        margin-top: var(--space-4);
+        padding-top: var(--space-3);
+        border-top: 1px solid var(--surface-border);
+        color: var(--muted);
+        font-size: var(--label-size);
+        overflow-wrap: anywhere;
+      }
+
+      .observed-link::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: var(--accent);
+        box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 16%, transparent);
+      }
+
+      .section-title {
+        font-size: var(--section-size);
+        line-height: var(--section-line);
+        letter-spacing: var(--section-track);
+      }
+
+      .section-subtitle {
+        margin: var(--space-2) 0 var(--space-4);
+        color: var(--muted);
+        font-size: var(--body-size);
+        line-height: var(--body-line);
+      }
+
+      .palette-grid,
+      .theme-mode-grid,
+      .type-list,
+      .component-card,
+      .prompt-list,
+      .mini-grid,
+      .token-table {
+        display: grid;
+        gap: var(--space-2);
+      }
+
+      .palette-row {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--space-2);
+      }
+
+      .palette-row.neutral-row {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .theme-mode-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-3);
+      }
+
+      .theme-mode-card {
+        display: grid;
+        gap: var(--space-2);
+        padding: var(--space-3);
+        border: 1px solid var(--surface-border);
+        border-radius: var(--radius-card);
+        background: color-mix(in srgb, var(--surface-bg) 92%, white);
+      }
+
+      .theme-mode-card.is-dark {
+        background: #111111;
+        color: #f4f4f4;
+        border-color: rgba(255, 255, 255, 0.12);
+      }
+
+      .theme-mode-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-2);
+      }
+
+      .theme-mode-label {
+        color: var(--subtle);
+        font-size: var(--label-size);
+        line-height: var(--label-line);
+        letter-spacing: var(--label-track);
+        text-transform: uppercase;
+      }
+
+      .theme-mode-card.is-dark .theme-mode-label {
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .theme-mode-note {
+        margin: 0;
+        color: var(--muted);
+        font-size: calc(var(--body-size) - 1px);
+        line-height: calc(var(--body-line) - 4px);
+      }
+
+      .theme-mode-card.is-dark .theme-mode-note {
+        color: rgba(255, 255, 255, 0.82);
+      }
+
+      .theme-swatch-row {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: var(--space-2);
+      }
+
+      .theme-swatch {
+        display: grid;
+        gap: 6px;
+      }
+
+      .theme-swatch-box {
+        height: 72px;
+        border-radius: calc(var(--radius-card) - 4px);
+        border: 1px solid color-mix(in srgb, var(--surface-border-strong) 75%, transparent);
+      }
+
+      .theme-mode-card.is-dark .theme-swatch-box {
+        border-color: rgba(255, 255, 255, 0.14);
+      }
+
+      .theme-swatch-name {
+        color: inherit;
+        font-size: 12px;
+        line-height: 1.3;
+      }
+
+      .theme-swatch-value {
+        color: var(--subtle);
+        font-size: 11px;
+        line-height: 1.3;
+      }
+
+      .theme-mode-card.is-dark .theme-swatch-value {
+        color: rgba(255, 255, 255, 0.62);
+      }
+
+      .swatch {
+        display: grid;
+        gap: var(--space-2);
+      }
+
+      .swatch-box {
+        min-height: calc(4px * 12);
+        border-radius: var(--radius-card);
+        border: 1px solid color-mix(in srgb, var(--surface-border-strong) 75%, transparent);
+        box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 4%, transparent);
+      }
+
+      .swatch-label,
+      .token-heading,
+      .prompt-card strong,
+      .card-preview h4 {
+        color: var(--ink);
+        font-family: var(--font-display);
+        font-size: var(--body-size);
+        line-height: var(--body-line);
+        font-weight: 600;
+      }
+
+      .swatch-meta,
+      .type-metrics,
+      .mini-label,
+      .copy-state,
+      .file-tab,
+      .ghost-button,
+      .segmented button {
+        color: var(--muted);
+        font-size: var(--label-size);
+        line-height: var(--label-line);
+      }
+
+      .type-row {
+        display: grid;
+        grid-template-columns: 72px minmax(0, 1fr) auto;
+        gap: var(--space-2);
+        align-items: baseline;
+        padding: var(--space-2) 0;
+        border-top: 1px solid var(--surface-border);
+      }
+
+      .type-row:first-child,
+      .mini-row:first-child,
+      .token-row:first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+
+      .type-role {
+        color: var(--muted);
+        font-size: var(--label-size);
+        line-height: var(--label-line);
+        letter-spacing: var(--label-track);
+        text-transform: uppercase;
+      }
+
+      .type-sample {
+        color: var(--ink);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .split-card {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-4);
+      }
+
+      .token-row,
+      .mini-row {
+        display: grid;
+        gap: var(--space-2);
+        align-items: start;
+        padding-top: var(--space-2);
+        border-top: 1px solid var(--surface-border);
+      }
+
+      .token-row {
+        grid-template-columns: 1fr auto;
+      }
+
+      .mini-row {
+        grid-template-columns: 88px minmax(0, 1fr);
+      }
+
+      .mini-content,
+      .prompt-card p,
+      .card-preview p {
+        color: var(--muted);
+        font-size: var(--body-size);
+        line-height: var(--body-line);
+      }
+
+      .radius-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-2);
+      }
+
+      .radius-card,
+      .prompt-card {
+        padding: var(--space-3);
+        border: 1px solid var(--surface-border);
+        border-radius: var(--radius-card);
+        background: var(--surface-bg-muted);
+        box-shadow: var(--surface-shadow-soft);
+      }
+
+      .radius-demo {
+        aspect-ratio: 1;
+        width: 100%;
+        border: 1px solid var(--surface-border-strong);
+        background: var(--surface-bg);
+      }
+
+      .radius-name {
+        margin-top: var(--space-2);
+        color: var(--ink);
+        font-size: var(--body-size);
+        line-height: var(--body-line);
+        font-weight: 600;
+      }
+
+      .radius-value {
+        margin-top: 4px;
+        color: var(--muted);
+        font-size: var(--label-size);
+      }
+
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-2);
+      }
+
+      .cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: var(--button-height);
+        padding: 0 var(--space-3);
+        border-radius: var(--button-radius);
+        font-family: var(--font-body);
+        font-size: var(--button-font-size);
+        font-weight: var(--button-weight);
+        line-height: 1;
+        letter-spacing: normal;
+      }
+
+      .cta-primary {
+        border: 1px solid transparent;
+        background: #171717;
+        color: #ffffff;
+        border-radius: 999px;
+      }
+
+      .cta-secondary {
+        border: 1px solid #171717;
+        background: #ffffff;
+        color: #171717;
+        border-radius: 999px;
+        box-shadow: var(--surface-shadow-soft);
+      }
+
+      .card-preview {
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid color-mix(in srgb, var(--surface-border-strong) 72%, transparent);
+        background: var(--surface-bg);
+        color: var(--ink);
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 2px 2px rgba(0, 0, 0, 0.04), 0 8px 8px -8px rgba(0, 0, 0, 0.04);
+      }
+
+      .card-preview h4 {
+        margin: 0 0 var(--space-1);
+      }
+
+      .source-shell {
+        position: sticky;
+        top: var(--page-padding);
+      }
+
+      .source-header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-2);
+        padding: var(--space-3) var(--space-4) var(--space-2);
+        border-bottom: 1px solid var(--surface-border);
+      }
+
+      .file-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2px var(--space-3);
+      }
+
+      .file-tab {
+        padding: 0 0 var(--space-2);
+        border-bottom: 2px solid transparent;
+      }
+
+      .file-tab.active {
+        color: var(--ink);
+        border-bottom-color: var(--ink);
+        font-weight: 600;
+      }
+
+      .source-toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--space-2);
+        padding: var(--space-2) var(--space-4);
+        border-bottom: 1px solid var(--surface-border);
+      }
+
+      .segmented {
+        display: inline-flex;
+        padding: 3px;
+        border: 1px solid var(--surface-border);
+        border-radius: var(--radius-pill);
+        background: var(--surface-bg-muted);
+      }
+
+      .segmented button {
+        border: 0;
+        border-radius: var(--radius-pill);
+        background: transparent;
+        padding: 6px 12px;
+        cursor: pointer;
+      }
+
+      .segmented button.is-active {
+        background: var(--surface-bg);
+        color: var(--ink);
+        box-shadow: var(--surface-shadow-soft);
+      }
+
+      .toolbar-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-2);
+        margin-left: auto;
+      }
+
+      .ghost-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 12px;
+        border: 1px solid var(--surface-border);
+        border-radius: 2px;
+        background: var(--surface-bg);
+        box-shadow: var(--surface-shadow-soft);
+        cursor: pointer;
+      }
+
+      .source-body {
+        max-height: calc(100vh - (var(--page-padding) * 2) - 120px);
+        overflow: auto;
+      }
+
+      .source-view,
+      .rendered-view {
+        margin: 0;
+        padding: var(--space-4);
+      }
+
+      .source-view {
+        color: var(--ink);
+        font-family: var(--font-mono);
+        font-size: var(--source-size);
+        line-height: var(--source-line);
+        white-space: pre-wrap;
+        word-break: break-word;
+        background: var(--surface-bg);
+      }
+
+      .rendered-view {
+        color: var(--ink);
+        font-family: var(--font-body);
+        font-size: var(--body-size);
+        line-height: var(--body-line);
+        background: var(--surface-bg);
+      }
+
+      .rendered-view[hidden],
+      .source-view[hidden] {
+        display: none;
+      }
+
+      .rendered-view h2,
+      .rendered-view h3 {
+        margin: var(--space-4) 0 var(--space-2);
+        color: var(--ink);
+        font-family: var(--font-display);
+        font-weight: 600;
+      }
+
+      .rendered-view h2 {
+        font-size: var(--section-size);
+        line-height: var(--section-line);
+        letter-spacing: var(--section-track);
+      }
+
+      .rendered-view h2:first-child {
+        margin-top: 0;
+      }
+
+      .rendered-view h3 {
+        color: var(--muted);
+        font-size: calc(32px - 4px);
+        line-height: calc(28px - 4px);
+      }
+
+      .rendered-view p,
+      .rendered-view li {
+        color: var(--muted);
+      }
+
+      .rendered-view ul,
+      .rendered-view ol {
+        margin: 0 0 var(--space-3) 20px;
+        padding: 0;
+      }
+
+      .rendered-view table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: var(--space-2) 0 var(--space-4);
+      }
+
+      .rendered-view th,
+      .rendered-view td {
+        padding: var(--space-2) var(--space-2);
+        border: 1px solid var(--surface-border);
+        text-align: left;
+        vertical-align: top;
+        font-size: var(--label-size);
+        line-height: var(--label-line);
+      }
+
+      .rendered-view th {
+        color: var(--ink);
+        background: var(--surface-bg-muted);
+      }
+
+      .rendered-view code {
+        padding: 0.14em 0.4em;
+        border-radius: 2px;
+        background: var(--surface-bg-muted);
+        color: var(--ink);
+        font-family: var(--font-mono);
+        font-size: 0.92em;
+      }
+
+      @media (max-width: 1120px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+
+        .source-shell {
+          position: relative;
+          top: 0;
+        }
+
+        .source-body {
+          max-height: none;
+        }
+      }
+
+      @media (max-width: 760px) {
+        .shell {
+          width: min(100vw - (6px * 2), 100%);
+          padding-top: 6px;
+        }
+
+        .panel-inner,
+        .source-view,
+        .rendered-view {
+          padding-left: var(--space-3);
+          padding-right: var(--space-3);
+        }
+
+        .palette-row,
+        .palette-row.neutral-row,
+        .theme-mode-grid,
+        .theme-swatch-row,
+        .split-card,
+        .radius-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .type-row,
+        .mini-row {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell">
+      <div class="layout">
+        <section class="stack">
+          <article class="panel hero-card">
+            <div class="panel-inner">
+              <div class="eyebrow">Design Preview</div>
+              <h1 class="site-title">DESIGN</h1>
+              <p class="descriptor">Coco 官网是一张安静但有明确行动力的产品画布：冷灰纸白负责大部分空间，深墨蓝文字建立可靠感，Coco 蓝只在“现在可以做什么”的位置出现。真实文档界面是主要视觉证据；页面不借用金融...</p>
+              <div class="chip-row"><span class="chip">Coco 自有浅色主题，不复制 Mercury 的深色品牌外观</span><span class="chip">单一 Coco 蓝行动色，画面中占比低于 5%</span><span class="chip">大字号、中等字重、两行以内的中文标题</span><span class="chip">真实产品界面优先于插画、图标和抽象装饰</span><span class="chip">12px 平面容器，无静态阴影、无渐变、无玻璃效果</span><span class="chip">Light-first；Travel 与页脚作为少量深色章节</span></div>
+              <p class="summary">Coco 官网是一张安静但有明确行动力的产品画布：冷灰纸白负责大部分空间，深墨蓝文字建立可靠感，Coco 蓝只在“现在可以做什么”的位置出现。真实文档界面是主要视觉证据；页面不借用金融、机器人或抽象 AI 图形来制造气氛。</p>
+
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-inner">
+              <h2 class="section-title">Palette</h2>
+              <p class="section-subtitle">Roles and neutrals rendered using the extracted design system rather than a separate display theme.</p>
+              <div class="palette-grid"><div class="palette-row"><div class="swatch">
+    <div class="swatch-box" style="background:#F7F8FB;"></div>
+    <div class="swatch-label">冷灰纸白</div>
+    <div class="swatch-meta">
+      <span>#F7F8FB</span>
+      <span>Page background</span>
+    </div>
+  </div><div class="swatch">
+    <div class="swatch-box" style="background:#FFFFFF;"></div>
+    <div class="swatch-label">纯白</div>
+    <div class="swatch-meta">
+      <span>#FFFFFF</span>
+      <span>Primary surface</span>
+    </div>
+  </div><div class="swatch">
+    <div class="swatch-box" style="background:#EDF1F7;"></div>
+    <div class="swatch-label">文档灰</div>
+    <div class="swatch-meta">
+      <span>#EDF1F7</span>
+      <span>Secondary surface</span>
+    </div>
+  </div></div><div class="palette-row neutral-row"><div class="swatch">
+    <div class="swatch-box" style="background:#E9EDFF;"></div>
+    <div class="swatch-label">Coco 浅蓝</div>
+    <div class="swatch-meta">
+      <span>#E9EDFF</span>
+      <span>Brand surface</span>
+    </div>
+  </div><div class="swatch">
+    <div class="swatch-box" style="background:#182236;"></div>
+    <div class="swatch-label">深墨蓝</div>
+    <div class="swatch-meta">
+      <span>#182236</span>
+      <span>Primary text</span>
+    </div>
+  </div><div class="swatch">
+    <div class="swatch-box" style="background:#667085;"></div>
+    <div class="swatch-label">灰蓝</div>
+    <div class="swatch-meta">
+      <span>#667085</span>
+      <span>Secondary text</span>
+    </div>
+  </div><div class="swatch">
+    <div class="swatch-box" style="background:#3458E6;"></div>
+    <div class="swatch-label">Coco 蓝</div>
+    <div class="swatch-meta">
+      <span>#3458E6</span>
+      <span>Primary action</span>
+    </div>
+  </div></div></div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-inner">
+              <h2 class="section-title">Theme Modes</h2>
+              <p class="section-subtitle">If the product supports light and dark themes, both modes should stay visible in the exported design system and preview.</p>
+              <div class="prompt-card"><strong>Single mode detected</strong><p>No explicit <code>Theme Modes</code> section was detected in the markdown. If the product supports both light and dark themes, document both so the preview can render them side by side.</p></div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-inner">
+              <h2 class="section-title">Typography</h2>
+              <p class="section-subtitle">The preview shell itself now uses the extracted typography stack, sizes, line heights, and tracking.</p>
+              <div class="type-list"><div class="type-row">
+        <div class="type-role">Hero display</div>
+        <div
+          class="type-sample"
+          style="font-size:48px; line-height:48px; font-weight:500; letter-spacing:-0.055em; font-family:-apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Arial, sans-serif;"
+        >
+          The quick brown fox jumps
+        </div>
+        <div class="type-metrics">72px / 69px / 47px • 480 • 0.92</div>
+      </div><div class="type-row">
+        <div class="type-role">Section heading</div>
+        <div
+          class="type-sample"
+          style="font-size:48px; line-height:48px; font-weight:500; letter-spacing:-0.045em; font-family:-apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Arial, sans-serif;"
+        >
+          The quick brown fox jumps
+        </div>
+        <div class="type-metrics">up to 64px • 480 • 0.98</div>
+      </div><div class="type-row">
+        <div class="type-role">Component heading</div>
+        <div
+          class="type-sample"
+          style="font-size:32px; line-height:32px; font-weight:500; letter-spacing:-0.045em; font-family:-apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Arial, sans-serif;"
+        >
+          The quick brown fox jumps
+        </div>
+        <div class="type-metrics">32px • 480 • 1.08</div>
+      </div><div class="type-row">
+        <div class="type-role">Lead</div>
+        <div
+          class="type-sample"
+          style="font-size:22px; line-height:22px; font-weight:400; letter-spacing:normal; font-family:-apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Arial, sans-serif;"
+        >
+          The quick brown fox jumps
+        </div>
+        <div class="type-metrics">22px • 400 • 1.52</div>
+      </div><div class="type-row">
+        <div class="type-role">Body</div>
+        <div
+          class="type-sample"
+          style="font-size:17px; line-height:17px; font-weight:400; letter-spacing:normal; font-family:-apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Arial, sans-serif;"
+        >
+          The quick brown fox jumps
+        </div>
+        <div class="type-metrics">17px • 400 • 1.6</div>
+      </div><div class="type-row">
+        <div class="type-role">UI / Small</div>
+        <div
+          class="type-sample"
+          style="font-size:13px; line-height:13px; font-weight:600; letter-spacing:normal; font-family:-apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Arial, sans-serif;"
+        >
+          The quick brown fox jumps
+        </div>
+        <div class="type-metrics">13–14px • 600 / 400 • 1.45</div>
+      </div></div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-inner">
+              <h2 class="section-title">Spacing &amp; Shape</h2>
+              <p class="section-subtitle">Spacing, panel padding, and radius tokens are mapped directly from the layout rules in the markdown.</p>
+              <div class="split-card">
+    <div>
+      <h3 class="token-heading">Spacing</h3>
+      <div class="token-table"><div class="token-row">
+        <span>Base unit</span>
+        <span>4px</span>
+      </div><div class="token-row">
+        <span>Step 2</span>
+        <span>6px</span>
+      </div><div class="token-row">
+        <span>Step 3</span>
+        <span>8px</span>
+      </div><div class="token-row">
+        <span>Step 4</span>
+        <span>12px</span>
+      </div><div class="token-row">
+        <span>Step 5</span>
+        <span>16px</span>
+      </div></div>
+    </div>
+    <div>
+      <h3 class="token-heading">Border Radius</h3>
+      <div class="radius-grid"><div class="radius-card">
+        <div class="radius-demo" style="border-radius:2px;"></div>
+        <div class="radius-name">Micro utility</div>
+        <div class="radius-value">2px</div>
+      </div><div class="radius-card">
+        <div class="radius-demo" style="border-radius:4px;"></div>
+        <div class="radius-name">Standard module</div>
+        <div class="radius-value">4px</div>
+      </div><div class="radius-card">
+        <div class="radius-demo" style="border-radius:999px;"></div>
+        <div class="radius-name">Category rail</div>
+        <div class="radius-value">999px</div>
+      </div><div class="radius-card">
+        <div class="radius-demo" style="border-radius:999px;"></div>
+        <div class="radius-name">CTA pill</div>
+        <div class="radius-value">999px</div>
+      </div></div>
+    </div>
+  </div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-inner">
+              <h2 class="section-title">Components</h2>
+              <p class="section-subtitle">Buttons and cards use the documented height, weight, radius, colors, and surface treatment.</p>
+              <div class="component-card">
+    <div class="button-row">
+      <span class="cta cta-primary">Start Deploying</span>
+      <span class="cta cta-secondary">Get a Demo</span>
+    </div>
+    <div class="card-preview">
+      <h4>System Card Preview</h4>
+      <p>White framed module with restrained shadow and precise spacing.</p>
+    </div>
+  </div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-inner">
+              <h2 class="section-title">System Notes</h2>
+              <p class="section-subtitle">Responsive behavior and depth rules stay visible while keeping the overall proportions calm and readable.</p>
+              <div class="split-card">
+    <div>
+      <h3 class="token-heading">Breakpoints</h3>
+      <div class="mini-grid"><div class="mini-row">
+            <div class="mini-label">Desktop</div>
+            <div class="mini-content"><strong>901px+</strong><br />首屏双栏；产品与文字在同一屏形成关系</div>
+          </div><div class="mini-row">
+            <div class="mini-label">Tablet</div>
+            <div class="mini-content"><strong>601–900px</strong><br />首屏与内容区改为单栏，保留大字号与完整产品图</div>
+          </div><div class="mini-row">
+            <div class="mini-label">Mobile</div>
+            <div class="mini-content"><strong>600px 以下</strong><br />16px 边距；标题、说明、按钮、产品图依次出现；按钮满宽</div>
+          </div></div>
+    </div>
+    <div>
+      <h3 class="token-heading">Elevation</h3>
+      <div class="mini-grid"><div class="mini-row">
+            <div class="mini-label">0</div>
+            <div class="mini-content"><strong>#F7F8FB / #E9EDFF 平面背景</strong><br />页面与首屏</div>
+          </div><div class="mini-row">
+            <div class="mini-label">1</div>
+            <div class="mini-content"><strong>#FFFFFF / #EDF1F7 色阶差</strong><br />产品容器、入口内容面</div>
+          </div><div class="mini-row">
+            <div class="mini-label">2</div>
+            <div class="mini-content"><strong>#171D2B 硬切换</strong><br />Travel 与页脚章节</div>
+          </div><div class="mini-row">
+            <div class="mini-label">Floating</div>
+            <div class="mini-content"><strong>仅真实菜单允许临时层叠</strong><br />菜单打开状态</div>
+          </div></div>
+    </div>
+  </div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-inner">
+              <h2 class="section-title">Prompt Guide</h2>
+              <p class="section-subtitle">Prompt snippets are shown in the same typography and spacing language as the extracted design system.</p>
+              <div class="prompt-list"><div class="prompt-card">
+            <strong>Hero</strong>
+            <p>使用 Coco 自有浅色主题，左侧两行 480 字重大标题，右侧真实文档结果截图，底部左侧 22px 说明、右侧唯一 Coco 蓝胶囊按钮；无渐变、无阴影。</p>
+          </div><div class="prompt-card">
+            <strong>Product showcase</strong>
+            <p>先用标题与说明建立任务，再用一段真实 MP4 演示完成证明；不重复堆叠同一流程的静态截图，容器 12px 圆角，平面色阶分层。</p>
+          </div><div class="prompt-card">
+            <strong>Tabbed entry</strong>
+            <p>三个胶囊标签只让选中项使用 Coco 蓝；下方内容面包含一个清楚入口说明与一张真实产品界面。</p>
+          </div><div class="prompt-card">
+            <strong>Dark chapter</strong>
+            <p>用 #171D2B 做整块章节，柔白标题和正文，产品画面放在 12px 白色容器中，不添加发光或彩色装饰。</p>
+          </div><div class="prompt-card"><strong>Ready-to-Use Prompt</strong><p>按 Coco 官网设计系统制作页面：保持 Coco 自有浅色品牌主题，使用冷灰纸白、深墨蓝和单一 Coco 蓝行动色；以真实产品界面作为主要证据；标题中等字重且两行以内；容器 12px 圆角、无渐变、无静态阴影；桌面与手机分别构图，并完整支持键盘焦点和减少动态效果。</p></div></div>
+              <div class="split-card" style="margin-top:var(--space-4);">
+    <div>
+      <h3 class="token-heading">Do</h3>
+      <div class="mini-grid"><div class="mini-row"><div class="mini-label">Do</div><div class="mini-content">让真实产品界面承担主要视觉证明。</div></div><div class="mini-row"><div class="mini-label">Do</div><div class="mini-content">一屏只保留一个最强行动点。</div></div><div class="mini-row"><div class="mini-label">Do</div><div class="mini-content">所有标题在桌面、平板、手机保持两行以内。</div></div><div class="mini-row"><div class="mini-label">Do</div><div class="mini-content">使用平面色阶、12px 圆角和中等字重。</div></div></div>
+    </div>
+    <div>
+      <h3 class="token-heading">Don't</h3>
+      <div class="mini-grid"><div class="mini-row"><div class="mini-label">Don't</div><div class="mini-content">不把参考站的深色金融主题、字体或品牌资产带进 Coco。</div></div><div class="mini-row"><div class="mini-label">Don't</div><div class="mini-content">不使用渐变、发光、玻璃卡片、静态阴影和紫色 AI 风格。</div></div><div class="mini-row"><div class="mini-label">Don't</div><div class="mini-content">不使用假的客户评价、指标、合作品牌或仪表盘。</div></div><div class="mini-row"><div class="mini-label">Don't</div><div class="mini-content">不连续排列相同的三列功能卡。</div></div></div>
+    </div>
+  </div>
+            </div>
+          </article>
+        </section>
+
+        <section class="source-shell">
+          <article class="panel">
+            <div class="source-header">
+              <div class="file-tabs">
+                <span class="file-tab">design-system.md</span>
+                <span class="file-tab active">DESIGN.md</span>
+                <span class="file-tab">Design JSON</span>
+                <span class="file-tab">CSS Variables</span>
+                <span class="file-tab">Design Tokens</span>
+              </div>
+            </div>
+            <div class="source-toolbar">
+              <div class="segmented" role="tablist" aria-label="View Switcher">
+                <button class="is-active" data-view="source" type="button">Source</button>
+                <button data-view="preview" type="button">Preview</button>
+              </div>
+              <div class="toolbar-actions">
+                <button class="ghost-button" id="copyButton" type="button">Copy</button>
+                <a class="ghost-button" href="DESIGN.md" download>Open .md</a>
+                <span class="copy-state" id="copyState"></span>
+              </div>
+            </div>
+            <div class="source-body">
+              <pre class="source-view" id="sourceView"># Coco 官网设计系统
+
+&gt; 状态：已采用并落地于官网首页，2026-10-29。
+
+这份说明只解决一件事：Coco 官网应该给人什么感觉，以及后续设计时应该遵守什么边界。它不是代码说明，也不要求每个数值一开始就定死。
+
+参考资料提供的是一种设计语言，不是复刻模板。我们吸收 Mercury 风格的单一行动色、平面层级、中等字重、12px 容器圆角、4px 间距基准和克制动效；品牌、文案、配色、字体、图片、图标和具体版式全部从 Coco 的产品出发。
+
+## 1. 这个页面要表达什么
+
+首页首先要让人明白：**Coco 能听懂你的要求，并把要求变成文档里看得见的结果。**
+
+页面不是功能清单，也不是技术介绍。访问者应该在几秒内看懂三件事：
+
+- Coco 是做什么的；
+- 它处理完以后，结果会出现在什么地方；
+- 我现在可以从哪里开始使用。
+
+Coco Office 是首页的主角。Coco Travel 可以出现，但应当是第二条产品线，不能在首屏和 Office 抢同一个重点。开发者能力、插件、桌面应用和安装方式放在后面，等用户已经理解产品后再展开。
+
+页面最重要的证据不是口号，而是真实的产品界面、真实的修改结果和清楚的使用入口。
+
+## 2. 页面给谁看
+
+主要给三类人看：
+
+1. **正在处理文档的普通用户。** 他们可能经常写周报、改方案、整理表格，但不关心技术架构。
+2. **正在判断 Coco 是否值得使用的人。** 他们需要快速看到产品长什么样、能做什么、是否可靠。
+3. **寻找插件、桌面端或开发能力的人。** 这类人目标明确，导航和后半页要让他们容易找到入口。
+
+文案默认按普通办公用户来写。不要假设访问者理解 Agent、工作流、插件架构等词。确实需要出现专业词时，要用一句普通话解释它对用户有什么用。
+
+## 3. 参考里要学什么
+
+参考页值得学习的是它处理信息的方式，而不是它的品牌外观。
+
+- **像一张认真排过的编辑页面。** 大标题、说明和产品画面各自占据清楚的位置，不依赖一堆边框把内容圈起来。
+- **首屏有明显的主次。** 标题大胆但字重轻，说明和行动入口更小；一个屏幕里只有一个真正的视觉中心。
+- **留白是为了让重点更清楚。** 空间不是平均撒开，而是用来拉开标题、说明、产品证据和下一段内容的关系。
+- **产品本身就是主视觉。** 不用抽象插画代替产品，而是展示真实文档、真实修改过程和真实界面。
+- **浅色页面里允许出现一块沉下去的深色区域。** 它只用来托住产品演示或重要结果，让页面产生节奏，不把整站做成深色。
+- **相邻区块不重复同一种排法。** 有的用左右关系，有的用一张大画面，有的用前后步骤，但不会连续出现几组一模一样的卡片。
+- **细节克制。** 表面主要靠颜色深浅、尺寸和位置区分，不靠重阴影、发光、细线网格或装饰图形。
+
+我们要学习的是这种克制、编辑感和完成度。Coco 自己的核心视觉线索应来自“文档”：页面边缘、选中内容、修改痕迹、批注和结果前后变化，都必须来自真实产品，而不是额外画出来的装饰。
+
+## 4. 参考里不要学什么
+
+- 不照搬参考站的暖棕、橙色、奶油色和深咖啡色组合；Coco 继续使用自己的蓝色。
+- 不照搬它的支付场景、商户照片、客户标志、评价、状态标签或产品数据。
+- 不照搬它的标题句式、英文标签、按钮文字、字体名称和图标样式。
+- 不直接采用 82 像素标题、固定 16 像素圆角、两排十格入口等具体数值和版式。
+- 不为了相似而把 Coco 的浅色产品界面强行做成棕色或深色。
+- 不复制它的首屏位置、卡片组合、轮播结构和页脚栏目。
+- 不把 Coco 包装成纯开发者工具。Coco 首先是面向文档工作的产品。
+- 不使用参考页中的品牌图形、插图、动画或其他专属资产。
+
+判断标准很简单：看得出我们学会了它为什么舒服，但不能让人觉得只是换了 Logo。
+
+## 5. 颜色怎么定
+
+颜色以 Coco 现有品牌为准，借鉴参考资料的是颜色的使用比例，不是它的具体色值。整体是**纸白、墨色文字和克制的 Coco 蓝**。
+
+- **页面底色：** 冷灰纸白 `#F7F8FB`。
+- **首屏背景：** 使用 Coco 自有的低对比冷蓝纸面纹理；宽幅页边界与排版辅助线只作为远景暗示，右上方保留一处克制蓝光。它是静态位图资产，不复制参考站的中心构图、输入框或密集网格。
+- **主要文字：** 带一点蓝的深墨色 `#182236`。
+- **品牌蓝：** Coco 蓝 `#3458E6`，只用于主按钮、选中状态、链接和焦点；悬停使用 `#294BCC`。
+- **次要文字：** 灰蓝 `#667085`，正文对比度保持清楚。
+- **浅色表面：** 文档灰 `#EDF1F7`；首屏与轻强调表面使用 `#E9EDFF`。
+- **深色表面：** 墨蓝 `#171D2B`；次级深色表面 `#222A3B`，用于 Travel、视频说明和页脚。
+- **分隔线：** 只在确实需要分组时使用，颜色要轻，但仍能看见。
+
+大致比例可以理解为：大部分是纸白和浅色表面，少部分是墨色文字与深色演示区，Coco 蓝只负责行动和重点。**品牌蓝越少，出现时越有力量。** 不做渐变文字，不用紫蓝霓虹，不用大片高饱和色抢走产品界面的注意力。
+
+## 6. 字体大概是什么感觉
+
+字体要给人清楚、可靠、轻松的感觉，不要故意显得“未来”或“艺术”。
+
+- 中文以干净的黑体为主，笔画不要太粗。
+- 英文和数字与中文保持同样的气质，不另外换成技术感很强的字体。
+- 大标题使用偏轻或正常的字重，不靠粗体制造气势；字间距可以略紧，但中文不能挤在一起。
+- 首屏标题可以比现在更大，桌面端以 56 至 72 像素为起点，再根据实际句子调整；重点是两行以内、呼吸充分，而不是追求某个固定数字。
+- 正文要比现在常见的浅灰小字更清楚，行距舒展，单行不要太长。
+- 同一屏尽量只用一个字体家族，通过大小和粗细区分层级。
+
+不要照搬参考资料的 Inter、IBM Plex Mono 或衬线引用字体。也不要用超大宋体标题、等宽字体装饰、全大写英文眉题，或者在标题里单独染蓝某几个字。
+
+## 7. 首屏怎么排
+
+首屏采用宽幅、略带非对称的排法，而不是默认的全部居中：
+
+1. 顶部是 Coco 标志、三项以内导航和一个蓝色主入口。导航与首屏共用 `#E9EDFF` 背景，不做悬浮玻璃条。
+2. 主标题放在左侧，用两行说明核心结果：“把要求说出来，文档就完成。”桌面端约 72px、平板约 69px、手机约 47px，字重 480。
+3. 真实产品结果截图放在首屏右侧，和标题形成清楚的“要求 / 结果”关系；不加设备外框和悬浮阴影。
+4. 解释与主按钮在首屏底部形成左右呼应，只保留一个最重要的“打开 Coco 网页版”。
+5. 移动端改为标题、解释、按钮、产品结果的单列顺序；按钮保持至少 48px 高，产品图使用针对手机的裁切。
+
+首屏不要同时展示 Office 和 Travel 两张重叠截图，也不要出现三个并列按钮。用户第一次看到页面时，只需要理解一个产品、一个结果和一个下一步。
+
+## 8. 按钮和卡片怎么做
+
+### 按钮
+
+- 主按钮高度要方便点击，大约 44 至 48 像素。
+- 主按钮使用 Coco 蓝底白字，或在深色背景上使用白底深色字；同一屏只出现一个最醒目的按钮。
+- 主按钮和选中态使用完整胶囊形；内容容器统一使用 12px 圆角。次要文字链接不做胶囊。
+- 鼠标经过时只做轻微的颜色、阴影或位置变化，不弹跳，不发光。
+- 键盘选中时必须有清楚的外框，不能只照顾鼠标用户。
+
+### 卡片和产品窗口
+
+- 不要把每段内容都装进卡片。优先用留白、整块底色和大小关系说明分组，细线只留给真实产品界面。
+- 真正需要容器时统一使用 12px 圆角；大幅截图不使用阴影，只通过 `#FFFFFF`、`#EDF1F7` 与 `#E9EDFF` 的色阶分层。
+- 一张卡片只表达一个入口或一个结果，不在卡片里继续套卡片。
+- 产品截图要尽量大、清楚、真实。页面里的截图不加悬浮阴影；如果产品自身有浮层，保留产品真实的层次即可。
+- Office 插件、网页版和桌面端可以做成不同大小、不同构图的入口，不要排成三张完全一样的模板卡片。
+- 功能区可以用两块大小不同的浅色内容面，或一块深色演示面配一段浅色说明。连续两个区块不能使用相同卡片网格。
+- 如果后续加入一个可操作的展示，优先做“修改前 / 修改后”的文档对比，让用户亲手看见 Coco 带来的变化；它必须使用真实产品结果，手机上也能操作。
+
+## 9. 动效做到什么程度
+
+动效的作用是帮助人理解页面，不是证明页面“很会动”。
+
+- 首屏加载时，可以让标题、说明和产品画面按顺序轻轻进入，整体在半秒左右完成，不要从很远的地方飞入。
+- 按钮、链接和卡片的反馈要快，通常在 0.15 至 0.3 秒内完成。
+- 页面滚动时可以让真实文档画面轻微移动或切换一次，也可以让“修改前 / 修改后”产生清楚的状态变化；不要每个区块都使用相同淡入动画。
+- 不做自动播放的大段演示，不做无限循环漂浮，不做滚动劫持，不做夸张视差。
+- 用户选择“减少动态效果”时，页面应当基本静止，内容仍然完整可懂。
+
+总体标准是：用户会觉得页面顺滑，却不会首先注意到动画本身。
+
+## 10. 哪些常见 AI 味不要出现
+
+- 不要紫蓝霓虹、发光球、网格宇宙、粒子背景和渐变文字。
+- 不要满屏圆角卡片，也不要卡片里面继续套卡片。
+- 不要大量使用玻璃透明、模糊背景和悬浮阴影。
+- 不要用英文小标签、代码符号和等宽字体假装有技术感。
+- 不要放假的数据面板、假的用户评价、假的模型指标或假的合作品牌。
+- 不要用抽象机器人、星星、魔法棒、闪光图标表达“智能”。
+- 不要每一段都采用“居中标题 + 一行说明 + 三张卡片”的重复模板。
+- 不要写“更智能、更高效、赋能未来、重新定义”这类没有证据的空话。
+- 不要用过多胶囊标签、彩色徽章和无意义状态点装饰页面。
+- 不要为了显得丰富而新增没有真实产品依据的功能或场景。
+
+## 最后的判断标准
+
+新版首页应该让人觉得：
+
+- 这是一个认真做文档产品的团队；
+- 页面安静、细致，但不冷淡；
+- Coco 的蓝色和真实产品界面能够被记住；
+- 即使拿掉所有装饰，内容顺序依然清楚；
+- 它受到了优秀参考的启发，但明显属于 Coco。
+
+## Visual Theme &amp; Atmosphere
+
+Coco 官网是一张安静但有明确行动力的产品画布：冷灰纸白负责大部分空间，深墨蓝文字建立可靠感，Coco 蓝只在“现在可以做什么”的位置出现。真实文档界面是主要视觉证据；页面不借用金融、机器人或抽象 AI 图形来制造气氛。
+
+### Key Characteristics
+
+- Coco 自有浅色主题，不复制 Mercury 的深色品牌外观
+- 单一 Coco 蓝行动色，画面中占比低于 5%
+- 大字号、中等字重、两行以内的中文标题
+- 真实产品界面优先于插画、图标和抽象装饰
+- 12px 平面容器，无静态阴影、无渐变、无玻璃效果
+- Light-first；Travel 与页脚作为少量深色章节
+
+## Color Palette &amp; Roles
+
+| Role | Semantic name | Value | Usage |
+| --- | --- | --- | --- |
+| Page background | 冷灰纸白 | `#F7F8FB` | 默认页面画布 |
+| Primary surface | 纯白 | `#FFFFFF` | 产品展示与主要内容容器 |
+| Secondary surface | 文档灰 | `#EDF1F7` | 次级内容面与图片承托 |
+| Brand surface | Coco 浅蓝 | `#E9EDFF` | 首屏与选中内容的轻背景 |
+| Primary text | 深墨蓝 | `#182236` | 标题与正文 |
+| Secondary text | 灰蓝 | `#667085` | 说明文字 |
+| Primary action | Coco 蓝 | `#3458E6` | 主按钮、选中状态、焦点 |
+| Action hover | 深 Coco 蓝 | `#294BCC` | 主按钮悬停 |
+| Dark chapter | 墨蓝 | `#171D2B` | Travel 与页脚 |
+| Dark surface | 深色内容面 | `#222A3B` | 深色章节内的次级表面 |
+| Dark text | 柔白 | `#EEF1F8` | 深色章节主文字 |
+
+## Typography Rules
+
+### Font Family
+
+- **Primary:** SF Pro Display / SF Pro Text；中文回退 PingFang SC、Microsoft YaHei、system-ui。
+- **Weight:** 标题 480，正文 400，按钮与短标签 600。
+
+### Hierarchy
+
+| Role | Font | Size | Weight | Line height | Letter spacing | Notes |
+| --- | --- | --- | --- | --- | --- | --- |
+| Hero display | Primary | 72px / 69px / 47px | 480 | 0.92 | -0.055em | 桌面 / 平板 / 手机；两行以内 |
+| Section heading | Primary | up to 64px | 480 | 0.98 | -0.045em | 两行以内 |
+| Component heading | Primary | 32px | 480 | 1.08 | -0.045em | 产品入口标题 |
+| Lead | Primary | 22px | 400 | 1.52 | normal | 首屏说明 |
+| Body | Primary | 17px | 400 | 1.6 | normal | 45–75 字符一行 |
+| UI / Small | Primary | 13–14px | 600 / 400 | 1.45 | normal | 按钮、导航、说明 |
+
+## Component Stylings
+
+### Buttons and Links
+
+**Primary CTA:** `#3458E6` 背景、白字、48px 最小高度、24px 水平内边距、完整胶囊圆角；悬停改为 `#294BCC`，按下缩放至 0.97，焦点使用 3px Coco 蓝轮廓。
+
+**Secondary CTA:** 普通文字链接，不增加第二个填充按钮；下划线只在悬停与键盘焦点时出现。
+
+### Cards and Containers
+
+- **Card radius:** 12px。
+- **Card separation:** 仅使用 `#FFFFFF`、`#EDF1F7`、`#E9EDFF` 色阶，不使用静态阴影。
+- **Product media:** 保留产品自身 UI 层级；不添加设备外框、发光、透视或装饰边框。
+
+### Navigation
+
+Logo、最多三项桌面链接、一个主行动。桌面高度 72px；手机高度 64px，只保留 Logo、主行动与“菜单”。
+
+## Layout Principles
+
+### Spacing System
+
+- **Base unit:** 4px。
+- **Repeated spacing values:** 12px, 24px, 32px, 48px, 72px, 112px, 160px。
+- **Outer margin:** 16–32px，随视口线性变化，导航与正文使用同一组边距。
+
+### Grid &amp; Container
+
+首屏采用文字与真实产品结果的非对称双栏；首屏、内容区、深色章节与页脚统一落在最大 1200px 的 12 栏逻辑网格中。正文继续用字符宽度约束，只在确有分组意义时使用容器。
+
+### Border Radius Scale
+
+- **Default:** 12px。
+- **Buttons and selected tabs:** 999px 胶囊。
+- **Brand logo:** 8px。
+
+## Depth &amp; Elevation
+
+| Level | Treatment | Use |
+| --- | --- | --- |
+| 0 | `#F7F8FB` / `#E9EDFF` 平面背景 | 页面与首屏 |
+| 1 | `#FFFFFF` / `#EDF1F7` 色阶差 | 产品容器、入口内容面 |
+| 2 | `#171D2B` 硬切换 | Travel 与页脚章节 |
+| Floating | 仅真实菜单允许临时层叠 | 菜单打开状态 |
+
+页面静止元素不使用阴影；层级由色值、空间和尺度表达。
+
+## Do&#39;s and Don&#39;ts
+
+### Do
+
+- 让真实产品界面承担主要视觉证明。
+- 一屏只保留一个最强行动点。
+- 所有标题在桌面、平板、手机保持两行以内。
+- 使用平面色阶、12px 圆角和中等字重。
+- 所有动效提供 `prefers-reduced-motion` 静态结果。
+
+### Don&#39;t
+
+- 不把参考站的深色金融主题、字体或品牌资产带进 Coco。
+- 不使用渐变、发光、玻璃卡片、静态阴影和紫色 AI 风格。
+- 不使用假的客户评价、指标、合作品牌或仪表盘。
+- 不连续排列相同的三列功能卡。
+- 不用抽象机器人、魔法棒和闪光图标表示智能。
+
+## Responsive Behavior
+
+### Breakpoints
+
+| Name | Width | Key changes |
+| --- | --- | --- |
+| Desktop | 901px+ | 首屏双栏；产品与文字在同一屏形成关系 |
+| Tablet | 601–900px | 首屏与内容区改为单栏，保留大字号与完整产品图 |
+| Mobile | 600px 以下 | 16px 边距；标题、说明、按钮、产品图依次出现；按钮满宽 |
+
+所有触控目标至少 44px；产品截图在手机端单独裁切，禁止横向溢出。
+
+## Agent Prompt Guide
+
+### Quick Color Reference
+
+- **Background:** `#F7F8FB`
+- **Surface:** `#FFFFFF`
+- **Brand surface:** `#E9EDFF`
+- **Ink:** `#182236`
+- **Muted:** `#667085`
+- **Action:** `#3458E6`
+- **Dark chapter:** `#171D2B`
+
+### Example Component Prompts
+
+- **Hero:** 使用 Coco 自有浅色主题，左侧两行 480 字重大标题，右侧真实文档结果截图，底部左侧 22px 说明、右侧唯一 Coco 蓝胶囊按钮；无渐变、无阴影。
+- **Product showcase:** 先用标题与说明建立任务，再用一段真实 MP4 演示完成证明；不重复堆叠同一流程的静态截图，容器 12px 圆角，平面色阶分层。
+- **Tabbed entry:** 三个胶囊标签只让选中项使用 Coco 蓝；下方内容面包含一个清楚入口说明与一张真实产品界面。
+- **Dark chapter:** 用 `#171D2B` 做整块章节，柔白标题和正文，产品画面放在 12px 白色容器中，不添加发光或彩色装饰。
+
+### Ready-to-Use Prompt
+
+按 Coco 官网设计系统制作页面：保持 Coco 自有浅色品牌主题，使用冷灰纸白、深墨蓝和单一 Coco 蓝行动色；以真实产品界面作为主要证据；标题中等字重且两行以内；容器 12px 圆角、无渐变、无静态阴影；桌面与手机分别构图，并完整支持键盘焦点和减少动态效果。
+
+</pre>
+              <article class="rendered-view" id="previewView" hidden><section><h2>1. 这个页面要表达什么</h2><p>首页首先要让人明白：<strong>Coco 能听懂你的要求，并把要求变成文档里看得见的结果。</strong></p><p>页面不是功能清单，也不是技术介绍。访问者应该在几秒内看懂三件事：</p><ul><li>Coco 是做什么的；</li><li>它处理完以后，结果会出现在什么地方；</li><li>我现在可以从哪里开始使用。</li></ul><p>Coco Office 是首页的主角。Coco Travel 可以出现，但应当是第二条产品线，不能在首屏和 Office 抢同一个重点。开发者能力、插件、桌面应用和安装方式放在后面，等用户已经理解产品后再展开。</p><p>页面最重要的证据不是口号，而是真实的产品界面、真实的修改结果和清楚的使用入口。</p></section><section><h2>2. 页面给谁看</h2><p>主要给三类人看：</p><ol><li><strong>正在处理文档的普通用户。</strong> 他们可能经常写周报、改方案、整理表格，但不关心技术架构。</li><li><strong>正在判断 Coco 是否值得使用的人。</strong> 他们需要快速看到产品长什么样、能做什么、是否可靠。</li><li><strong>寻找插件、桌面端或开发能力的人。</strong> 这类人目标明确，导航和后半页要让他们容易找到入口。</li></ol><p>文案默认按普通办公用户来写。不要假设访问者理解 Agent、工作流、插件架构等词。确实需要出现专业词时，要用一句普通话解释它对用户有什么用。</p></section><section><h2>3. 参考里要学什么</h2><p>参考页值得学习的是它处理信息的方式，而不是它的品牌外观。</p><ul><li><strong>像一张认真排过的编辑页面。</strong> 大标题、说明和产品画面各自占据清楚的位置，不依赖一堆边框把内容圈起来。</li><li><strong>首屏有明显的主次。</strong> 标题大胆但字重轻，说明和行动入口更小；一个屏幕里只有一个真正的视觉中心。</li><li><strong>留白是为了让重点更清楚。</strong> 空间不是平均撒开，而是用来拉开标题、说明、产品证据和下一段内容的关系。</li><li><strong>产品本身就是主视觉。</strong> 不用抽象插画代替产品，而是展示真实文档、真实修改过程和真实界面。</li><li><strong>浅色页面里允许出现一块沉下去的深色区域。</strong> 它只用来托住产品演示或重要结果，让页面产生节奏，不把整站做成深色。</li><li><strong>相邻区块不重复同一种排法。</strong> 有的用左右关系，有的用一张大画面，有的用前后步骤，但不会连续出现几组一模一样的卡片。</li><li><strong>细节克制。</strong> 表面主要靠颜色深浅、尺寸和位置区分，不靠重阴影、发光、细线网格或装饰图形。</li></ul><p>我们要学习的是这种克制、编辑感和完成度。Coco 自己的核心视觉线索应来自“文档”：页面边缘、选中内容、修改痕迹、批注和结果前后变化，都必须来自真实产品，而不是额外画出来的装饰。</p></section><section><h2>4. 参考里不要学什么</h2><ul><li>不照搬参考站的暖棕、橙色、奶油色和深咖啡色组合；Coco 继续使用自己的蓝色。</li><li>不照搬它的支付场景、商户照片、客户标志、评价、状态标签或产品数据。</li><li>不照搬它的标题句式、英文标签、按钮文字、字体名称和图标样式。</li><li>不直接采用 82 像素标题、固定 16 像素圆角、两排十格入口等具体数值和版式。</li><li>不为了相似而把 Coco 的浅色产品界面强行做成棕色或深色。</li><li>不复制它的首屏位置、卡片组合、轮播结构和页脚栏目。</li><li>不把 Coco 包装成纯开发者工具。Coco 首先是面向文档工作的产品。</li><li>不使用参考页中的品牌图形、插图、动画或其他专属资产。</li></ul><p>判断标准很简单：看得出我们学会了它为什么舒服，但不能让人觉得只是换了 Logo。</p></section><section><h2>5. 颜色怎么定</h2><p>颜色以 Coco 现有品牌为准，借鉴参考资料的是颜色的使用比例，不是它的具体色值。整体是<strong>纸白、墨色文字和克制的 Coco 蓝</strong>。</p><ul><li><strong>页面底色：</strong> 冷灰纸白 <code>#F7F8FB</code>。</li><li><strong>首屏背景：</strong> 使用 Coco 自有的低对比冷蓝纸面纹理；宽幅页边界与排版辅助线只作为远景暗示，右上方保留一处克制蓝光。它是静态位图资产，不复制参考站的中心构图、输入框或密集网格。</li><li><strong>主要文字：</strong> 带一点蓝的深墨色 <code>#182236</code>。</li><li><strong>品牌蓝：</strong> Coco 蓝 <code>#3458E6</code>，只用于主按钮、选中状态、链接和焦点；悬停使用 <code>#294BCC</code>。</li><li><strong>次要文字：</strong> 灰蓝 <code>#667085</code>，正文对比度保持清楚。</li><li><strong>浅色表面：</strong> 文档灰 <code>#EDF1F7</code>；首屏与轻强调表面使用 <code>#E9EDFF</code>。</li><li><strong>深色表面：</strong> 墨蓝 <code>#171D2B</code>；次级深色表面 <code>#222A3B</code>，用于 Travel、视频说明和页脚。</li><li><strong>分隔线：</strong> 只在确实需要分组时使用，颜色要轻，但仍能看见。</li></ul><p>大致比例可以理解为：大部分是纸白和浅色表面，少部分是墨色文字与深色演示区，Coco 蓝只负责行动和重点。<strong>品牌蓝越少，出现时越有力量。</strong> 不做渐变文字，不用紫蓝霓虹，不用大片高饱和色抢走产品界面的注意力。</p></section><section><h2>6. 字体大概是什么感觉</h2><p>字体要给人清楚、可靠、轻松的感觉，不要故意显得“未来”或“艺术”。</p><ul><li>中文以干净的黑体为主，笔画不要太粗。</li><li>英文和数字与中文保持同样的气质，不另外换成技术感很强的字体。</li><li>大标题使用偏轻或正常的字重，不靠粗体制造气势；字间距可以略紧，但中文不能挤在一起。</li><li>首屏标题可以比现在更大，桌面端以 56 至 72 像素为起点，再根据实际句子调整；重点是两行以内、呼吸充分，而不是追求某个固定数字。</li><li>正文要比现在常见的浅灰小字更清楚，行距舒展，单行不要太长。</li><li>同一屏尽量只用一个字体家族，通过大小和粗细区分层级。</li></ul><p>不要照搬参考资料的 Inter、IBM Plex Mono 或衬线引用字体。也不要用超大宋体标题、等宽字体装饰、全大写英文眉题，或者在标题里单独染蓝某几个字。</p></section><section><h2>7. 首屏怎么排</h2><p>首屏采用宽幅、略带非对称的排法，而不是默认的全部居中：</p><ol><li>顶部是 Coco 标志、三项以内导航和一个蓝色主入口。导航与首屏共用 <code>#E9EDFF</code> 背景，不做悬浮玻璃条。</li><li>主标题放在左侧，用两行说明核心结果：“把要求说出来，文档就完成。”桌面端约 72px、平板约 69px、手机约 47px，字重 480。</li><li>真实产品结果截图放在首屏右侧，和标题形成清楚的“要求 / 结果”关系；不加设备外框和悬浮阴影。</li><li>解释与主按钮在首屏底部形成左右呼应，只保留一个最重要的“打开 Coco 网页版”。</li><li>移动端改为标题、解释、按钮、产品结果的单列顺序；按钮保持至少 48px 高，产品图使用针对手机的裁切。</li></ol><p>首屏不要同时展示 Office 和 Travel 两张重叠截图，也不要出现三个并列按钮。用户第一次看到页面时，只需要理解一个产品、一个结果和一个下一步。</p></section><section><h2>8. 按钮和卡片怎么做</h2><h3>按钮</h3><ul><li>主按钮高度要方便点击，大约 44 至 48 像素。</li><li>主按钮使用 Coco 蓝底白字，或在深色背景上使用白底深色字；同一屏只出现一个最醒目的按钮。</li><li>主按钮和选中态使用完整胶囊形；内容容器统一使用 12px 圆角。次要文字链接不做胶囊。</li><li>鼠标经过时只做轻微的颜色、阴影或位置变化，不弹跳，不发光。</li><li>键盘选中时必须有清楚的外框，不能只照顾鼠标用户。</li></ul><h3>卡片和产品窗口</h3><ul><li>不要把每段内容都装进卡片。优先用留白、整块底色和大小关系说明分组，细线只留给真实产品界面。</li><li>真正需要容器时统一使用 12px 圆角；大幅截图不使用阴影，只通过 <code>#FFFFFF</code>、<code>#EDF1F7</code> 与 <code>#E9EDFF</code> 的色阶分层。</li><li>一张卡片只表达一个入口或一个结果，不在卡片里继续套卡片。</li><li>产品截图要尽量大、清楚、真实。页面里的截图不加悬浮阴影；如果产品自身有浮层，保留产品真实的层次即可。</li><li>Office 插件、网页版和桌面端可以做成不同大小、不同构图的入口，不要排成三张完全一样的模板卡片。</li><li>功能区可以用两块大小不同的浅色内容面，或一块深色演示面配一段浅色说明。连续两个区块不能使用相同卡片网格。</li><li>如果后续加入一个可操作的展示，优先做“修改前 / 修改后”的文档对比，让用户亲手看见 Coco 带来的变化；它必须使用真实产品结果，手机上也能操作。</li></ul></section><section><h2>9. 动效做到什么程度</h2><p>动效的作用是帮助人理解页面，不是证明页面“很会动”。</p><ul><li>首屏加载时，可以让标题、说明和产品画面按顺序轻轻进入，整体在半秒左右完成，不要从很远的地方飞入。</li><li>按钮、链接和卡片的反馈要快，通常在 0.15 至 0.3 秒内完成。</li><li>页面滚动时可以让真实文档画面轻微移动或切换一次，也可以让“修改前 / 修改后”产生清楚的状态变化；不要每个区块都使用相同淡入动画。</li><li>不做自动播放的大段演示，不做无限循环漂浮，不做滚动劫持，不做夸张视差。</li><li>用户选择“减少动态效果”时，页面应当基本静止，内容仍然完整可懂。</li></ul><p>总体标准是：用户会觉得页面顺滑，却不会首先注意到动画本身。</p></section><section><h2>10. 哪些常见 AI 味不要出现</h2><ul><li>不要紫蓝霓虹、发光球、网格宇宙、粒子背景和渐变文字。</li><li>不要满屏圆角卡片，也不要卡片里面继续套卡片。</li><li>不要大量使用玻璃透明、模糊背景和悬浮阴影。</li><li>不要用英文小标签、代码符号和等宽字体假装有技术感。</li><li>不要放假的数据面板、假的用户评价、假的模型指标或假的合作品牌。</li><li>不要用抽象机器人、星星、魔法棒、闪光图标表达“智能”。</li><li>不要每一段都采用“居中标题 + 一行说明 + 三张卡片”的重复模板。</li><li>不要写“更智能、更高效、赋能未来、重新定义”这类没有证据的空话。</li><li>不要用过多胶囊标签、彩色徽章和无意义状态点装饰页面。</li><li>不要为了显得丰富而新增没有真实产品依据的功能或场景。</li></ul></section><section><h2>最后的判断标准</h2><p>新版首页应该让人觉得：</p><ul><li>这是一个认真做文档产品的团队；</li><li>页面安静、细致，但不冷淡；</li><li>Coco 的蓝色和真实产品界面能够被记住；</li><li>即使拿掉所有装饰，内容顺序依然清楚；</li><li>它受到了优秀参考的启发，但明显属于 Coco。</li></ul></section><section><h2>Visual Theme &amp; Atmosphere</h2><p>Coco 官网是一张安静但有明确行动力的产品画布：冷灰纸白负责大部分空间，深墨蓝文字建立可靠感，Coco 蓝只在“现在可以做什么”的位置出现。真实文档界面是主要视觉证据；页面不借用金融、机器人或抽象 AI 图形来制造气氛。</p><h3>Key Characteristics</h3><ul><li>Coco 自有浅色主题，不复制 Mercury 的深色品牌外观</li><li>单一 Coco 蓝行动色，画面中占比低于 5%</li><li>大字号、中等字重、两行以内的中文标题</li><li>真实产品界面优先于插画、图标和抽象装饰</li><li>12px 平面容器，无静态阴影、无渐变、无玻璃效果</li><li>Light-first；Travel 与页脚作为少量深色章节</li></ul></section><section><h2>Color Palette &amp; Roles</h2><table><thead><tr><th>Role</th><th>Semantic name</th><th>Value</th><th>Usage</th></tr></thead><tbody><tr><td>Page background</td><td>冷灰纸白</td><td><code>#F7F8FB</code></td><td>默认页面画布</td></tr><tr><td>Primary surface</td><td>纯白</td><td><code>#FFFFFF</code></td><td>产品展示与主要内容容器</td></tr><tr><td>Secondary surface</td><td>文档灰</td><td><code>#EDF1F7</code></td><td>次级内容面与图片承托</td></tr><tr><td>Brand surface</td><td>Coco 浅蓝</td><td><code>#E9EDFF</code></td><td>首屏与选中内容的轻背景</td></tr><tr><td>Primary text</td><td>深墨蓝</td><td><code>#182236</code></td><td>标题与正文</td></tr><tr><td>Secondary text</td><td>灰蓝</td><td><code>#667085</code></td><td>说明文字</td></tr><tr><td>Primary action</td><td>Coco 蓝</td><td><code>#3458E6</code></td><td>主按钮、选中状态、焦点</td></tr><tr><td>Action hover</td><td>深 Coco 蓝</td><td><code>#294BCC</code></td><td>主按钮悬停</td></tr><tr><td>Dark chapter</td><td>墨蓝</td><td><code>#171D2B</code></td><td>Travel 与页脚</td></tr><tr><td>Dark surface</td><td>深色内容面</td><td><code>#222A3B</code></td><td>深色章节内的次级表面</td></tr><tr><td>Dark text</td><td>柔白</td><td><code>#EEF1F8</code></td><td>深色章节主文字</td></tr></tbody></table></section><section><h2>Typography Rules</h2><h3>Font Family</h3><ul><li><strong>Primary:</strong> SF Pro Display / SF Pro Text；中文回退 PingFang SC、Microsoft YaHei、system-ui。</li><li><strong>Weight:</strong> 标题 480，正文 400，按钮与短标签 600。</li></ul><h3>Hierarchy</h3><table><thead><tr><th>Role</th><th>Font</th><th>Size</th><th>Weight</th><th>Line height</th><th>Letter spacing</th><th>Notes</th></tr></thead><tbody><tr><td>Hero display</td><td>Primary</td><td>72px / 69px / 47px</td><td>480</td><td>0.92</td><td>-0.055em</td><td>桌面 / 平板 / 手机；两行以内</td></tr><tr><td>Section heading</td><td>Primary</td><td>up to 64px</td><td>480</td><td>0.98</td><td>-0.045em</td><td>两行以内</td></tr><tr><td>Component heading</td><td>Primary</td><td>32px</td><td>480</td><td>1.08</td><td>-0.045em</td><td>产品入口标题</td></tr><tr><td>Lead</td><td>Primary</td><td>22px</td><td>400</td><td>1.52</td><td>normal</td><td>首屏说明</td></tr><tr><td>Body</td><td>Primary</td><td>17px</td><td>400</td><td>1.6</td><td>normal</td><td>45–75 字符一行</td></tr><tr><td>UI / Small</td><td>Primary</td><td>13–14px</td><td>600 / 400</td><td>1.45</td><td>normal</td><td>按钮、导航、说明</td></tr></tbody></table></section><section><h2>Component Stylings</h2><h3>Buttons and Links</h3><p><strong>Primary CTA:</strong> <code>#3458E6</code> 背景、白字、48px 最小高度、24px 水平内边距、完整胶囊圆角；悬停改为 <code>#294BCC</code>，按下缩放至 0.97，焦点使用 3px Coco 蓝轮廓。</p><p><strong>Secondary CTA:</strong> 普通文字链接，不增加第二个填充按钮；下划线只在悬停与键盘焦点时出现。</p><h3>Cards and Containers</h3><ul><li><strong>Card radius:</strong> 12px。</li><li><strong>Card separation:</strong> 仅使用 <code>#FFFFFF</code>、<code>#EDF1F7</code>、<code>#E9EDFF</code> 色阶，不使用静态阴影。</li><li><strong>Product media:</strong> 保留产品自身 UI 层级；不添加设备外框、发光、透视或装饰边框。</li></ul><h3>Navigation</h3><p>Logo、最多三项桌面链接、一个主行动。桌面高度 72px；手机高度 64px，只保留 Logo、主行动与“菜单”。</p></section><section><h2>Layout Principles</h2><h3>Spacing System</h3><ul><li><strong>Base unit:</strong> 4px。</li><li><strong>Repeated spacing values:</strong> 12px, 24px, 32px, 48px, 72px, 112px, 160px。</li><li><strong>Outer margin:</strong> 16–32px，随视口线性变化，导航与正文使用同一组边距。</li></ul><h3>Grid &amp; Container</h3><p>首屏采用文字与真实产品结果的非对称双栏；首屏、内容区、深色章节与页脚统一落在最大 1200px 的 12 栏逻辑网格中。正文继续用字符宽度约束，只在确有分组意义时使用容器。</p><h3>Border Radius Scale</h3><ul><li><strong>Default:</strong> 12px。</li><li><strong>Buttons and selected tabs:</strong> 999px 胶囊。</li><li><strong>Brand logo:</strong> 8px。</li></ul></section><section><h2>Depth &amp; Elevation</h2><table><thead><tr><th>Level</th><th>Treatment</th><th>Use</th></tr></thead><tbody><tr><td>0</td><td><code>#F7F8FB</code> / <code>#E9EDFF</code> 平面背景</td><td>页面与首屏</td></tr><tr><td>1</td><td><code>#FFFFFF</code> / <code>#EDF1F7</code> 色阶差</td><td>产品容器、入口内容面</td></tr><tr><td>2</td><td><code>#171D2B</code> 硬切换</td><td>Travel 与页脚章节</td></tr><tr><td>Floating</td><td>仅真实菜单允许临时层叠</td><td>菜单打开状态</td></tr></tbody></table><p>页面静止元素不使用阴影；层级由色值、空间和尺度表达。</p></section><section><h2>Do&#39;s and Don&#39;ts</h2><h3>Do</h3><ul><li>让真实产品界面承担主要视觉证明。</li><li>一屏只保留一个最强行动点。</li><li>所有标题在桌面、平板、手机保持两行以内。</li><li>使用平面色阶、12px 圆角和中等字重。</li><li>所有动效提供 <code>prefers-reduced-motion</code> 静态结果。</li></ul><h3>Don&#39;t</h3><ul><li>不把参考站的深色金融主题、字体或品牌资产带进 Coco。</li><li>不使用渐变、发光、玻璃卡片、静态阴影和紫色 AI 风格。</li><li>不使用假的客户评价、指标、合作品牌或仪表盘。</li><li>不连续排列相同的三列功能卡。</li><li>不用抽象机器人、魔法棒和闪光图标表示智能。</li></ul></section><section><h2>Responsive Behavior</h2><h3>Breakpoints</h3><table><thead><tr><th>Name</th><th>Width</th><th>Key changes</th></tr></thead><tbody><tr><td>Desktop</td><td>901px+</td><td>首屏双栏；产品与文字在同一屏形成关系</td></tr><tr><td>Tablet</td><td>601–900px</td><td>首屏与内容区改为单栏，保留大字号与完整产品图</td></tr><tr><td>Mobile</td><td>600px 以下</td><td>16px 边距；标题、说明、按钮、产品图依次出现；按钮满宽</td></tr></tbody></table><p>所有触控目标至少 44px；产品截图在手机端单独裁切，禁止横向溢出。</p></section><section><h2>Agent Prompt Guide</h2><h3>Quick Color Reference</h3><ul><li><strong>Background:</strong> <code>#F7F8FB</code></li><li><strong>Surface:</strong> <code>#FFFFFF</code></li><li><strong>Brand surface:</strong> <code>#E9EDFF</code></li><li><strong>Ink:</strong> <code>#182236</code></li><li><strong>Muted:</strong> <code>#667085</code></li><li><strong>Action:</strong> <code>#3458E6</code></li><li><strong>Dark chapter:</strong> <code>#171D2B</code></li></ul><h3>Example Component Prompts</h3><ul><li><strong>Hero:</strong> 使用 Coco 自有浅色主题，左侧两行 480 字重大标题，右侧真实文档结果截图，底部左侧 22px 说明、右侧唯一 Coco 蓝胶囊按钮；无渐变、无阴影。</li><li><strong>Product showcase:</strong> 先用标题与说明建立任务，再用一段真实 MP4 演示完成证明；不重复堆叠同一流程的静态截图，容器 12px 圆角，平面色阶分层。</li><li><strong>Tabbed entry:</strong> 三个胶囊标签只让选中项使用 Coco 蓝；下方内容面包含一个清楚入口说明与一张真实产品界面。</li><li><strong>Dark chapter:</strong> 用 <code>#171D2B</code> 做整块章节，柔白标题和正文，产品画面放在 12px 白色容器中，不添加发光或彩色装饰。</li></ul><h3>Ready-to-Use Prompt</h3><p>按 Coco 官网设计系统制作页面：保持 Coco 自有浅色品牌主题，使用冷灰纸白、深墨蓝和单一 Coco 蓝行动色；以真实产品界面作为主要证据；标题中等字重且两行以内；容器 12px 圆角、无渐变、无静态阴影；桌面与手机分别构图，并完整支持键盘焦点和减少动态效果。</p></section></article>
+            </div>
+          </article>
+        </section>
+      </div>
+    </main>
+
+    <script>
+      const sourceView = document.getElementById("sourceView");
+      const previewView = document.getElementById("previewView");
+      const copyButton = document.getElementById("copyButton");
+      const copyState = document.getElementById("copyState");
+      const viewButtons = document.querySelectorAll("[data-view]");
+
+      function setActiveView(view) {
+        const showSource = view === "source";
+        sourceView.hidden = !showSource;
+        previewView.hidden = showSource;
+        viewButtons.forEach((button) => {
+          button.classList.toggle("is-active", button.dataset.view === view);
+        });
+      }
+
+      viewButtons.forEach((button) => {
+        button.addEventListener("click", () => setActiveView(button.dataset.view));
+      });
+
+      copyButton.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(sourceView.textContent || "");
+          copyState.textContent = "Copied";
+        } catch (error) {
+          copyState.textContent = "Clipboard unavailable";
+        }
+
+        setTimeout(() => {
+          copyState.textContent = "";
+        }, 1400);
+      });
+    </script>
+  </body>
+</html>
