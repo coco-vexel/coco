@@ -163,25 +163,22 @@ function createCard(item) {
   const content = createElement('div');
 
   const head = createElement('div', 'marketplace-card-head');
-  const title = createElement('div');
+  const title = createElement('div', 'marketplace-card-title');
   title.append(createElement('h3', '', item.name));
+  if (item.targets.length) {
+    const types = createElement('span', 'marketplace-card-types');
+    for (const target of item.targets) {
+      types.append(createElement('span', 'marketplace-card-type', typeLabels[target] || target));
+    }
+    title.append(types);
+  }
   head.append(title);
-  if (item.downloads !== null) {
-    const downloads = createElement('span', 'marketplace-card-downloads');
-    downloads.setAttribute('aria-label', `${item.downloads.toLocaleString('zh-CN')} 次下载`);
-    const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    icon.setAttribute('viewBox', '0 0 24 24');
-    icon.setAttribute('aria-hidden', 'true');
-    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    path.setAttribute('d', 'M12 3v11m0 0 4-4m-4 4-4-4M5 19h14');
-    path.setAttribute('fill', 'none');
-    path.setAttribute('stroke', 'currentColor');
-    path.setAttribute('stroke-width', '1.8');
-    path.setAttribute('stroke-linecap', 'round');
-    path.setAttribute('stroke-linejoin', 'round');
-    icon.append(path);
-    downloads.append(icon, createElement('span', '', formatDownloads(item.downloads)));
-    head.append(downloads);
+  if (item.targets.includes('excel')) {
+    const action = createElement('a', 'marketplace-card-action', '试用 →');
+    action.href = trialUrl(item.id);
+    action.target = '_blank';
+    action.rel = 'noopener noreferrer';
+    head.append(action);
   }
 
   const description = createElement('p', 'marketplace-card-description', item.description);
@@ -208,15 +205,24 @@ function createCard(item) {
   }
   const foot = createElement('div', 'marketplace-card-foot');
   const metadata = createElement('div', 'marketplace-card-meta');
-  metadata.append(createElement('span', 'marketplace-card-category', item.categories.join(' · ') || item.category));
   if (item.date) metadata.append(createElement('span', 'marketplace-card-date', item.date));
   foot.append(metadata);
-  if (item.targets.includes('excel')) {
-    const action = createElement('a', 'marketplace-card-action', '试用 →');
-    action.href = trialUrl(item.id);
-    action.target = '_blank';
-    action.rel = 'noopener noreferrer';
-    foot.append(action);
+  if (item.downloads !== null) {
+    const downloads = createElement('span', 'marketplace-card-downloads');
+    downloads.setAttribute('aria-label', `${item.downloads.toLocaleString('zh-CN')} 次下载`);
+    const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    icon.setAttribute('viewBox', '0 0 24 24');
+    icon.setAttribute('aria-hidden', 'true');
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', 'M12 3v11m0 0 4-4m-4 4-4-4M5 19h14');
+    path.setAttribute('fill', 'none');
+    path.setAttribute('stroke', 'currentColor');
+    path.setAttribute('stroke-width', '1.8');
+    path.setAttribute('stroke-linecap', 'round');
+    path.setAttribute('stroke-linejoin', 'round');
+    icon.append(path);
+    downloads.append(icon, createElement('span', '', formatDownloads(item.downloads)));
+    foot.append(downloads);
   }
   content.append(foot);
   article.append(content);
