@@ -173,7 +173,8 @@ function createCard(item) {
     title.append(types);
   }
   head.append(title);
-  if (item.targets.includes('excel')) {
+  if (item.targets.some(target =>
+    target === 'word' || target === 'excel')) {
     const action = createElement('a', 'marketplace-card-action', '试用 →');
     action.href = trialUrl(item.id);
     action.target = '_blank';
