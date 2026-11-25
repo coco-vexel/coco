@@ -39,24 +39,6 @@ const firstText = (...values) => values.find(value => typeof value === 'string' 
 const asLabel = value => typeof value === 'string' ? value.trim() : firstText(value?.name, value?.title, value?.label);
 const asList = value => Array.isArray(value) ? value.map(asLabel).filter(Boolean) : (asLabel(value) ? [asLabel(value)] : []);
 const typeLabels = { word: 'Word', excel: 'Excel', ppt: 'PPT', powerpoint: 'PPT' };
-const productionWebsiteHosts = new Set(['cooco.me', 'www.cooco.me']);
-
-function trialUrl(toolId) {
-  const isProductionWebsite = productionWebsiteHosts.has(window.location.hostname);
-  const url = isProductionWebsite
-    ? new URL('https://chat.cooco.me/')
-    : new URL(window.location.href);
-  if (!isProductionWebsite) {
-    url.protocol = 'http:';
-    url.port = '9530';
-    url.pathname = '/';
-    url.search = '';
-    url.hash = '';
-  }
-  url.searchParams.set('open', 'application-tool');
-  url.searchParams.set('toolId', toolId);
-  return url.href;
-}
 
 function formatDate(value) {
   if (typeof value !== 'string' || !value) return '';
@@ -135,8 +117,13 @@ function normalizeToolkit(raw, index) {
     ...asList(raw.types).map(type => typeLabels[type.toLocaleLowerCase('en-US')] || type),
   ])];
   const publisher = asLabel(raw.publisher) || asLabel(raw.developer) || asLabel(raw.author) || 'Coco Office';
+  const id = firstText(String(raw.id ?? ''), raw.slug) || `toolkit-${index}`;
+  const pagePath = /^[A-Za-z0-9._-]{3,160}$/.test(id) && raw.pagePath === `/toolkits/${id}.html`
+    ? raw.pagePath
+    : '';
   return {
-    id: firstText(String(raw.id ?? ''), raw.slug) || `toolkit-${index}`,
+    id,
+    pagePath,
     name,
     description: firstText(raw.summary, raw.description, raw.shortDescription, raw.short_description) || '打开应用查看可用能力与使用方式。',
     category: categories[0] || '其他',
@@ -164,7 +151,13 @@ function createCard(item) {
 
   const head = createElement('div', 'marketplace-card-head');
   const title = createElement('div', 'marketplace-card-title');
-  title.append(createElement('h3', '', item.name));
+  const heading = createElement('h2', '', item.pagePath ? '' : item.name);
+  if (item.pagePath) {
+    const link = createElement('a', '', item.name);
+    link.href = item.pagePath;
+    heading.append(link);
+  }
+  title.append(heading);
   if (item.targets.length) {
     const types = createElement('span', 'marketplace-card-types');
     for (const target of item.targets) {
@@ -176,7 +169,7 @@ function createCard(item) {
   if (item.targets.some(target =>
     target === 'word' || target === 'excel')) {
     const action = createElement('a', 'marketplace-card-action', '试用 →');
-    action.href = trialUrl(item.id);
+    action.href = toolkitTrialUrl(item.id);
     action.target = '_blank';
     action.rel = 'noopener noreferrer';
     head.append(action);
@@ -323,6 +316,7 @@ function setLoading() {
 
 function setError() {
   marketplace.status = 'error';
+  grid.removeAttribute('aria-busy');
   grid.hidden = true;
   empty.hidden = true;
   error.hidden = false;
@@ -456,4 +450,5 @@ const stickyObserver = new IntersectionObserver(([entry]) => {
 }, { threshold: 0 });
 stickyObserver.observe(controlsSentinel);
 
+controls.hidden = false;
 loadToolkits({ reset: true });

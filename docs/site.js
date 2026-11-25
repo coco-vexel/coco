@@ -39,6 +39,23 @@ for (const action of document.querySelectorAll('.site-chat')) {
   action.textContent = '打开网页版 ↗';
 }
 
+function toolkitTrialUrl(toolId) {
+  const isProduction = ['cooco.me', 'www.cooco.me'].includes(window.location.hostname);
+  const url = isProduction ? new URL('https://chat.cooco.me/') : new URL('/', window.location.href);
+  if (!isProduction) {
+    url.protocol = 'http:';
+    url.port = '9530';
+  }
+  url.searchParams.set('open', 'application-tool');
+  url.searchParams.set('toolId', toolId);
+  return url.href;
+}
+
+for (const link of document.querySelectorAll('a[data-toolkit-trial]')) {
+  const toolId = new URL(link.href).searchParams.get('toolId');
+  if (toolId) link.href = toolkitTrialUrl(toolId);
+}
+
 // Keep developer resources grouped by product, then send external resources to a new tab.
 for (const group of document.querySelectorAll('.site-footer > div')) {
   if (group.querySelector('h2')?.textContent.trim() !== '开发者') continue;

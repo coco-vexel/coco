@@ -4,21 +4,21 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Coco 应用市场｜发现文档工具包</title>
-  <meta name="description" content="浏览 Coco Office 应用市场中的文档工具包，按场景筛选并快速找到适合 Word、Excel 和 PPT 的能力。" />
+  <meta name="description" content="查找 Coco Office 的 Word 与 Excel 工具包，查看文档校对、条款编号检查、超大字打印和 Excel 描红字帖的用法及试用入口。" />
   <link rel="canonical" href="https://www.cooco.me/marketplace.html" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Coco 应用市场｜发现文档工具包" />
-  <meta property="og:description" content="浏览 Coco Office 应用市场中的文档工具包，按场景筛选并快速找到适合 Word、Excel 和 PPT 的能力。" />
+  <meta property="og:description" content="查找 Coco Office 的 Word 与 Excel 工具包，查看文档校对、条款编号检查、超大字打印和 Excel 描红字帖的用法及试用入口。" />
   <meta property="og:url" content="https://www.cooco.me/marketplace.html" />
   <meta property="og:locale" content="zh_CN" />
   <link rel="icon" href="./assets/brand-logo.png" />
   <script>document.documentElement.classList.add('js')</script>
-  <script src="./site.js?v=online-2026.11.05.1" defer></script>
-  <script src="./marketplace.js?v=online-2026.11.09.2" defer></script>
+  <script src="./site.js?v=online-2026.11.25.2" defer></script>
+  <script src="./marketplace.js?v=online-2026.11.25.2" defer></script>
   <link rel="stylesheet" href="./site-shell.css?v=online-2026.10.31.1" />
   <link rel="stylesheet" href="./website.css?v=online-2026.10.31.1" />
   <link rel="stylesheet" href="./navigation.css?v=online-2026.11.05.1" />
-  <link rel="stylesheet" href="./marketplace.css?v=online-2026.11.09.4" />
+  <link rel="stylesheet" href="./marketplace.css?v=online-2026.11.25.2" />
 </head>
 <body class="marketplace-page">
   <a class="skip-link" href="#main-content">跳到主要内容</a>
@@ -34,10 +34,10 @@
   <main class="marketplace-main" id="main-content">
     <section class="marketplace-catalog" aria-labelledby="catalog-title">
       <div class="marketplace-catalog-heading">
-        <div><h1 id="catalog-title">探索工具包</h1><p id="marketplace-summary" aria-live="polite">正在读取应用列表</p></div>
+        <div><h1 id="catalog-title">Coco Office 工具包</h1><p id="marketplace-summary" aria-live="polite">按文档任务筛选和试用。</p><a class="marketplace-guides-link" href="/toolkits/">浏览工具包使用指南</a></div>
       </div>
       <span class="marketplace-controls-sentinel" aria-hidden="true"></span>
-      <div class="marketplace-controls">
+      <div class="marketplace-controls" hidden>
         <div class="marketplace-filters" id="marketplace-filters" aria-label="按分类筛选" role="group"></div>
         <form class="marketplace-search" role="search" id="marketplace-search-form">
           <label class="sr-only" for="marketplace-search">搜索应用</label>
@@ -48,14 +48,7 @@
           </span>
         </form>
       </div>
-      <div class="marketplace-grid" id="marketplace-grid" aria-busy="true">
-        <div class="marketplace-skeleton" aria-hidden="true"></div>
-        <div class="marketplace-skeleton" aria-hidden="true"></div>
-        <div class="marketplace-skeleton" aria-hidden="true"></div>
-        <div class="marketplace-skeleton" aria-hidden="true"></div>
-        <div class="marketplace-skeleton" aria-hidden="true"></div>
-        <div class="marketplace-skeleton" aria-hidden="true"></div>
-      </div>
+      <div class="marketplace-grid" id="marketplace-grid"></div>
       <div class="marketplace-load-more" id="marketplace-load-more" aria-live="polite" hidden>
         <span>正在加载更多</span>
         <button type="button" hidden>继续加载</button>

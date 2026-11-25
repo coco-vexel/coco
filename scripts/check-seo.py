@@ -3,6 +3,7 @@ from pathlib import Path
 from html.parser import HTMLParser
 from urllib.parse import urlsplit, urljoin, unquote
 import json
+import re
 import sys
 import xml.etree.ElementTree as ET
 
@@ -56,8 +57,14 @@ for name,page in pages.items():
         if target.is_dir(): target=target/'index.html'
         assert target.exists(),(name,link)
         if u.fragment and target.name in pages:assert unquote(u.fragment) in pages[target.name].ids,(name,link)
-import re
 blocks=re.findall(r'<script type="application/ld\+json">(.*?)</script>',(root/'index.html').read_text(encoding='utf-8'),re.S)
 assert len(blocks)==1
 schema=json.loads(blocks[0]);assert {x['@type'] for x in schema['@graph']}=={'Organization','WebSite','SoftwareApplication'}
+
+marketplace = pages['marketplace.html']
+assert '/toolkits/' in marketplace.links, 'Missing server-rendered toolkit directory link'
+assert 'Sitemap: ' + urljoin(home, '/toolkits/sitemap.xml') in robots, 'Missing dynamic toolkit sitemap'
+assert not any('/toolkits/' in urlsplit(url).path for url in urls), 'Toolkit URLs belong to the dynamic sitemap'
+
 print(f'PASS: {len(pages)} page metadata/canonicals/internal links; {len(urls)} sitemap URLs; robots and JSON-LD')
+print('PASS: static links to the toolkit directory and its dynamic sitemap')

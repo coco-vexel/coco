@@ -5,11 +5,17 @@
 ## 已实现
 
 - 每页独立标题、描述、canonical 和 Open Graph 地址。
-- 主要 15 页进入 `docs/sitemap.xml`；兼容入口 `start.html` 使用 `noindex, follow`。
+- 常规官网页面列入 `docs/sitemap.xml`，工具包指南列入 `/toolkits/sitemap.xml`。两份站点地图都在 `docs/robots.txt` 中声明。兼容入口 `start.html` 使用 `noindex, follow`。
 - 首页 Organization 和 WebSite JSON-LD，不添加虚构评分、用户数量或产品价格。
 - `docs/robots.txt` 排除插件运行目录、安装脚本与下载文件；官网安装指南 `install.html` 可抓取。robots 仅约束遵守规则的爬虫，不用于访问控制，也不保证已收录页面立即消失。
 - 内部 HTML 链接不加版本参数；CSS/JS 缓存版本号由发布脚本更新。
 - `coco-suite/scripts/publish-plugins.mjs` 直接复制本仓官网和 SEO 文件，不再用旧模板覆盖页面。
+
+## 工具包指南
+
+应用市场的初始 HTML 链接到服务端渲染的 `/toolkits/` 目录。实时目录的每张卡片读取公开接口返回的 `pagePath`。Office 后台按当前公开记录生成 `/toolkits/{id}.html` 与 `/toolkits/sitemap.xml`，更新沿用工具 ID，下架后详情返回 404。
+
+工具包可以在 `SKILL.md` 同级放置可选的 `website-guide.json`，填写公开示例和常见问题。没有这份文件时使用目录元数据，已迁移的十份指南按工具 ID 提供初始内容。字段与本地联调命令见集成工作区的 `docs/contract.md`。
 
 ## 验证
 

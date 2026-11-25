@@ -7,3 +7,4 @@ Disallow: /install/
 Disallow: /download/
 
 Sitemap: https://www.cooco.me/sitemap.xml
+Sitemap: https://www.cooco.me/toolkits/sitemap.xml
